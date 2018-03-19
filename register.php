@@ -25,22 +25,22 @@
 		// ASSIGNING REG_FNAME FORM VALUE TO $FIRST_NAME VARIABLE
 		$first_name = strip_tags($_POST['reg_fname']); // REMOVE HTML TAGS
 		$first_name = str_replace(' ', '', $fname); // REMOVE SPACES
-		$first_name = ucfirst(strtolower($fname)) // CAPITALIZE FIRST LETTER ONLY
+		$first_name = ucfirst(strtolower($fname)); // CAPITALIZE FIRST LETTER ONLY
 
 		// ASSIGNING REG_LNAME FORM VALUE TO $LAST_NAME VARIABLE
 		$last_name = strip_tags($_POST['reg_lname']); // REMOVE HTML TAGS
 		$last_name = str_replace(' ', '', $lname); // REMOVE SPACES
-		$last_name = ucfirst(strtolower($lname)) // CAPITALIZE FIRST LETTER ONLY
+		$last_name = ucfirst(strtolower($lname)); // CAPITALIZE FIRST LETTER ONLY
 
 		// ASSIGNING REG_EMAIL FORM VALUE TO $EMAIL VARIABLE
 		$email = strip_tags($_POST['reg_email']); // REMOVE HTML TAGS
 		$email = str_replace(' ', '', $email); // REMOVE SPACES
-		$email = ucfirst(strtolower($email)) // CAPITALIZE FIRST LETTER ONLY
+		$email = ucfirst(strtolower($email)); // CAPITALIZE FIRST LETTER ONLY
 
 		// ASSIGNING REG_EMAIL2 FORM VALUE TO $EMAIL2 VARIABLE
 		$email2 = strip_tags($_POST['reg_email2']); // REMOVE HTML TAGS
 		$email2 = str_replace(' ', '', $email2); // REMOVE SPACES
-		$email2 = ucfirst(strtolower($email2)) // CAPITALIZE FIRST LETTER ONLY
+		$email2 = ucfirst(strtolower($email2)); // CAPITALIZE FIRST LETTER ONLY
 
 		// ASSIGNING REG_PASSWORD FORM VALUE TO $PASSWORD VARIABLE
 		$password = strip_tags($_POST['reg_password']); // REMOVE HTML TAGS
@@ -51,6 +51,19 @@
 		// ASSIGNING USER CREATION DATE (EX. FEB-18-2018)
 		$date = date('M-d-Y');
 
+		// CHECK IF EMAIL AND EMAIL2 MATCH
+		if ($email == $email2) {
+			// CHECK IF EMAIL IS IN PROPER FORMAT
+			if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				$email = filter_var($email, FILTER_VALIDATE_EMAIL);
+			} else {
+				echo 'Invalid format';
+			}
+
+			// UNMATCHING EMAIL ERROR
+		} else {
+			echo "Emails don't match";
+		}
 
 	}
 
