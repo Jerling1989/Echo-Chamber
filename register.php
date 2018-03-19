@@ -48,8 +48,8 @@
 		// ASSIGNING REG_PASSWORD2 FORM VALUE TO $PASSWORD2 VARIABLE
 		$password2 = strip_tags($_POST['reg_password2']); // REMOVE HTML TAGS
 
-		// ASSIGNING USER CREATION DATE (EX. FEB-18-2018)
-		$date = date('M-d-Y');
+		// ASSIGNING USER CREATION DATE (EX. 2018-10-31)
+		$date = date('Y-m-d');
 
 		// CHECK IF EMAIL AND EMAIL2 MATCH
 		if ($email == $email2) {
