@@ -58,6 +58,8 @@
 		// ASSIGNING USER CREATION DATE (EX. 2018-10-31)
 		$date = date('Y-m-d');
 
+
+
 		// CHECK IF EMAIL AND EMAIL2 MATCH
 		if ($email == $email2) {
 			// CHECK IF EMAIL IS IN PROPER FORMAT
@@ -85,6 +87,7 @@
 			array_push($error_array, 'Your emails do not match<br />');
 		}
 
+
 		
 		// CHECK FIRST NAME LENGTH
 		if (strlen($first_name) > 25 || strlen($first_name) < 2) {
@@ -108,6 +111,29 @@
 			array_push($error_array, 'Your password must be between 5 and 30 characters<br />');
 		}
 		
+		
+
+		// IF THERE ARE NO ERRORS IN USER SIGN UP DETAILS...
+		if (empty($error_array)) {
+
+			// ENCRYPT PASSWORD BEFORE SENT TO DATABASE
+			$password = md5($password);
+			// GENERATE USERNAME BY CONCATENATING FIRST AND LAST NAME
+			$username = strtolower($first_name . '_' . $last_name);
+			// QUERY TO CHECK IF USERNAME IS ALREADY TAKEN
+			$check_username_query = mysqli_query($connection, "SELECT username FROM users WHERE username='$username'");
+
+			$i = 0;
+			// IF USERNAME ALREADY EXISTS ADD NUMBER TO CREATE NEW USERNAME
+			while (mysqli_num_rows($check_username_query) != 0) {
+				$i++; // ADD ONE TO $I AND CONCATENATE TO USERNAME
+				$username = $username . '_' . $i;
+				// QUERY TO CHECK USERNAME EXISTENCE AGAIN
+				$check_username_query = mysqli_query($connection, "SELECT username FROM users WHERE username='$username'");
+			}
+
+		}
+
 
 
 	}
