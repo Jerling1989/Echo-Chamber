@@ -111,7 +111,7 @@
 			array_push($error_array, 'Your password must be between 5 and 30 characters<br />');
 		}
 		
-		
+
 
 		// IF THERE ARE NO ERRORS IN USER SIGN UP DETAILS...
 		if (empty($error_array)) {
@@ -126,11 +126,27 @@
 			$i = 0;
 			// IF USERNAME ALREADY EXISTS ADD NUMBER TO CREATE NEW USERNAME
 			while (mysqli_num_rows($check_username_query) != 0) {
-				$i++; // ADD ONE TO $I AND CONCATENATE TO USERNAME
+				$i++; // ADD 1 TO $I AND CONCATENATE TO USERNAME
 				$username = $username . '_' . $i;
 				// QUERY TO CHECK USERNAME EXISTENCE AGAIN
 				$check_username_query = mysqli_query($connection, "SELECT username FROM users WHERE username='$username'");
 			}
+
+			// RANDOM DEFAULT PROFILE PICTURE ASSIGNMENT
+			$rand = rand(1, 5); // GENERATE NUMBER BETWEEN 1 AND 5
+			// ASSIGN PROFILE PIC THAT CORRESPONDS WITH NUMBER
+			if ($rand == 1) {
+				$profile_pic = 'assets/img/profile_pics/defaults/head_purple.png';
+			} else if ($rand == 2) {
+				$profile_pic = 'assets/img/profile_pics/defaults/head_red.png';
+			} else if ($rand == 3) {
+				$profile_pic = 'assets/img/profile_pics/defaults/head_yellow.png';
+			} else if ($rand == 4) {
+				$profile_pic = 'assets/img/profile_pics/defaults/head_green.png';
+			} else if ($rand == 5) {
+				$profile_pic = 'assets/img/profile_pics/defaults/head_blue.png';
+			}
+			
 
 		}
 
