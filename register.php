@@ -19,7 +19,7 @@
 	$password = ''; // PASSWORD
 	$password2 = ''; // PASSWORD 2
 	$date = ''; // SIGN UP DATE
-	$error_array = ''; // HOLD ERROR MESSAGES
+	$error_array = array(); // HOLD ERROR MESSAGES
 
 
 	// IF REGISTER BUTTON IS PRESSED
@@ -72,40 +72,40 @@
 
 				// CHECK IF QUERY RETURNS ANY ROWS (EMAIL TAKEN)
 				if($num_rows > 0) {
-					echo 'Email already in use';
+					array_push($error_array, 'Email already in use<br />');
 				}
 
 				// INPROPER FORMAT ERROR
 			} else {
-				echo 'Invalid format';
+				array_push($error_array, 'Invalid email format<br />');
 			}
 
 			// UNMATCHING EMAIL ERROR
 		} else {
-			echo "Your emails do not match";
+			array_push($error_array, 'Your emails do not match<br />');
 		}
 
 		
 		// CHECK FIRST NAME LENGTH
 		if (strlen($first_name) > 25 || strlen($first_name) < 2) {
-			echo 'Your first name must be between 2 and 25 characters';
+			array_push($error_array, 'Your first name must be between 2 and 25 characters<br />');
 		}
 		// CHECK LAST NAME LENGTH
 		if (strlen($last_name) > 25 || strlen($last_name) < 2) {
-			echo 'Your last name must be between 2 and 25 characters';
+			array_push($error_array, 'Your last name must be between 2 and 25 characters<br />');
 		}
 		// CHECK FOR MATCHING PASSWORDS
 		if ($password != $password2) {
-			echo 'Your passwords do not match';
+			array_push($error_array, 'Your passwords do not match<br />');
 		} else {
 			// CHECK IF PASSWORD USES ENGLISH LETTERS
 			if (preg_match('/[^A-Za-z0-9]/', $password)) {
-				echo 'Your password can only contain english characters or numbers';
+				array_push($error_array, 'Your password can only contain english characters or numbers<br />');
 			}
 		}
 		// CHECK PASSWORD LENGTH
 		if (strlen($password) > 30 || strlen($password) < 5) {
-			echo 'Your password must be between 5 and 30 characters';
+			array_push($error_array, 'Your password must be between 5 and 30 characters<br />');
 		}
 		
 
