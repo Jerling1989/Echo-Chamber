@@ -98,8 +98,8 @@
 		if ($password != $password2) {
 			array_push($error_array, 'Your passwords do not match<br />');
 		} else {
-			// CHECK IF PASSWORD USES ENGLISH LETTERS
-			if (preg_match('/[^A-Za-z0-9]/', $password)) {
+			// CHECK IF PASSWORD USES ENGLISH LETTERS (ADDED SPECIAL CHARACTERS)
+			if (preg_match('/[^A-Za-z0-9\.\+!@#$%^&*()]/', $password)) {
 				array_push($error_array, 'Your password can only contain english characters or numbers<br />');
 			}
 		}
@@ -124,43 +124,69 @@
 <body>
 
 	<form action="register.php" method="POST">
+
 		<!-- FIRST NAME INPUT -->
 		<input type="text" name="reg_fname" placeholder="First Name" value="<?php
 			if (isset($_SESSION['reg_fname'])) {
 				echo $_SESSION['reg_fname'];
-			}
-		?>" required />
+			} ?>" required />
 		<br />
+		<!-- FIRST NAME ERROR MESSAGE -->
+		<?php if (in_array('Your first name must be between 2 and 25 characters<br />', $error_array)) {
+			echo 'Your first name must be between 2 and 25 characters<br />';
+		} ?>
+
 		<!-- LAST NAME INPUT -->
 		<input type="text" name="reg_lname" placeholder="Last Name" value="<?php
 			if (isset($_SESSION['reg_lname'])) {
 				echo $_SESSION['reg_lname'];
-			}
-		?>" required />
+			} ?>" required />
 		<br />
+		<!-- LAST NAME ERROR MESSAGE -->
+		<?php if (in_array('Your last name must be between 2 and 25 characters<br />', $error_array)) {
+			echo 'Your last name must be between 2 and 25 characters<br />';
+		} ?>
+
 		<!-- EMAIL INPUT -->
 		<input type="email" name="reg_email" placeholder="Email" value="<?php
 			if (isset($_SESSION['reg_email'])) {
 				echo $_SESSION['reg_email'];
-			}
-		?>" required />
+			} ?>" required />
 		<br />
+
 		<!-- EMAIL 2 INPUT -->
 		<input type="email" name="reg_email2" placeholder="Confirm Email" value="<?php
 			if (isset($_SESSION['reg_email2'])) {
 				echo $_SESSION['reg_email2'];
-			}
-		?>" required />
+			} ?>" required />
 		<br />
+		<!-- EMAIL ERROR MESSAGES -->
+		<?php if (in_array('Email already in use<br />', $error_array)) {
+			echo 'Email already in use<br />';
+		} else if (in_array('Invalid email format<br />', $error_array)) {
+			echo 'Invalid email format<br />';
+		} else if (in_array('Your emails do not match<br />', $error_array)) {
+			echo 'Your emails do not match<br />';
+		} ?>
+
 		<!-- PASSWORD INPUT -->
 		<input type="password" name="reg_password" placeholder="Password" required />
 		<br />
+
 		<!-- PASSWORD 2 INPUT -->
 		<input type="password" name="reg_password2" placeholder="Confirm Password" required />
 		<br />
+		<!-- PASSWORD ERROR MESSAGES -->
+		<?php if (in_array('Your password can only contain english characters or numbers<br />', $error_array)) {
+			echo 'Your password can only contain english characters or numbers<br />';
+		} else if (in_array('Your password must be between 5 and 30 characters<br />', $error_array)) {
+			echo 'Your password must be between 5 and 30 characters<br />';
+		} else if (in_array('Your passwords do not match<br />', $error_array)) {
+			echo 'Your passwords do not match<br />';
+		} ?>
+
 		<!-- SUBMIT BUTTON -->
 		<input type="submit" name="register_button" value="Register" />
-
 
 	</form>
 
