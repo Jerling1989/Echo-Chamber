@@ -35,12 +35,12 @@
 		// ASSIGNING REG_EMAIL FORM VALUE TO $EMAIL VARIABLE
 		$email = strip_tags($_POST['reg_email']); // REMOVE HTML TAGS
 		$email = str_replace(' ', '', $email); // REMOVE SPACES
-		$email = ucfirst(strtolower($email)); // CAPITALIZE FIRST LETTER ONLY
+		$email = strtolower($email); // LOWERCASE ALL EMAIL LETTERS
 
 		// ASSIGNING REG_EMAIL2 FORM VALUE TO $EMAIL2 VARIABLE
 		$email2 = strip_tags($_POST['reg_email2']); // REMOVE HTML TAGS
 		$email2 = str_replace(' ', '', $email2); // REMOVE SPACES
-		$email2 = ucfirst(strtolower($email2)); // CAPITALIZE FIRST LETTER ONLY
+		$email2 = strtolower($email2); // LOWERCASE ALL EMAIL LETTERS
 
 		// ASSIGNING REG_PASSWORD FORM VALUE TO $PASSWORD VARIABLE
 		$password = strip_tags($_POST['reg_password']); // REMOVE HTML TAGS
@@ -55,7 +55,21 @@
 		if ($email == $email2) {
 			// CHECK IF EMAIL IS IN PROPER FORMAT
 			if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				// ASSIGN PROPERLY FORMATTED EMAIL TO $EMAIL VARIABLE
 				$email = filter_var($email, FILTER_VALIDATE_EMAIL);
+
+				// CHECK IF EMAIL IS ALREADY REGISTERED
+				$e_check = mysqli_query($connection, "SELECT email FROM users WHERE email='$email'");
+				// COUNT THE NUMBER OF ROWS RETURNED
+				$num_rows = mysqli_num_rows($e_check);
+
+				// CHECK IF QUERY RETURNS ANY ROWS (EMAIL TAKEN)
+				if($num_rows > 0) {
+					echo 'Email already in use';
+				}
+
+
+				// INPROPER FORMAT ERROR
 			} else {
 				echo 'Invalid format';
 			}
