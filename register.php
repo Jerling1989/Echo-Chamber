@@ -13,6 +13,23 @@
 </head>
 <body>
 
+	<!-- LOGIN FORM -->
+	<form action="register.php" method="POST">
+		
+		<!-- EMAIL ADDRESS INPUT -->
+		<input type="email" name="log_email" placeholder="Email Address" />
+		<br />
+		<!-- PASSWORD INPUT -->
+		<input type="password" name="log_password" placeholder="Password" />
+		<br />
+		<!-- LOGIN SUBMIT BUTTON -->
+		<input type="submit" name="login_button" value="Log In" />
+		<br />
+
+	</form>
+	<!-- END LOGIN FORM -->
+
+	<!-- SIGN UP FORM -->
 	<form action="register.php" method="POST">
 
 		<!-- FIRST NAME INPUT -->
@@ -75,8 +92,8 @@
 			echo 'Your passwords do not match<br />';
 		} ?>
 
-		<!-- SUBMIT BUTTON -->
-		<input type="submit" name="register_button" value="Register" />
+		<!-- SIGN UP SUBMIT BUTTON -->
+		<input type="submit" name="register_button" value="Sign Up" />
 		<br />
 		<!-- SUCCESSFUL SIGN UP MESSAGE -->
 		<?php if (in_array("<span style='color: #14C800;'>You're all set! Go ahead and login!</span><br />", $error_array)) {
@@ -84,6 +101,7 @@
 		} ?>
 
 	</form>
+	<!-- END SIGN UP FORM -->
 
 </body>
 </html>
