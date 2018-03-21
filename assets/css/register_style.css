@@ -16,3 +16,16 @@ html {
 form {
 	text-align: center;
 }
+
+#login-panel {
+	position: relative;
+	margin-right: auto;
+	margin-left: auto;
+	top: 80px;
+	width: 35%;
+	background-color: #FFFFFF;
+	border: 3px solid #EDEDED;
+	border-radius: 8px;
+	padding: 10px;
+	opacity: 0.98;
+}
