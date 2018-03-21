@@ -146,16 +146,22 @@
 			} else if ($rand == 5) {
 				$profile_pic = 'assets/img/profile_pics/defaults/head_blue.png';
 			}
-			
 
 			// INSERT NEW USER VALUES INTO DATABASE
 			$query = mysqli_query($connection, "INSERT INTO users VALUES ('', '$first_name', '$last_name', '$username', '$email', '$password', '$date', '$profile_pic', '0', '0', 'no', ',')");
 
+			// PUSH SUCCESSFUL SIGN UP MESSAGE TO $ERROR_ARRAY
+			array_push($error_array, "<span style='color: #14C800;'>You're all set! Go ahead and login!</span><br />");
+
+			// CLEAR SESSION VARIABLES
+			$_SESSION['reg_fname'] = '';
+			$_SESSION['reg_lname'] = '';
+			$_SESSION['reg_email'] = '';
+			$_SESSION['reg_email2'] = '';
 
 		}
 
 	}
-
 
 ?>
 
@@ -231,6 +237,11 @@
 
 		<!-- SUBMIT BUTTON -->
 		<input type="submit" name="register_button" value="Register" />
+		<br />
+		<!-- SUCCESSFUL SIGN UP MESSAGE -->
+		<?php if (in_array("<span style='color: #14C800;'>You're all set! Go ahead and login!</span><br />", $error_array)) {
+			echo "<span style='color: #14C800;'>You're all set! Go ahead and login!</span><br />";
+		} ?>
 
 	</form>
 
