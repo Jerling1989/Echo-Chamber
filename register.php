@@ -11,7 +11,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- PAGE TITLE -->
 	<title>Echo Chamber | Welcome</title>
+	<!-- FAVICON -->
+	<link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+	<!-- META DATA -->
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- REGISTER PAGE CSS LINK -->
+	<link rel="stylesheet" type="text/css" href="assets/css/register_style.css" />
 </head>
 <body>
 
