@@ -12,7 +12,8 @@
 		// CHECK NUMBER OF RESULTS FROM QUERY
 		$check_login_query = mysqli_num_rows($check_database_query);
 
-		// IF THERE IS A RESULT FROM THE QUERY
+
+		// IF THERE IS A RESULT FROM THE QUERY (CORRECT USER LOG IN)
 		if ($check_login_query == 1) {
 			
 			$row = mysqli_fetch_array($check_database_query); // STORE ARRAY IN $ROW VARIABLE
@@ -22,8 +23,12 @@
 			// REDIRECT PAGE TO INDEX.PHP
 			header('Location: index.php');
 			exit();
+
+			// NO RESULT FROM QUERY (INCORRECT USER LOG IN)
+		} else {
+			// CREATE LOGIN ERROR MESSAGE
+			array_push($error_array, 'Email or password was incorrect<br />');
+
 		}
-
 	}
-
 ?>
