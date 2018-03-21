@@ -148,9 +148,11 @@
 			}
 			
 
+			// INSERT NEW USER VALUES INTO DATABASE
+			$query = mysqli_query($connection, "INSERT INTO users VALUES ('', '$first_name', '$last_name', '$username', '$email', '$password', '$date', '$profile_pic', '0', '0', 'no', ',')");
+
+
 		}
-
-
 
 	}
 
