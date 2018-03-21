@@ -1,3 +1,18 @@
+html {
+	min-height: 100%;
+}
+
+#register-body {
+	width: 100%;
+	background-image: url('../img/backgrounds/desktop-bg.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 form {
 	text-align: center;
 }

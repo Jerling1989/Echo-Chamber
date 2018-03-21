@@ -22,7 +22,9 @@
 	<!-- REGISTER PAGE CSS LINK -->
 	<link rel="stylesheet" type="text/css" href="assets/css/register_style.css" />
 </head>
-<body>
+
+
+<body id="register-body">
 
 	<!-- LOGIN FORM -->
 	<form action="register.php" method="POST">
