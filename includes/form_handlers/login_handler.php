@@ -18,8 +18,16 @@
 			
 			$row = mysqli_fetch_array($check_database_query); // STORE ARRAY IN $ROW VARIABLE
 			$username = $row['username']; // SET $USERNAME TO DATABASE USERNAME
-			$_SESSION['username'] = $username; // SET USERNAME SESSION VARIABLE
 
+			// RUN QUERY TO CHECK IF USER ACCOUNT IS CLOSED
+			$user_closed_query = mysqli_query($connection, "SELECT * FROM users WHERE email='$email' AND user_closed='yes'");
+			// IF USER ACCOUNT HAS BEEN CLOSED RE-OPEN ACCOUNT
+			if (mysqli_num_rows($user_closed_query) == 1) {
+				$reopen_account = mysqli_query($connection, "UPDATE users SET user_closed='no' WHERE email='$email'");
+			}
+
+			// SET USERNAME SESSION VARIABLE
+			$_SESSION['username'] = $username;
 			// REDIRECT PAGE TO INDEX.PHP
 			header('Location: index.php');
 			exit();
