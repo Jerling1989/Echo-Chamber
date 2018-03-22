@@ -19,6 +19,8 @@
   <meta charset="utf-8" />
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- RESET CSS LINK -->
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
 	<!-- REGISTER PAGE CSS LINK -->
 	<link rel="stylesheet" type="text/css" href="assets/css/register_style.css" />
 </head>
@@ -26,8 +28,15 @@
 
 <body id="register-body">
 
-	<!-- LOGIN PAENL -->
+	<!-- LOGIN PANEL -->
 	<div id="login-panel">
+
+		<!-- LOGIN HEADER -->
+		<div id="login-header">
+			<h1>Swirlfeed!</h1>
+			Login or Sign Up below!
+		</div>
+		<!-- END LOGIN HEADER -->
 
 		<!-- LOGIN FORM -->
 		<form action="register.php" method="POST">
@@ -125,7 +134,7 @@
 
 		</form>
 		<!-- END SIGN UP FORM -->
-	
+
 	</div>
 	<!-- END LOGIN PANEL -->
 
