@@ -87,14 +87,14 @@
 			} ?>
 
 			<!-- EMAIL INPUT -->
-			<input type="email" name="reg_email" placeholder="Email" value="<?php
+			<input type="email" name="reg_email" placeholder="Email Address" value="<?php
 				if (isset($_SESSION['reg_email'])) {
 					echo $_SESSION['reg_email'];
 				} ?>" required />
 			<br />
 
 			<!-- EMAIL 2 INPUT -->
-			<input type="email" name="reg_email2" placeholder="Confirm Email" value="<?php
+			<input type="email" name="reg_email2" placeholder="Confirm Email Address" value="<?php
 				if (isset($_SESSION['reg_email2'])) {
 					echo $_SESSION['reg_email2'];
 				} ?>" required />
@@ -131,6 +131,7 @@
 			<?php if (in_array("<span style='color: #14C800;'>You're all set! Go ahead and login!</span><br />", $error_array)) {
 				echo "<span style='color: #14C800;'>You're all set! Go ahead and login!</span><br />";
 			} ?>
+			<br />
 
 		</form>
 		<!-- END SIGN UP FORM -->
