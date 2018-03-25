@@ -1,15 +1,8 @@
 <?php
-	// REQUIRE CONFIG.PHP (CONNECTION FILE)
-	require 'config/config.php';
+	include('includes/header.php');
+	session_destroy();
 ?>
 
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Echo Chamber</title>
-</head>
-<body>
 	Welcome Jacob!
 </body>
 </html>
