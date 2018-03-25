@@ -13,6 +13,16 @@ html, body {
 	min-height: 100%;
 }
 
+form {
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	color: #3498DB;
+	font-weight: bold;
+}
+
 #register-body {
 	width: 100%;
 	background-image: url('../img/backgrounds/desktop-bg.jpg');
@@ -22,10 +32,6 @@ html, body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
-
-form {
-	text-align: center;
 }
 
 #login-panel {
@@ -91,7 +97,9 @@ input[type='text']:hover, input[type='email']:hover, input[type='password']:hove
 	border-color: #3498DB;
 }
 
-
+#second {
+	display: none;
+}
 
 
 
