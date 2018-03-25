@@ -1,8 +1,14 @@
 <?php
 	include('includes/header.php');
-	session_destroy();
+	// session_destroy();
 ?>
 
-	Welcome Jacob!
+	<div class="user_details column">
+		<a href="#"><img src="<?php echo $user['profile_pic']; ?>" /></a>
+	</div>
+
+
+	</div>
+	<!-- END WRAPPER DIV -->
 </body>
 </html>
