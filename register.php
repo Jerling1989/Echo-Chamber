@@ -23,10 +23,31 @@
   <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
 	<!-- REGISTER PAGE CSS LINK -->
 	<link rel="stylesheet" type="text/css" href="assets/css/register_style.css" />
+	<!-- JQUERY CDN LINK -->
+	<script
+	  src="https://code.jquery.com/jquery-3.3.1.min.js"
+	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous"></script>
+
 </head>
 
 
 <body id="register-body">
+
+	<!-- SCRIPT TO KEEP SIGN UP FORM OPEN FOR ERROR MESSAGES -->
+	<?php
+		if(isset($_POST['register_button'])) {
+			echo '
+				<script>
+					$(document).ready(function() {
+						$("#first").hide();
+						$("#second").show();
+					});
+				</script>
+			';
+		}
+	?>
+	<!-- END SCRIPT TO KEEP SIGN UP FORM OPEN FOR ERROR MESSAGES -->
 
 	<!-- LOGIN PANEL -->
 	<div id="login-panel">
@@ -52,12 +73,15 @@
 				<!-- PASSWORD INPUT -->
 				<input type="password" name="log_password" placeholder="Password" required />
 				<br />
-				<!-- LOGIN SUBMIT BUTTON -->
-				<input type="submit" name="login_button" value="Log In" />
-				<br />
+
+				<!-- LOGIN ERROR MESSAGE -->
 				<?php if (in_array('Email or password was incorrect<br />', $error_array)) {
 					echo 'Email or password was incorrect<br />';
 				} ?>
+
+				<!-- LOGIN SUBMIT BUTTON -->
+				<input type="submit" name="login_button" value="Log In" />
+				<br />
 				<!-- SIGN UP FORM LINK -->
 				<a href="#" id="signup" class="signup">Need an account? Register here!</a>
 				<br /><br />
@@ -130,13 +154,15 @@
 					echo 'Your passwords do not match<br />';
 				} ?>
 
-				<!-- SIGN UP SUBMIT BUTTON -->
-				<input type="submit" name="register_button" value="Sign Up" />
-				<br />
 				<!-- SUCCESSFUL SIGN UP MESSAGE -->
 				<?php if (in_array("<span style='color: #14C800;'>You're all set! Go ahead and login!</span><br />", $error_array)) {
 					echo "<span style='color: #14C800;'>You're all set! Go ahead and login!</span><br />";
 				} ?>
+
+				<!-- SIGN UP SUBMIT BUTTON -->
+				<input type="submit" name="register_button" value="Sign Up" />
+				<br />
+				
 				<!-- SIGN IN FORM LINK -->
 				<a href="#" id="signin" class="signin">Already have an account? Sign in here!</a>
 				<br /><br />
@@ -147,12 +173,6 @@
 
 	</div>
 	<!-- END LOGIN PANEL -->
-
-<!-- JQUERY CDN LINK -->
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
 
 <!-- CUSTOM JS LINK -->
 <script src="assets/js/register.js"></script>
