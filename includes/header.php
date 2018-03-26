@@ -53,41 +53,54 @@
 </head>
 <body>
 
+	<!-- TOP BAR -->
 	<div id="top-bar">
 
+		<!-- LOGO -->
 		<div id="logo">
 			<a href="index.php">Swirlfeed!</a>
 		</div>
+		<!-- END LOGO -->
 
+		<!-- NAVIGATION -->
 		<nav>
+			<!-- USER PROFILE -->
 			<a href="<?php echo $userLoggedIn; ?>">
 				<?php
 					echo $user['first_name'];
 				?>
 			</a>
+			<!-- HOME -->
 			<a href="index.php">
 				<i class="fas fa-home fa-lg"></i>
 			</a>
+			<!-- MESSAGES -->
 			<a href="#">
 				<i class="fas fa-envelope fa-lg"></i>
 			</a>
+			<!-- NOTIFICATIONS -->
 			<a href="#">
 				<i class="fas fa-bell fa-lg"></i>
 			</a>
+			<!-- FRIENDS -->
 			<a href="#">
 				<i class="fas fa-users fa-lg"></i>
 			</a>
+			<!-- SETTTINGS -->
 			<a href="#">
 				<i class="fas fa-cog fa-lg"></i>
 			</a>
+			<!-- LOGOUT -->
 			<a href="includes/handlers/logout.php">
 				<i class="fas fa-sign-out-alt fa-lg"></i>
 			</a>
 		</nav>
+		<!-- END NAVIGATION -->
 
 	</div>
+	<!-- END TOP BAR -->
 
-	<!-- START WRAPPER DIV -->
+	<!-- WRAPPER DIV -->
 	<div class="wrapper">
 
 

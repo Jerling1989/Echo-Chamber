@@ -51,6 +51,40 @@
 			}
 		}
 
+		// FUNCTION TO LOAD POSTS FROM FRIENDS
+		public function loadPostsFriends() {
+			// CREATE STRING VARIABLE
+			$str = '';
+			// DATABASE QUERY TO GET POSTS
+			$data = mysqli_query($this->connection, "SELECT * FROM posts WHERE deleted='no' ORDER BY id DESC");
+
+			// LOOP THROUGH QUERY RESULTS ARRAY
+			while ($row = mysqli_fetch_array($data)) {
+				// CREATE POST VARIABLES
+				$id = $row['id'];
+				$body = $row['body'];
+				$added_by = $row['added_by'];
+				$date_time = $row['date_added'];
+
+				// CHECK IF THE POST IS SENT TO A USER
+				if ($row['user_to'] == 'none') {
+					// IF NOT SET $USER_TO BLANK
+					$user_to = '';
+					
+				} else {
+					// IF SO CREATE USER CLASS WITH USER_TO FROM DATABASE QUERY
+					$user_to_obj = new User($connection, $row['user_to']);
+					// GET FIRST AND LAST NAME OF USER
+					$user_to_name = $user_to_obj->getFirstAndLastName();
+					// CREATE USER LINK VARIABLE FOR POST
+					$user_to = "<a href='" . $row['user_to'] . "'>" . $user_to_name . "</a>";
+				}
+
+			}
+
+
+		}
+
 	}
 
 ?>
