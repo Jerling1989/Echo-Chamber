@@ -9,7 +9,7 @@
 		public function __construct($connection, $user) {
 			// CONNECTION VARIABLE
 			$this->connection = $connection;
-			// CREATE USER_OBJ VARIABLE FROM USER CLASS
+			// CREATE NEW USER OBJECT
 			$this->user_obj = new User($connection, $user);
 		}
 
@@ -72,13 +72,24 @@
 					$user_to = '';
 					
 				} else {
-					// IF SO CREATE USER CLASS WITH USER_TO FROM DATABASE QUERY
+					// IF SO CREATE USER OBJECT WITH USER_TO FROM DATABASE QUERY
 					$user_to_obj = new User($connection, $row['user_to']);
 					// GET FIRST AND LAST NAME OF USER
 					$user_to_name = $user_to_obj->getFirstAndLastName();
 					// CREATE USER LINK VARIABLE FOR POST
 					$user_to = "<a href='" . $row['user_to'] . "'>" . $user_to_name . "</a>";
 				}
+
+				// CREATE NEW USER OBJECT FOR USER WHO ADDED POST
+				$added_by_obj = new User($connection, $added_by);
+				// CHECK IF USER WHO POSTED HAS CLOSED ACCOUNT
+				if ($added_by_obj->isClosed()) {
+					continue;
+				}
+				// DATABASE QUERY TO GET FIRST NAME, LAST NAME, & PROFILE PIC OF USER WHO ADDED POST
+				$user_details_query = mysqli_query($this->connection, "SELECT first_name, last_name, profile_pic FROM users WHERE username='$added_by'")
+				// STORE QUERY RESULTS INTO ARRAY
+				$user_row = mysqli_fetch_array($user_details_query);
 
 			}
 

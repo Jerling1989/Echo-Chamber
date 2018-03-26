@@ -45,6 +45,22 @@
 			return $row['first_name'] . ' ' . $row['last_name'];
 		}
 
+		// GET USER ACCOUNT CLOSED DATA FUNCTION
+		public function isClosed() {
+			// USERNAME VARIABLE
+			$username = $this->user['username'];
+			// DATABASE QUERY (ACCOUNT CLOSED)
+			$query = mysqli_query($this->connection, "SELECT user_closed FROM users WHERE username='$username'");
+			// STORE ACCOUNT CLOSED INFO IN ARRAY
+			$row = mysqli_fetch_array($query);
+
+			if ($row['user_closed'] == 'yes') {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 	}
 
 ?>
