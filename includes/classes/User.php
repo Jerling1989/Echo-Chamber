@@ -6,13 +6,19 @@
 		private $connection;
 
 		// CREATE PUBLIC VARIABLES
-		public function __construct($connection. $user) {
+		public function __construct($connection, $user) {
 			// CONNECTION VARIABLE
 			$this->connection = $connection;
 			// DATABASE QUERY
 			$user_details_query = mysqli_query($connection, "SELECT * FROM users WHERE username='$user'");
 			// QUERY RESULT ARRAY
 			$this->user = mysqli_fetch_array($user_details_query);
+		}
+
+		// GET USERNAME FUNCTION
+		public function getUsername() {
+			// RETURN USERNAME
+			return $this->user['username'];
 		}
 
 		// GET FIRST AND LAST NAME FUNCTION
