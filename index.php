@@ -8,6 +8,7 @@
 		$post = new Post($connection, $userLoggedIn);
 		$post->submitPost($_POST['post-text'], 'none');
 	}
+	
 ?>
 
 	<div class="user-details column">
