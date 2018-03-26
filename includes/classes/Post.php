@@ -70,26 +70,30 @@
 				if ($row['user_to'] == 'none') {
 					// IF NOT SET $USER_TO BLANK
 					$user_to = '';
-					
 				} else {
 					// IF SO CREATE USER OBJECT WITH USER_TO FROM DATABASE QUERY
 					$user_to_obj = new User($connection, $row['user_to']);
-					// GET FIRST AND LAST NAME OF USER
-					$user_to_name = $user_to_obj->getFirstAndLastName();
+					// GET USERNAME OF USER POST IS SENT TO
+					$user_to_name = $user_to_obj->getUsername();
 					// CREATE USER LINK VARIABLE FOR POST
-					$user_to = "<a href='" . $row['user_to'] . "'>" . $user_to_name . "</a>";
+					$user_to = "to <a href='" . $row['user_to'] . "'>" . $user_to_name . "</a>";
 				}
 
 				// CREATE NEW USER OBJECT FOR USER WHO ADDED POST
-				$added_by_obj = new User($connection, $added_by);
+				$added_by_obj = new User($this->connection, $added_by);
 				// CHECK IF USER WHO POSTED HAS CLOSED ACCOUNT
 				if ($added_by_obj->isClosed()) {
 					continue;
 				}
+
 				// DATABASE QUERY TO GET FIRST NAME, LAST NAME, & PROFILE PIC OF USER WHO ADDED POST
-				$user_details_query = mysqli_query($this->connection, "SELECT first_name, last_name, profile_pic FROM users WHERE username='$added_by'")
+				$user_details_query = mysqli_query($this->connection, "SELECT username, profile_pic FROM users WHERE username='$added_by'");
 				// STORE QUERY RESULTS INTO ARRAY
 				$user_row = mysqli_fetch_array($user_details_query);
+				// CREATE USERNAME VARIABLE FROM QUERY
+				$username = $user_row['username'];
+				// CREATE PROFILE_PIC VARIABLE FROM QUERY
+				$profile_pic = $user_row['profile_pic'];
 
 				// CURRENT TIME
 				$date_time_now = date('Y-m-d H:i:s');
@@ -151,10 +155,24 @@
 					}
 				}
 
+				$str .= "<div class='status_post'>
+									<div class='post_profile_pic'>
+										<img src='$profile_pic' width='50' />
+									</div>
 
+									<div class='posted_by' style='color: #ACACAC;'>
+										<a href='$added_by'> $username </a> $user_to &nbsp;&nbsp;&nbsp;&nbsp; $time_message
+									</div>
 
+									<div id='post_body'>
+										$body <br />
+									</div>
+
+								</div>";
 
 			}
+
+			echo $str;
 
 
 		}

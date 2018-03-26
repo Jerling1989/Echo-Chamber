@@ -23,10 +23,11 @@
 		<div class="user-details-left-right">
 			<a href="<?php echo $userLoggedIn; ?>">
 				<?php
-					echo $user['first_name'] . ' ' . $user['last_name'];
+					echo $user['first_name'] . ' ' . $user['last_name'] . '<br />';
+					echo $user['username'];
 				?>
 			</a>
-			<br />
+			<br /><br />
 			<?php
 				echo 'Posts: ' . $user['num_posts'] . '<br />';
 				echo 'Likes: ' . $user['num_likes'];
@@ -46,6 +47,13 @@
 			<input type="submit" name="post" id="post-button" value="Post" />
 			<hr />
 		</form>
+
+		<?php
+
+			$post = new Post($connection, $userLoggedIn);
+			$post->loadPostsFriends();
+
+		?>
 
 	</div>
 
