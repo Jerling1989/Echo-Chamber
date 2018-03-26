@@ -49,13 +49,34 @@
 		</form>
 
 		<?php
-
 			$post = new Post($connection, $userLoggedIn);
 			$post->loadPostsFriends();
-
 		?>
 
+		<img id="loading" src="assets/img/icons/loading.gif" />
+
 	</div>
+
+	<script type="text/javascript">
+		
+		var userLoggedIn = '<?php ehco $userLoggedIn; ?>';
+
+		$(document).ready(function() {
+			// LOADING GIF
+			$('#loading').show();
+
+			// ORIGINAL AJAX REQUEST FOR LOADING FIRST POSTS
+			$.ajax({
+				url: 'includes/handlers/ajax_load_posts.php',
+				type: 'POST',
+				data: 'page=1&userLoggedIn=' + userLoggedIn,
+				cache: false,
+				
+			});
+
+		});
+
+	</script>
 
 
 	</div>
