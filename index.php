@@ -1,6 +1,8 @@
 <?php
 	include('includes/header.php');
 	// session_destroy();
+
+	include('includes/classes/User.php');
 ?>
 
 	<div class="user-details column">
