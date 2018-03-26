@@ -33,6 +33,21 @@
 				if ($user_to == $added_by) {
 					$user_to = 'none';
 				}
+
+				// INSERT POST INTO DATABASE
+				$query = mysqli_query($this->connection, "INSERT INTO posts VALUES('', '$body', '$added_by', '$user_to', '$date_added', 'no', 'no', '0')");
+				// RETURN ID OF POST SUBMITTED
+				$return_id = mysqli_insert_id($this->connection);
+
+				// INSERT NOTIFICATION
+
+
+				// GET NUMBER OF POSTS FROM DATABASE
+				$num_posts = $this->user_obj->getNumPosts();
+				// ADD 1 TO NUMBER OF POSTS 
+				$num_posts++;
+				// UPDATE NUMBER OF POSTS BACK INTO DATABASE
+				$update_query = mysqli_query($this->connection, "UPDATE users SET num_posts='$num_posts' WHERE username='$added_by'");
 			}
 		}
 

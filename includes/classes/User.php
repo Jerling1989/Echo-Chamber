@@ -21,6 +21,18 @@
 			return $this->user['username'];
 		}
 
+		// GET NUMBER OF POSTS FUNCTION
+		public function getNumPosts() {
+			// USERNAME VARIABLE
+			$username = $this->user['username'];
+			// DATABASE QUERY (NUMBER OF POSTS)
+			$query = mysqli_query($this->connection, "SELECT num_posts FROM users WHERE username='$username'");
+			// STORE NUMBER OF POSTS IN ARRAY
+			$row = mysqli_fetch_array($query);
+			// RETURN NUMBER OF POSTS
+			return $row['num_posts'];
+		}
+
 		// GET FIRST AND LAST NAME FUNCTION
 		public function getFirstAndLastName() {
 			// USERNAME VARIABLE

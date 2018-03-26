@@ -1,8 +1,13 @@
 <?php
-	include('includes/header.php');
-	// session_destroy();
 
+	include('includes/header.php');
 	include('includes/classes/User.php');
+	include('includes/classes/Post.php');
+
+	if (isset($_POST['post'])) {
+		$post = new Post($connection, $userLoggedIn);
+		$post->submitPost($_POST['post-text'], 'none');
+	}
 ?>
 
 	<div class="user-details column">
@@ -35,6 +40,9 @@
 			<input type="submit" name="post" id="post-button" value="Post" />
 			<hr />
 		</form>
+
+
+		
 
 	</div>
 
