@@ -7,6 +7,6 @@
 	$limit = 10; // NUMBER OF POSTS TO BE LOADED PER CALL
 
 	$posts = new Post($connection, $_REQUEST['userLoggedIn']);
-	$posts->loadPostsFriends();
+	$posts->loadPostsFriends($_REQUEST, $limit);
 
 ?>

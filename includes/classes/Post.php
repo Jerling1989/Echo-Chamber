@@ -100,109 +100,140 @@
 					if ($added_by_obj->isClosed()) {
 						continue;
 					}
-					// CHECK IF IT'S GONE THROUGH ALL POSTS THAT HAVE BEEN LOADED
-					if ($num_iterations++ < $start) {
-						continue;
-					}
-					// ONCE 10 POSTS HAVE BEEN LOADED, BREAK
-					if ($count > $limit) {
-						break;
-					} else {
-						$count++;
-					}
 
-					// DATABASE QUERY TO GET FIRST NAME, LAST NAME, & PROFILE PIC OF USER WHO ADDED POST
-					$user_details_query = mysqli_query($this->connection, "SELECT username, profile_pic FROM users WHERE username='$added_by'");
-					// STORE QUERY RESULTS INTO ARRAY
-					$user_row = mysqli_fetch_array($user_details_query);
-					// CREATE USERNAME VARIABLE FROM QUERY
-					$username = $user_row['username'];
-					// CREATE PROFILE_PIC VARIABLE FROM QUERY
-					$profile_pic = $user_row['profile_pic'];
+					// CHECK IF USER WHO POSTED IS FRIENDS WITH LOGGED IN USER
+					$user_logged_obj = new User($this->connection, $userLoggedIn);
+					if ($user_logged_obj->isFriend($added_by)) {
 
-					// CURRENT TIME
-					$date_time_now = date('Y-m-d H:i:s');
-					// DATE POST WAS ADDED VARIABLE
-					$start_date = new DateTime($date_time);
-					// CURRENT DATE VARIABLE
-					$end_date = new DateTime($date_time_now);
-					// DIFFERENCE BETWEEN BOTH DATE VARIABLES
-					$interval = $start_date->diff($end_date);
-					// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE YEAR
-					if ($interval->y >= 1) {
-						if($interval == 1) {
-							$time_message = $interval->y . ' year ago'; // ONE YEAR
-						} else {
-							$time_message = $interval->y . ' years ago'; // MULTIPLE YEARS
+
+						// CHECK IF IT'S GONE THROUGH ALL POSTS THAT HAVE BEEN LOADED
+						if ($num_iterations++ < $start) {
+							continue;
 						}
-						// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE MONTH
-					} else if ($interval->m >= 1) {
-						if ($interval->d == 0) {
-							$days = ' ago'; // NO ADDITIONAL DAYS
-						} else if ($interval->d == 1) {
-							$days = $interval->d . ' day ago'; // ONE ADDITIONAL DAYS
+						// ONCE 10 POSTS HAVE BEEN LOADED, BREAK
+						if ($count > $limit) {
+							break;
 						} else {
-							$days = $interval->d . ' days ago'; // MULTIPLE ADDITIONAL DAYS
+							$count++;
 						}
 
-						if($interval->m == 1) {
-							$time_message = $interval->m . ' month ago' . $days; // ONE MONTH PLUS DAYS
-						} else {
-							$time_message = $interval->m . ' months ago' . $days; // MULTIPLE MONTHS PLUS DAYS
-						}
-						// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE DAY
-					} else if ($interval->d >= 1) {
-						if ($interval->d == 1) {
-							$time_message = 'Yesterday';
-						} else {
-							$time_message = $interval->d . ' days ago';
-						}
-						// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE HOUR
-					} else if ($interval->h >= 1) {
-						if ($interval->h == 1) {
-							$time_message = $interval->h . ' hour ago'; // ONE HOUR
-						} else {
-							$time_message = $interval->h . ' hours ago'; // MULTIPLE HOURS
-						}
-						// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE MINUTE
-					} else if ($interval->i >= 1) {
-						if ($interval->i == 1) {
-							$time_message = $interval->i . ' minute ago'; // ONE MINUTE
-						} else {
-							$time_message = $interval->i . ' minutes ago'; // MULTIPLE MINUTES
-						}
-						// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE SECOND
-					} else {
-						if ($interval->s < 30) {
-							$time_message = 'Just now'; // LESS THAN 30 SECONDS
-						} else {
-							$time_message = $interval->s . ' seconds ago'; // OVER 30 SECONDS
-						}
-					}
+						// DATABASE QUERY TO GET FIRST NAME, LAST NAME, & PROFILE PIC OF USER WHO ADDED POST
+						$user_details_query = mysqli_query($this->connection, "SELECT username, profile_pic FROM users WHERE username='$added_by'");
+						// STORE QUERY RESULTS INTO ARRAY
+						$user_row = mysqli_fetch_array($user_details_query);
+						// CREATE USERNAME VARIABLE FROM QUERY
+						$username = $user_row['username'];
+						// CREATE PROFILE_PIC VARIABLE FROM QUERY
+						$profile_pic = $user_row['profile_pic'];
 
-					$str .= "<div class='status_post'>
-										<div class='post_profile_pic'>
-											<img src='$profile_pic' width='50' />
+
+						?>
+
+						<script>
+							// CREATE TOGGLE FUNCTION
+							function toggle<?php echo $id; ?>() {
+								// GET COMMENT BY ID, STORE IN VARIABLE
+								var element = document.getElementById('toggleComment<?php echo $id; ?>');
+
+								// IF SECTION IS VISIBLE, THEN HIDE IT
+								if (element.style.display == 'block') {
+									element.style.display = 'none';
+									// IF SECTION IS HIDDEN, MAKE IT VISIBLE
+								} else {
+									element.style.display = 'block';
+								}
+							}
+						</script>
+
+						<?php
+
+						// CURRENT TIME
+						$date_time_now = date('Y-m-d H:i:s');
+						// DATE POST WAS ADDED VARIABLE
+						$start_date = new DateTime($date_time);
+						// CURRENT DATE VARIABLE
+						$end_date = new DateTime($date_time_now);
+						// DIFFERENCE BETWEEN BOTH DATE VARIABLES
+						$interval = $start_date->diff($end_date);
+						// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE YEAR
+						if ($interval->y >= 1) {
+							if($interval == 1) {
+								$time_message = $interval->y . ' year ago'; // ONE YEAR
+							} else {
+								$time_message = $interval->y . ' years ago'; // MULTIPLE YEARS
+							}
+							// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE MONTH
+						} else if ($interval->m >= 1) {
+							if ($interval->d == 0) {
+								$days = ' ago'; // NO ADDITIONAL DAYS
+							} else if ($interval->d == 1) {
+								$days = $interval->d . ' day ago'; // ONE ADDITIONAL DAYS
+							} else {
+								$days = $interval->d . ' days ago'; // MULTIPLE ADDITIONAL DAYS
+							}
+
+							if($interval->m == 1) {
+								$time_message = $interval->m . ' month ago' . $days; // ONE MONTH PLUS DAYS
+							} else {
+								$time_message = $interval->m . ' months ago' . $days; // MULTIPLE MONTHS PLUS DAYS
+							}
+							// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE DAY
+						} else if ($interval->d >= 1) {
+							if ($interval->d == 1) {
+								$time_message = 'Yesterday';
+							} else {
+								$time_message = $interval->d . ' days ago';
+							}
+							// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE HOUR
+						} else if ($interval->h >= 1) {
+							if ($interval->h == 1) {
+								$time_message = $interval->h . ' hour ago'; // ONE HOUR
+							} else {
+								$time_message = $interval->h . ' hours ago'; // MULTIPLE HOURS
+							}
+							// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE MINUTE
+						} else if ($interval->i >= 1) {
+							if ($interval->i == 1) {
+								$time_message = $interval->i . ' minute ago'; // ONE MINUTE
+							} else {
+								$time_message = $interval->i . ' minutes ago'; // MULTIPLE MINUTES
+							}
+							// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE SECOND
+						} else {
+							if ($interval->s < 30) {
+								$time_message = 'Just now'; // LESS THAN 30 SECONDS
+							} else {
+								$time_message = $interval->s . ' seconds ago'; // OVER 30 SECONDS
+							}
+						}
+
+						$str .= "<div class='status_post' onClick='javascript:toggle$id()'>
+											<div class='post_profile_pic'>
+												<img src='$profile_pic' width='50' />
+											</div>
+
+											<div class='posted_by' style='color: #ACACAC;'>
+												<a href='$added_by'> $username </a> $user_to &nbsp;&nbsp;&nbsp;&nbsp; $time_message
+											</div>
+
+											<div id='post_body'>
+												$body <br />
+											</div>
+
 										</div>
-
-										<div class='posted_by' style='color: #ACACAC;'>
-											<a href='$added_by'> $username </a> $user_to &nbsp;&nbsp;&nbsp;&nbsp; $time_message
+										<div class='post_comment' id='toggleComment$id' style='display: none;'>
+											<iframe src='comment_frame.php?post_id=$id' id='comment_iframe' frameborder='0'></iframe>
 										</div>
+										<hr />";		
+					}
 
-										<div id='post_body'>
-											$body <br />
-										</div>
-
-									</div>
-									<hr />";
-
-				}
+				} // END WHILE LOOP
 
 				if ($count > $limit) {
-					$str .= "<input type='hidden' class='nextPage' value='" . ($page = + 1) . "' />
-									 <input type='hidden' class='noMorePosts' value='false' />";
+					$str .= "<input type='hidden' class='nextPage' value='" . ($page + 1) . "'>
+									 <input type='hidden' class='noMorePosts' value='false'>";
 				} else {
-					$str .= "<input type='hidden' class='noMorePosts' value='true' />
+					$str .= "<input type='hidden' class='noMorePosts' value='true'>
 									 <p style='text-align: center'>No More Posts to Show</p>";
 				}
 

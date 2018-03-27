@@ -91,7 +91,7 @@
 				// SCROLLTOP VARIABLE
 				var scroll_top = $(this).scrollTop();
 				// VARIABLE FOR NEXT PAGE (MORE POSTS)
-				var page = $('.posts_area').find('.next').val();
+				var page = $('.posts_area').find('.nextPage').val();
 				// VARIABLE FOR NO MORE POSTS
 				var noMorePosts = $('.posts_area').find('.noMorePosts').val();
 
