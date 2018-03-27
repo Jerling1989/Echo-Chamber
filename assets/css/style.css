@@ -160,14 +160,33 @@ textarea:focus {
 }
 
 #loading img {
-	width: 10%;
+	width: 60px;
 	height: auto;
 }
 
+#comment_iframe {
+	max-height: 250px;
+	width: 100%;
+}
 
+.comment_section {
+	padding: 5px 5px 0px 10px;
+}
 
+.comment_section img {
+	margin: 0px 10px 3px 3px;
+	border-radius: 3px;
+}
 
-
+#comment_form textarea {
+	border-color: #D3D3D3;
+	width: 85%;
+	height: 35px;
+	border-radius: 5px;
+	color: #616060;
+	font-size: 14px;
+	margin: 6px 3px 3px 6px;
+}
 
 
 

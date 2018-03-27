@@ -12,6 +12,13 @@
 </head>
 <body>
 
+	<style type="text/css">
+		* {
+			font-size: 12px;
+			font-family: Arial, Helvitica, Sans-serif;
+		}
+	</style>
+
 	<?php
 
 		// REQUIRE/INCLUDE NECCESSARY FILES AND SCRIPTS
