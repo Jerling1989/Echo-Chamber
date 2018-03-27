@@ -51,7 +51,10 @@
 
 		<div class="posts_area"></div>
 
-		<img id="loading" src="assets/img/icons/loading.gif" />
+		<div id="loading">
+			<img src="assets/img/icons/loading.gif" />
+		</div>
+		
 
 	</div>
 
@@ -90,7 +93,7 @@
 				// VARIABLE FOR NEXT PAGE (MORE POSTS)
 				var page = $('.posts_area').find('.next').val();
 				// VARIABLE FOR NO MORE POSTS
-				var noMorePosts = $('posts_area').find('.noMorePosts').val();
+				var noMorePosts = $('.posts_area').find('.noMorePosts').val();
 
 				// CHECK IF THE PAGE IS SCROLLED TO THE BOTTOM OF POSTS_AREA DIV
 				// AND THERE ARE ALSO MORE POSTS
@@ -120,9 +123,11 @@
 					});
 
 
-				}
+				} // END IF
 
-			});
+				return false;
+
+			}); // END AUTO LOAD POSTS FUNCTION
 
 		});
 

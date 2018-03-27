@@ -155,6 +155,15 @@ textarea:focus {
 	border-radius: 5px;
 }
 
+#loading {
+	text-align: center
+}
+
+#loading img {
+	width: 10%;
+	height: auto;
+}
+
 
 
 
