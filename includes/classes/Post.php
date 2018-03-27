@@ -126,7 +126,6 @@
 						// CREATE PROFILE_PIC VARIABLE FROM QUERY
 						$profile_pic = $user_row['profile_pic'];
 
-
 						?>
 
 						<script>
@@ -207,6 +206,7 @@
 							}
 						}
 
+						// CREATE POST STRING VARIABLE TO BE DISPLAYED
 						$str .= "<div class='status_post' onClick='javascript:toggle$id()'>
 											<div class='post_profile_pic'>
 												<img src='$profile_pic' width='50' />
@@ -229,16 +229,19 @@
 
 				} // END WHILE LOOP
 
+
+				// IF THERE ARE MORE POSTS, ENABLE MORE SCROLLING
 				if ($count > $limit) {
 					$str .= "<input type='hidden' class='nextPage' value='" . ($page + 1) . "'>
 									 <input type='hidden' class='noMorePosts' value='false'>";
+					// ELSE DISPLAY 'NO MORE POSTS TO SHOW'
 				} else {
 					$str .= "<input type='hidden' class='noMorePosts' value='true'>
 									 <p style='text-align: center'>No More Posts to Show</p>";
 				}
 
 			}
-
+			// DISPLAY POST VARIABLE ON PAGE
 			echo $str;
 
 

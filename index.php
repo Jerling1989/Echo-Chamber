@@ -1,11 +1,15 @@
 <?php
 
+	// INCLUDE NECCESSARY FILES AND SCRIPTS
 	include('includes/header.php');
 	include('includes/classes/User.php');
 	include('includes/classes/Post.php');
 
+	// IF NEW POST IS SUBMITTED
 	if (isset($_POST['post'])) {
+		// CREATE NEW POST OBJECT
 		$post = new Post($connection, $userLoggedIn);
+		// RUN FUNCTION TO ADD POST TO DATABASE
 		$post->submitPost($_POST['post-text'], 'none');
 	}
 
@@ -39,24 +43,27 @@
 	<!-- END USER DETAILS PANEL -->
 
 
-
+	<!-- MAIN COLUMN (NEWSFEED) -->
 	<div class="main-column column">
 		
+		<!-- POST FORM -->
 		<form class="post-form" action="index.php" method="POST">
+			<!-- POST TEXTAREA -->
 			<textarea name="post-text" id="post-text" placeholder="Got something to say?"></textarea>
+			<!-- POST SUBMIT BUTTON -->
 			<input type="submit" name="post" id="post-button" value="Post" />
 			<hr />
 		</form>
+		<!-- END POST FORM -->
 
-
+		<!-- DIV TO DISPLAY POSTS -->
 		<div class="posts_area"></div>
 
-		<div id="loading">
-			<img src="assets/img/icons/loading.gif" />
-		</div>
+		<!-- LOADING GIF -->
+		<div id="loading"><img src="assets/img/icons/loading.gif" /></div>
 		
-
 	</div>
+	<!-- END MAIN COLUMN (NEWSFEED) -->
 
 
 	<script>

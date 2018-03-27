@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- PAGE TITLE -->
 	<title></title>
 	<!-- RESET CSS LINK -->
   <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
@@ -13,6 +14,7 @@
 
 	<?php
 
+		// REQUIRE/INCLUDE NECCESSARY FILES AND SCRIPTS
 		require 'config/config.php';
 		include('includes/classes/User.php');
 		include('includes/classes/Post.php');
@@ -57,13 +59,13 @@
 			$post_id = $_GET['post_id'];
 		}
 		// DATABASE QUERY TO GET ADDED_BY AND USER_TO FROM POST TABLE
-		$user_query = mysqli_query($connection, "SELECT added_by, user_to FROM posts WHERE id='post_id'");
+		$user_query = mysqli_query($connection, "SELECT added_by, user_to FROM posts WHERE id='$post_id'");
 		// STORE QUERY RESULTS INTO $ROW ARRAY
 		$row = mysqli_fetch_array($user_query);
 
 		$posted_to = $row['added_by'];
 
-		if (isset($_POST['post_comment' . $post_id])) {
+		if (isset($_POST['postComment' . $post_id])) {
 			$post_body = $_POST['post_body'];
 			$post_body = mysqli_escape_string($connection, $post_body);
 			$date_time_now = date('Y-m-d H:i:s');
@@ -74,17 +76,41 @@
 
 	?>
 
-
+	<!-- COMMENT FORM -->
 	<form action="comment_frame.php?post_id=<?php echo $post_id; ?>" id="comment_form" name="postComment<?php echo $post_id; ?>" method="POST">
-		
+		<!-- COMMENT TEXTAREA -->
 		<textarea name="post_body"></textarea>
+		<!-- COMMENT SUBMIT -->
 		<input type="submit" name="postComment<?php echo $post_id; ?>" value="Post" />
-
 	</form>
+	<!-- END COMMENT FORM -->
 
 
 	<!-- LOAD COMMENTS -->
-	
+	<?php
+
+		// DATABASE QUERY TO GET COMMENT INFO
+		$get_comments = mysqli_query($connection, "SELECT * FROM comments WHERE post_id='$post_id' ORDER BY id ASC");
+		// COUNT NUMBER OF QUERY RESULTS
+		$count = mysqli_num_rows($get_comments);
+
+		// CHECK IF THERE ARE ANY RESULTS
+		if ($count != 0) {
+			// WHILE THERE ARE QUERY RESULTS...
+			while($comment = mysqli_fetch_array($get_comments)) {
+				// CREATE THESE COMMENT VARIABLES
+				$comment_body = $comment['post_body'];
+				$posted_to = $comment['posted_to'];
+				$posted_by = $comment['posted_by'];
+				$date_added = $comment['date_added'];
+				$removed = $comment['removed'];
+
+			}
+
+		}
+
+
+	?>
 
 
 
