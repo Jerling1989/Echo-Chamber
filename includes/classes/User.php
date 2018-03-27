@@ -45,6 +45,18 @@
 			return $row['first_name'] . ' ' . $row['last_name'];
 		}
 
+		// GET PROFILE PICTURE FUNCTION
+		public function getProfilePic() {
+			// USERNAME VARIABLE
+			$username = $this->user['username'];
+			// DATABASE QUERY (PROFILE PIC)
+			$query = mysqli_query($this->connection, "SELECT profile_pic FROM users WHERE username='$username'");
+			// STORE FIRST AND LAST NAME IN ARRAY
+			$row = mysqli_fetch_array($query);
+			// RETURN FIRST AND LAST NAME
+			return $row['profile_pic'];
+		}
+
 		// GET USER ACCOUNT CLOSED DATA FUNCTION
 		public function isClosed() {
 			// USERNAME VARIABLE

@@ -62,15 +62,17 @@
 		$user_query = mysqli_query($connection, "SELECT added_by, user_to FROM posts WHERE id='$post_id'");
 		// STORE QUERY RESULTS INTO $ROW ARRAY
 		$row = mysqli_fetch_array($user_query);
-
+		// STORE ADDED_BY INFO FOR POST IN VARIABLE
 		$posted_to = $row['added_by'];
 
+		// CHECK IF COMMENT FORM HAS BEEN SUBMITED
 		if (isset($_POST['postComment' . $post_id])) {
+			// CREATE COMMENT VARIABLES
 			$post_body = $_POST['post_body'];
 			$post_body = mysqli_escape_string($connection, $post_body);
 			$date_time_now = date('Y-m-d H:i:s');
 			$insert_post = mysqli_query($connection, "INSERT INTO comments VALUES ('', '$post_body', '$userLoggedIn', '$posted_to', '$date_time_now', 'no', '$post_id')");
-
+			// SUCCESSFUL COMMENT POST MESSAGE
 			echo '<p>Comment Posted!</p>';
 		}
 
@@ -114,6 +116,7 @@
 				$end_date = new DateTime($date_time_now);
 				// DIFFERENCE BETWEEN BOTH DATE VARIABLES
 				$interval = $start_date->diff($end_date);
+
 				// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE YEAR
 				if ($interval->y >= 1) {
 					if($interval == 1) {
@@ -164,22 +167,40 @@
 					} else {
 						$time_message = $interval->s . ' seconds ago'; // OVER 30 SECONDS
 					}
-				}
+				} // END IF ELSE
 
 
 				// CREATE NEW USER OBJECT FOR USER THAT POSTED COMMENT
 				$user_obj = new User($connection, $posted_by);
 
-			}
+				?>
 
-		}
+				<!-- COMMENT SECTION DIV -->
+				<div class="comment_section">
+					<!-- LINK AND PROFILE PIC OF COMMENT AUTHOR -->
+					<a href="<?php echo $posted_by; ?>" target="_parent">
+						<img src="<?php echo $user_obj->getProfilePic(); ?>" title="<?php echo $posted_by; ?>" style="float: left;" height="30" />
+					</a>
+					<!-- LINK AND USERNAME OF COMMENT AUTHOR -->
+					<a href="<?php echo $posted_by; ?>" target="_parent">
+						<b><?php echo $user_obj->getUsername(); ?></b>
+					</a>
+					<!-- COMMENT TIMESTAMP AND COMMENT MESSAGE -->
+					&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $time_message . "<br />" . $comment_body; ?>
+					<hr />
+				</div>
+				<!-- END COMMENT SECTION DIV -->
+
+				<?php
+
+			} // END WHILE
+
+		} // END IF
 
 	?>
 
 
-	<div class="comment_section">
-		<a href="<?php echo $posted_by; ?>" target="_parent">sSFsdaf</a>
-	</div>
+
 
 
 
