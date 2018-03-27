@@ -61,6 +61,19 @@
 			}
 		}
 
+		// CHECK IF USER IS FRIENDS WITH ANOTHER USER
+		public function isFriend($username_to_check) {
+			$usernameComma = ',' . $username_to_check . ',';
+
+			// CHECK IF USER IS IN FRIEND_ARRAY OR IF USER IS YOURSELF
+			if (strstr($this->user['friend_array'], $usernameComma) || $username_to_check == $this->user['username']) {
+
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 	}
 
 ?>
