@@ -54,6 +54,7 @@
 			// STORE ACCOUNT CLOSED INFO IN ARRAY
 			$row = mysqli_fetch_array($query);
 
+			// CHECK IF USER ACCOUNT IS CLOSED
 			if ($row['user_closed'] == 'yes') {
 				return true;
 			} else {
