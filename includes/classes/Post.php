@@ -146,6 +146,11 @@
 
 						<?php
 
+						// DATABASE QUERY TO CHECK FOR COMMENTS
+						$comment_check = mysqli_query($this->connection, "SELECT * FROM comments WHERE post_id='$id'");
+						// STORE NUMBER OF RESULTS FROM QUERY
+						$comments_check_num = mysqli_num_rows($comment_check);
+
 						// CURRENT TIME
 						$date_time_now = date('Y-m-d H:i:s');
 						// DATE POST WAS ADDED VARIABLE
@@ -217,7 +222,15 @@
 											</div>
 
 											<div id='post_body'>
-												$body <br />
+												$body
+												<br />
+												<br />
+												<br />
+											</div>
+
+											<div class='newsfeedPostOptions'>
+												Comments($comments_check_num)&nbsp;&nbsp;&nbsp;
+
 											</div>
 
 										</div>

@@ -202,7 +202,10 @@
 
 			} // END WHILE
 
-		} // END IF
+			// MESSAGE IN COMMENT DIV WITH NO COMMENTS
+		} else {
+			echo '<center><br /><br />No Comments to Show</center>';
+		}
 
 	?>
 
