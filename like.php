@@ -65,10 +65,22 @@
 
 		// IF THERE ARE RESULTS FROM QUERY
 		if (num_rows > 0) {
-			echo '';
+			echo '<form action="like.php?post_id=' . $post_id . '" method="POST">
+							<input type="submit" class="comment_like" name="unlike_button" value="unlike">
+							<div class="like_value">
+								'. $total_likes . ' Likes
+							</div>
+						</form>
+			';
 			// IF THERE ARE NO RESULTS FROM QUERY
 		} else {
-			echo '';
+			echo '<form action="like.php?post_id=' . $post_id . '" method="POST">
+							<input type="submit" class="comment_like" name="like_button" value="Like">
+							<div class="like_value">
+								'. $total_likes . ' Likes
+							</div>
+						</form>
+			';
 		}
 
 	?>
