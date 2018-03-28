@@ -129,17 +129,22 @@
 						?>
 
 						<script>
-							// CREATE TOGGLE FUNCTION
+							// COMMENT TOGGLE FUNCTION
 							function toggle<?php echo $id; ?>() {
-								// GET COMMENT BY ID, STORE IN VARIABLE
-								var element = document.getElementById('toggleComment<?php echo $id; ?>');
 
-								// IF SECTION IS VISIBLE, THEN HIDE IT
-								if (element.style.display == 'block') {
-									element.style.display = 'none';
-									// IF SECTION IS HIDDEN, MAKE IT VISIBLE
-								} else {
-									element.style.display = 'block';
+								var target = $(event.target);
+								if (!target.is('a')) {
+
+									// GET COMMENT BY ID, STORE IN VARIABLE
+									var element = document.getElementById('toggleComment<?php echo $id; ?>');
+
+									// IF SECTION IS VISIBLE, THEN HIDE IT
+									if (element.style.display == 'block') {
+										element.style.display = 'none';
+										// IF SECTION IS HIDDEN, MAKE IT VISIBLE
+									} else {
+										element.style.display = 'block';
+									}
 								}
 							}
 						</script>
