@@ -46,16 +46,35 @@
 		// GET NUMBER OF LIKES
 		$total_likes = $row['likes'];
 		// GET AUTHOR OF POST
-		$user_likes = $row['added_by'];
+		$user_liked = $row['added_by'];
 
 		// DATABASE QUERY TO GET INFO ABOUT POST AUTHOR
 		$user_details_query = mysqli_query($connection, "SELECT * FROM users WHERE username='$user_liked'");
 		// STORE QUERY DATA IN $ROW ARRAY
 		$row = mysqli_fetch_array($user_details_query);
+		$total_user_likes = $row['num_likes'];
 
 
-		// LIKE BUTTON
-		// UNLIKE BUTTON
+		// IF LIKE BUTTON IS PRESSED
+		if (isset($_POST['like_button'])) {
+			$total_likes++;
+			$query = mysqli_query($connection, "UPDATE posts SET likes='$total_likes' WHERE id='$post_id'");
+			$total_user_likes++;
+			$user_likes = mysqli_query($connection, "UPDATE users SET num_likes='$total_user_likes' WHERE username='$user_liked'");
+			$insert_user = mysqli_query($connection, "INSERT INTO likes VALUES('', '$userLoggedIn', '$post_id')");
+
+			// INSERT NOTIFICATIONS
+		}
+
+		// UF UNLIKE BUTTON IS PRESSED
+		if (isset($_POST['unlike_button'])) {
+			$total_likes--;
+			$query = mysqli_query($connection, "UPDATE posts SET likes='$total_likes' WHERE id='$post_id'");
+			$total_user_likes--;
+			$user_likes = mysqli_query($connection, "UPDATE users SET num_likes='$total_user_likes' WHERE username='$user_liked'");
+			$insert_user = mysqli_query($connection, "DELETE FROM likes WHERE username='$userLoggedIn' AND post_id='$post_id'");
+
+		}
 
 
 		// DATABASE QUERY TO CHECK IF USER LIKED POST
@@ -64,9 +83,9 @@
 		$num_rows = mysqli_num_rows($check_query);
 
 		// IF THERE ARE RESULTS FROM QUERY
-		if (num_rows > 0) {
+		if ($num_rows > 0) {
 			echo '<form action="like.php?post_id=' . $post_id . '" method="POST">
-							<input type="submit" class="comment_like" name="unlike_button" value="unlike">
+							<input type="submit" class="comment_like" name="unlike_button" value="Unlike">
 							<div class="like_value">
 								'. $total_likes . ' Likes
 							</div>
