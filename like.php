@@ -12,6 +12,23 @@
 </head>
 <body>
 
+	<style type="text/css">
+
+		* {
+			font-family: Arial, Helvitica, Sans-serif;
+		}
+		
+		body {
+			background-color: #fff;
+		}
+
+		form {
+			position: absolute;
+			top: 2px;
+		}
+
+	</style>
+
 	<?php
 
 		// REQUIRE/INCLUDE NECCESSARY FILES AND SCRIPTS
@@ -66,7 +83,7 @@
 			// INSERT NOTIFICATIONS
 		}
 
-		// UF UNLIKE BUTTON IS PRESSED
+		// IF UNLIKE BUTTON IS PRESSED
 		if (isset($_POST['unlike_button'])) {
 			$total_likes--;
 			$query = mysqli_query($connection, "UPDATE posts SET likes='$total_likes' WHERE id='$post_id'");
