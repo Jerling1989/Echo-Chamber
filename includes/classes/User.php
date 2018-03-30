@@ -80,7 +80,36 @@
 
 			// CHECK IF USER IS IN FRIEND_ARRAY OR IF USER IS YOURSELF
 			if (strstr($this->user['friend_array'], $usernameComma) || $username_to_check == $this->user['username']) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 
+		// CHECK IF USER RECIEVED FRIEND REQUEST
+		public function didReceiveRequest($user_to) {
+			// USER_FROM VARIABLE
+			$user_from = $this->user['username'];
+			// DATABASE QUERY (FRIEND REQUEST)
+			$check_request_query = mysqli_query($this->connection, "SELECT * FROM friend_requests WHERE user_to='$user_to' AND user_from ='$user_from'");
+
+			// CHECK IF QUERY RETURNED RESULTS
+			if (mysqli_num_rows($check_request_query) > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		// CHECK IF USER SENT FRIEND REQUEST
+		public function didSendRequest($user_from) {
+			// USER_TO VARIABLE
+			$user_to = $this->user['username'];
+			// DATABASE QUERY (FRIEND REQUEST)
+			$check_request_query = mysqli_query($this->connection, "SELECT * FROM friend_requests WHERE user_to='$user_to' AND user_from ='$user_from'");
+
+			// CHECK IF QUERY RETURNED RESULTS
+			if (mysqli_num_rows($check_request_query) > 0) {
 				return true;
 			} else {
 				return false;

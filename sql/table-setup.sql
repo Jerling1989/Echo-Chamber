@@ -47,3 +47,10 @@ CREATE TABLE likes (
 	PRIMARY KEY (id)
 );
 
+
+CREATE TABLE friend_requests (
+	id INT AUTO_INCREMENT NOT NULL,
+	user_to VARCHAR (50),
+	user_from VARCHAR (50),
+	PRIMARY KEY (id)
+);
