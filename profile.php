@@ -11,16 +11,20 @@
 		$num_friends = (substr_count($user_array['friend_array'], ',')) - 1;
 	}
 
-
-
 ?>
 
+	<style type="text/css">
+		.wrapper {
+			margin-left: 0px;
+			padding-left: 0px;
+		}
+	</style>
 
 
-	<div class="profile_left">
+	<div class="profile-left">
 		<img src="<?php echo $user_array['profile_pic']; ?>" />
 
-		<div class="profile_info">
+		<div class="profile-info">
 			<p><?php echo 'Posts: ' . $user_array['num_posts']; ?></p>
 			<p><?php echo 'Likes: ' . $user_array['num_likes']; ?></p>
 			<p><?php echo 'Friends: ' . $num_friends; ?></p>
