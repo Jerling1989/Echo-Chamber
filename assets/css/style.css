@@ -272,6 +272,50 @@ textarea:focus {
 	line-height: 20px;
 }
 
+.danger {
+	background-color: #E74C3C;
+}
+
+.warning {
+	background-color: #F0AD4E;
+}
+
+.default {
+	background-color: #BDC3C7;
+}
+
+.success {
+	background-color: #2ECC71;
+}
+
+.info {
+	background-color: #349ADB;
+}
+
+.deep_blue {
+	background-color: #0043F0;
+}
+
+.profile-left input[type="submit"] {
+	width: 90%;
+	height: 30px;
+	border-radius: 5px;
+	margin: 7px 0px 0px 7px;
+	border: none;
+	color: #FFFFFF;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
