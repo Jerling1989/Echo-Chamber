@@ -1,5 +1,9 @@
 <?php
+
+	// INCLUDE NECCESSARY FILES AND SCRIPTS
 	include('includes/header.php');
+	include('includes/classes/User.php');
+	include('includes/classes/Post.php');
 	
 	// CHECK IF USERNAME IS SET FOR URL
 	if(isset($_GET['profile_username'])) {
@@ -29,6 +33,32 @@
 			<p><?php echo 'Likes: ' . $user_array['num_likes']; ?></p>
 			<p><?php echo 'Friends: ' . $num_friends; ?></p>
 		</div>
+
+		<form action="<?php echo $username; ?>">
+			<?php 
+				// CREATE NEW USER OBJECT FOR OWNER OF PROFILE
+				$profile_user_obj = new User($connection, $username);
+				// CHECK IF ACCOUNT OF PROFILE IS CLOSED TO REDIRECT
+				if ($profile_user_obj->isClosed()) {
+					header('Location: user_closed.php');
+				}
+
+				// CREATE NEW USER OBJECT FOR USER LOGGED IN
+				$logged_in_user_obj = new User($connection, $userLoggedIn);
+
+				// MAKE SURE USER IS NOT ON THIER OWN PROFILE PAGE
+				if ($userLoggedIn != $username) {
+
+					// CHECK IF USER IS FRIENDS WITH PROFILE USER
+					if ($logged_in_user_obj->isFriend($username)) {
+						echo '<input type="submit" name="remove_friend" class="danger" value="Remove Friend" /><br />';
+					}
+
+				}
+			?>
+
+
+		</form>
 
 	</div>
 
