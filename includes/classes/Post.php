@@ -117,6 +117,14 @@
 							$count++;
 						}
 
+						// IF POST WAS ADDED BY USER LOGGED IN, CREATE DELETE BUTTON
+						if ($userLoggedIn == $added_by) {
+							$delete_button = '<button class="delete-button danger" id="post$id">X</button>';
+							// ELSE LEAVE DELETE VARIABLE BLANK
+						} else {
+							$delete_button = '';
+						}
+
 						// DATABASE QUERY TO GET FIRST NAME, LAST NAME, & PROFILE PIC OF USER WHO ADDED POST
 						$user_details_query = mysqli_query($this->connection, "SELECT username, profile_pic FROM users WHERE username='$added_by'");
 						// STORE QUERY RESULTS INTO ARRAY
@@ -224,6 +232,7 @@
 
 											<div class='posted_by' style='color: #ACACAC;'>
 												<a href='$added_by'> $username </a> $user_to &nbsp;&nbsp;&nbsp;&nbsp; $time_message
+													$delete_button
 											</div>
 
 											<div id='post_body'>
@@ -244,6 +253,27 @@
 										</div>
 										<hr />";		
 					}
+
+					?>
+
+					<script>
+						$(document).ready(function() {
+							// IF USER CLICKS TO DELETE POST
+							$('#post<?php echo $id; ?>').on('click', function() {
+								// CONFIRM USER WANTS TO DELETE POST
+								bootbox.confirm('Are you sure you want to delete this post?', function(result) {
+									// SEND RESULTS TO DELETE_POST.PHP
+									$.post('includes/form_handlers/delete_post.php?post=id<?php echo $id; ?>', {result:result});
+									// RELOAD PAGE
+									if (result) {
+										location.reload();
+									}
+								});
+							});
+						});
+					</script>
+
+					<?php
 
 				} // END WHILE LOOP
 
