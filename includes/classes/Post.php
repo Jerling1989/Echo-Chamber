@@ -87,11 +87,11 @@
 						$user_to = '';
 					} else {
 						// IF SO CREATE USER OBJECT WITH USER_TO FROM DATABASE QUERY
-						$user_to_obj = new User($connection, $row['user_to']);
+						$user_to_obj = new User($this->connection, $row['user_to']);
 						// GET USERNAME OF USER POST IS SENT TO
 						$user_to_name = $user_to_obj->getUsername();
 						// CREATE USER LINK VARIABLE FOR POST
-						$user_to = "to <a href='" . $row['user_to'] . "'>" . $user_to_name . "</a>";
+						$user_to = "to <a href='" . $user_to_name . "'>" . $user_to_name . "</a>";
 					}
 
 					// CREATE NEW USER OBJECT FOR USER WHO ADDED POST
@@ -235,7 +235,7 @@
 
 											<div class='newsfeedPostOptions'>
 												Comments($comments_check_num)&nbsp;&nbsp;&nbsp;
-												<iframe src='like.php?post_id=$id'></iframe>
+												<iframe src='like.php?post_id=$id' scrolling='no'></iframe>
 											</div>
 
 										</div>
