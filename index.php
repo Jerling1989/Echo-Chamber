@@ -64,6 +64,7 @@
 	<!-- END MAIN COLUMN (NEWSFEED) -->
 
 
+	<!-- POST LOADING SCRIPT (NEWSFEED) -->
 	<script>
 
 		// CREATE USERLOGGEDIN VARIABLE
@@ -137,6 +138,7 @@
 		});
 
 	</script>
+	<!-- END POST LOADING SCRIPT (NEWSFEED) -->
 
 
 	</div>
