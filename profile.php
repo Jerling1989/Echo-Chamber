@@ -2,8 +2,6 @@
 
 	// INCLUDE NECCESSARY FILES AND SCRIPTS
 	include('includes/header.php');
-	include('includes/classes/User.php');
-	include('includes/classes/Post.php');
 	
 	// CHECK IF USERNAME IS SET FOR URL
 	if(isset($_GET['profile_username'])) {

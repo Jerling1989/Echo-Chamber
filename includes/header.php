@@ -1,6 +1,9 @@
 <?php
-	// REQUIRE CONFIG.PHP (CONNECTION FILE)
+
+	// INCLUDE NECCESSARY FILES AND SCRIPTS
 	require 'config/config.php';
+	include('includes/classes/User.php');
+	include('includes/classes/Post.php');
 
 	// CHECK IF USER IS SIGNED IN
 	if(isset($_SESSION['username'])) {

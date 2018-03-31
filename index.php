@@ -2,8 +2,6 @@
 
 	// INCLUDE NECCESSARY FILES AND SCRIPTS
 	include('includes/header.php');
-	include('includes/classes/User.php');
-	include('includes/classes/Post.php');
 
 	// IF NEW POST IS SUBMITTED
 	if (isset($_POST['post'])) {

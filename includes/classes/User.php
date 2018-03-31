@@ -57,6 +57,18 @@
 			return $row['profile_pic'];
 		}
 
+		// GET FRIEND ARRAY FUNCTION
+		public function getFriendArray() {
+			// USERNAME VARIABLE
+			$username = $this->user['username'];
+			// DATABASE QUERY (FRIEND ARRAY)
+			$query = mysqli_query($this->connection, "SELECT friend_array FROM users WHERE username='$username'");
+			// STORE FRIEND ARRAY IN ARRAY
+			$row = mysqli_fetch_array($query);
+			// RETURN FRIEND ARRAY
+			return $row['friend_array'];
+		}
+
 		// GET USER ACCOUNT CLOSED DATA FUNCTION
 		public function isClosed() {
 			// USERNAME VARIABLE
