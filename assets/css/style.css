@@ -305,7 +305,23 @@ textarea:focus {
 	color: #FFFFFF;
 }
 
+#accept-button {
+	width: 20%;
+	height: 28px;
+	border-radius: 5px;
+	margin: 5px;
+	border: none;
+	color: #FFFFFF;
+}
 
+#ignore-button {
+	width: 20%;
+	height: 28px;
+	border-radius: 5px;
+	margin: 5px;
+	border: none;
+	color: #FFFFFF;
+}
 
 
 

@@ -27,7 +27,7 @@
 				$user_from_obj = new User($connection, $user_from);
 
 				// DISPLAY NAME OF USER REQUEST IS FROM
-				echo $user_from_obj->getUsername() . 'sent you a friend request!';
+				echo $user_from_obj->getUsername() . ' sent you a friend request!';
 				// VARIABLE FOR FRIEND ARRAY FROM USER REQUEST IS FROM
 				$user_from_friend_array = $user_from_obj->getFriendArray();
 
@@ -62,9 +62,9 @@
 				<!-- REQUEST BUTTON FORM -->
 				<form action="requests.php" method="POST">
 					<!-- ACCEPT REQUEST BUTTON -->
-					<input type="submit" name="accept_request<?php echo $user_from; ?>" id="accept-button" value="Accept" />
+					<input type="submit" class="success" name="accept_request<?php echo $user_from; ?>" id="accept-button" value="Accept" />
 					<!-- IGNORE REQUEST BUTTON -->
-					<input type="submit" name="ignore_request<?php echo $user_from; ?>" id="ignore-button" value="Ignore" />
+					<input type="submit" class="danger" name="ignore_request<?php echo $user_from; ?>" id="ignore-button" value="Ignore" />
 				</form>
 				<!-- END REQUEST BUTTON FORM -->
 
