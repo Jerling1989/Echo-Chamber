@@ -85,8 +85,8 @@
 			<a href="#">
 				<i class="fas fa-bell fa-lg"></i>
 			</a>
-			<!-- FRIENDS -->
-			<a href="#">
+			<!-- FRIEND REQUESTS -->
+			<a href="requests.php">
 				<i class="fas fa-users fa-lg"></i>
 			</a>
 			<!-- SETTTINGS -->
