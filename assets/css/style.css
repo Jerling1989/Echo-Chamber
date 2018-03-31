@@ -149,7 +149,6 @@ textarea:focus {
 	font-size: 15px;
 	padding: 0px 5px;
 	min-height: 75px;
-	cursor: pointer;
 }
 
 .post_profile_pic {
@@ -292,7 +291,7 @@ textarea:focus {
 	background-color: #349ADB;
 }
 
-.deep_blue {
+.deep-blue {
 	background-color: #0043F0;
 }
 
@@ -323,7 +322,15 @@ textarea:focus {
 	color: #FFFFFF;
 }
 
-
+.delete-button {
+	height: 22px;
+	width: 22px;
+	padding: 0px;
+	float: right;
+	border-radius: 4px;
+	position: relative;
+	right: -15px;
+}
 
 
 

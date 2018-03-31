@@ -119,7 +119,7 @@
 
 						// IF POST WAS ADDED BY USER LOGGED IN, CREATE DELETE BUTTON
 						if ($userLoggedIn == $added_by) {
-							$delete_button = '<button class="delete-button danger" id="post$id">X</button>';
+							$delete_button = "<button class='delete-button btn-danger' id='post$id'>X</button>";
 							// ELSE LEAVE DELETE VARIABLE BLANK
 						} else {
 							$delete_button = '';
@@ -225,7 +225,7 @@
 						}
 
 						// CREATE POST STRING VARIABLE TO BE DISPLAYED
-						$str .= "<div class='status_post' onClick='javascript:toggle$id()'>
+						$str .= "<div class='status_post'>
 											<div class='post_profile_pic'>
 												<img src='$profile_pic' width='50' />
 											</div>
@@ -243,7 +243,7 @@
 											</div>
 
 											<div class='newsfeedPostOptions'>
-												Comments($comments_check_num)&nbsp;&nbsp;&nbsp;
+												<span onClick='javascript:toggle$id()'>Comments($comments_check_num)</span>&nbsp;&nbsp;&nbsp;
 												<iframe src='like.php?post_id=$id' scrolling='no'></iframe>
 											</div>
 
@@ -261,9 +261,9 @@
 							// IF USER CLICKS TO DELETE POST
 							$('#post<?php echo $id; ?>').on('click', function() {
 								// CONFIRM USER WANTS TO DELETE POST
-								bootbox.confirm('Are you sure you want to delete this post?', function(result) {
+								bootbox.confirm("Are you sure you want to delete this post?", function(result) {
 									// SEND RESULTS TO DELETE_POST.PHP
-									$.post('includes/form_handlers/delete_post.php?post=id<?php echo $id; ?>', {result:result});
+									$.post('includes/form_handlers/delete_post.php?post_id=<?php echo $id; ?>', {result:result});
 									// RELOAD PAGE
 									if (result) {
 										location.reload();
