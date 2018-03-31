@@ -158,6 +158,36 @@
 			$query = mysqli_query($this->connection, "INSERT INTO friend_requests VALUES('', '$user_to', '$user_from')");
 		}
 
+		// CALCULATE MUTUAL FRIENDS FUNCTION
+		public function getMutualFriends($user_to_check) {
+			// $MUTUALFRIENDS VARIABLE
+			$mutualFriends = 0;
+			// SET $USER_ARRAY VARIABLE
+			$user_array = $this->user['friend_array'];
+			// SPLIT $USER_ARRAY VARIABLE AT COMMA
+			$user_array_explode = explode(',', $user_array);
+
+			// DATABASE QUERY (FRIEND ARRAY OF $USER_TO_CHECK)
+			$query = mysqli_query($this->connection, "SELECT friend_array FROM users WHERE username='$user_to_check'");
+			// STORE QUERY RESULTS IN ARRAY
+			$row = mysqli_fetch_array($query);
+			// SET $USER_TO_CHECK_ARRAY VARIABLE FROM FRIEND ARRAY
+			$user_to_check_array = $row['friend_array'];
+			// SPLIT $USER_TO_CHECK_ARRAY VARIABLE AT COMMA
+			$user_to_check_array_explode = explode(',', $user_to_check_array);
+
+			// LOOP THROUGH BOTH FRIEND ARRAYS AND ADD 1 TO $MUTUALFRIENDS WHEN THEY MATCH
+			foreach($user_array_explode as $i) {
+				foreach($user_to_check_array_explode as $j) {
+					if ($i == $j && $i != '') {
+						$mutualFriends++;
+					}
+				}
+			}
+			// RETURN VALUE OF MUTAL FRIENDS
+			return $mutualFriends;
+		}
+
 
 
 	}

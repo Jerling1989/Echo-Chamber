@@ -98,6 +98,16 @@
 		<!-- POST SOMETHING MODAL TRIGGER -->
 		<input type="submit" class="deep-blue" data-toggle="modal" data-target="#post-modal" value="Post Something" />
 
+		<!-- MUTUAL FRIEND CALCULATION SCRIPT -->
+		<?php 
+			if ($userLoggedIn != $username) {
+				echo '<div class="profile-info-bottom">';
+				echo $logged_in_user_obj->getMutualFriends($username) . ' Mutual friends';
+				echo '</div>';
+			}
+		?>
+		<!-- END MUTUAL FRIEND CALCULATION SCRIPT -->
+
 	</div>
 	<!-- END LEFT USER INFO PANEL -->
 
