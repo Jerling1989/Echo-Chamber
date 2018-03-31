@@ -104,12 +104,17 @@
 
 
 
+	<!-- PROFILE FEED -->
+	<div class="profile-main-column column">
 
-	<div class="main-column column">
+		<!-- DIV TO DISPLAY POSTS -->
+		<div class="posts_area"></div>
 
-		<?php echo $username; ?>
+		<!-- LOADING GIF -->
+		<div id="loading"><img src="assets/img/icons/loading.gif" /></div>
 
 	</div>
+	<!-- END PROFILE FEED -->
 
 
 
@@ -142,13 +147,93 @@
 				<!-- MODAL FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Post</button>
+	        <button type="button" class="btn btn-primary" name="post_button" id="submit_profile_post">Post</button>
 	      </div>
 
 	    </div>
 	  </div>
 	</div>
 	<!-- END POST MODAL -->
+
+
+
+	<!-- POST LOADING SCRIPT (PROFILE FEED) -->
+	<script>
+
+		// CREATE USER LOGGED IN VARIABLE
+		var userLoggedIn = '<?php echo $userLoggedIn; ?>';
+		// CREATE PROFILE USERNAME VARIABLE
+		var profileUsername = '<?php echo $username; ?>';
+
+		// DOCUMENT READY FUNCTION
+		$(document).ready(function() {
+			// SHOW LOADING GIF
+			$('#loading').show();
+
+			// ORIGINAL AJAX REQUEST FOR LOADING FIRST POSTS
+			$.ajax({
+				url: 'includes/handlers/ajax_load_profile_posts.php',
+				type: 'POST',
+				data: 'page=1&userLoggedIn=' + userLoggedIn + '&profileUsername=' + profileUsername,
+				cache:false,
+
+				success: function(data) {
+					// HIDE LOADING GIF
+					$('#loading').hide();
+					// LOAD POSTS ONTO POSTS_AREA DIV
+					$('.posts_area').html(data);
+				}
+			});
+
+			// AUTO LOAD POSTS (INFINITE SCROLLING) FUNCTION
+			$(window).scroll(function() {
+				// POSTS_AREA DIV HEIGHT VARIABLE
+				var height = $('.posts_area').height();
+				// SCROLLTOP VARIABLE
+				var scroll_top = $(this).scrollTop();
+				// VARIABLE FOR NEXT PAGE (MORE POSTS)
+				var page = $('.posts_area').find('.nextPage').val();
+				// VARIABLE FOR NO MORE POSTS
+				var noMorePosts = $('.posts_area').find('.noMorePosts').val();
+
+				// CHECK IF THE PAGE IS SCROLLED TO THE BOTTOM OF POSTS_AREA DIV
+				// AND THERE ARE ALSO MORE POSTS
+				if ((document.body.scrollHeight == document.body.scrollTop + window.innerHeight) && noMorePosts == 'false') {
+
+					// SHOW LOADING GIF
+					$('#loading').show();
+
+					// VARIABLE OF AJAX REQUEST FOR MORE POSTS
+					var ajaxReq = $.ajax({
+						url: 'includes/handlers/ajax_load_profile_posts.php',
+						type: 'POST',
+						data: 'page=' + page + '&userLoggedIn=' + userLoggedIn + '&profileUsername=' + profileUsername,
+						cache:false,
+
+						success: function(response) {
+							// REMOVE CURRENT .NEXTPAGE
+							$('.posts_area').find('.nextPage').remove();
+							// REMOVE CURRENT NOMORE POSTS
+							$('.posts_area').find('.noMorePosts').remove();
+
+							// HIDE LOADING GIF
+							$('#loading').hide();
+							// LOAD POSTS ONTO POSTS_AREA DIV
+							$('.posts_area').append(response);
+						}
+					});
+
+
+				} // END IF
+
+				return false;
+
+			}); // END AUTO LOAD POSTS FUNCTION
+
+		});
+
+	</script>
+	<!-- END POST LOADING SCRIPT (PROFILE FEED) -->
 
 
 

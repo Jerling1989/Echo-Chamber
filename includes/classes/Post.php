@@ -291,8 +291,225 @@
 			}
 			// DISPLAY POST VARIABLE ON PAGE
 			echo $str;
+		}
 
 
+		// FUNCTION TO LOAD POSTS ON USER PROFILE
+		public function loadProfilePosts($data, $limit) {
+
+			$page = $data['page'];
+			$profileUser = $data['profileUsername'];
+			$userLoggedIn = $this->user_obj->getUsername();
+
+			if ($page == 1) {
+				$start = 0;
+			} else {
+				$start = ($page - 1) * $limit;
+			}
+
+			// CREATE STRING VARIABLE
+			$str = '';
+			// DATABASE QUERY TO GET POSTS BY PROFILE USER OR TO PROFILE USER
+			$data_query = mysqli_query($this->connection, "SELECT * FROM posts WHERE deleted='no' AND ((added_by='$profileUser' AND user_to='none') OR user_to='$profileUser') ORDER BY id DESC");
+
+			if (mysqli_num_rows($data_query) > 0) {
+
+				$num_iterations = 0; // NUMBER OF RESULTS CHECKED
+				$count = 1;
+
+				// LOOP THROUGH QUERY RESULTS ARRAY
+				while ($row = mysqli_fetch_array($data_query)) {
+					// CREATE POST VARIABLES
+					$id = $row['id'];
+					$body = $row['body'];
+					$added_by = $row['added_by'];
+					$date_time = $row['date_added'];
+
+
+					// CHECK IF IT'S GONE THROUGH ALL POSTS THAT HAVE BEEN LOADED
+					if ($num_iterations++ < $start) {
+						continue;
+					}
+					// ONCE 10 POSTS HAVE BEEN LOADED, BREAK
+					if ($count > $limit) {
+						break;
+					} else {
+						$count++;
+					}
+
+					// IF POST WAS ADDED BY USER LOGGED IN, CREATE DELETE BUTTON
+					if ($userLoggedIn == $added_by) {
+						$delete_button = "<button class='delete-button btn-danger' id='post$id'>X</button>";
+						// ELSE LEAVE DELETE VARIABLE BLANK
+					} else {
+						$delete_button = '';
+					}
+
+					// DATABASE QUERY TO GET FIRST NAME, LAST NAME, & PROFILE PIC OF USER WHO ADDED POST
+					$user_details_query = mysqli_query($this->connection, "SELECT username, profile_pic FROM users WHERE username='$added_by'");
+					// STORE QUERY RESULTS INTO ARRAY
+					$user_row = mysqli_fetch_array($user_details_query);
+					// CREATE USERNAME VARIABLE FROM QUERY
+					$username = $user_row['username'];
+					// CREATE PROFILE_PIC VARIABLE FROM QUERY
+					$profile_pic = $user_row['profile_pic'];
+
+					?>
+
+					<script>
+						// COMMENT TOGGLE FUNCTION
+						function toggle<?php echo $id; ?>() {
+
+							var target = $(event.target);
+							if (!target.is('a')) {
+
+								// GET COMMENT BY ID, STORE IN VARIABLE
+								var element = document.getElementById('toggleComment<?php echo $id; ?>');
+
+								// IF SECTION IS VISIBLE, THEN HIDE IT
+								if (element.style.display == 'block') {
+									element.style.display = 'none';
+									// IF SECTION IS HIDDEN, MAKE IT VISIBLE
+								} else {
+									element.style.display = 'block';
+								}
+							}
+						}
+					</script>
+
+					<?php
+
+					// DATABASE QUERY TO CHECK FOR COMMENTS
+					$comment_check = mysqli_query($this->connection, "SELECT * FROM comments WHERE post_id='$id'");
+					// STORE NUMBER OF RESULTS FROM QUERY
+					$comments_check_num = mysqli_num_rows($comment_check);
+
+					// CURRENT TIME
+					$date_time_now = date('Y-m-d H:i:s');
+					// DATE POST WAS ADDED VARIABLE
+					$start_date = new DateTime($date_time);
+					// CURRENT DATE VARIABLE
+					$end_date = new DateTime($date_time_now);
+					// DIFFERENCE BETWEEN BOTH DATE VARIABLES
+					$interval = $start_date->diff($end_date);
+					// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE YEAR
+					if ($interval->y >= 1) {
+						if($interval == 1) {
+							$time_message = $interval->y . ' year ago'; // ONE YEAR
+						} else {
+							$time_message = $interval->y . ' years ago'; // MULTIPLE YEARS
+						}
+						// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE MONTH
+					} else if ($interval->m >= 1) {
+						if ($interval->d == 0) {
+							$days = ' ago'; // NO ADDITIONAL DAYS
+						} else if ($interval->d == 1) {
+							$days = $interval->d . ' day ago'; // ONE ADDITIONAL DAYS
+						} else {
+							$days = $interval->d . ' days ago'; // MULTIPLE ADDITIONAL DAYS
+						}
+
+						if($interval->m == 1) {
+							$time_message = $interval->m . ' month ago' . $days; // ONE MONTH PLUS DAYS
+						} else {
+							$time_message = $interval->m . ' months ago' . $days; // MULTIPLE MONTHS PLUS DAYS
+						}
+						// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE DAY
+					} else if ($interval->d >= 1) {
+						if ($interval->d == 1) {
+							$time_message = 'Yesterday';
+						} else {
+							$time_message = $interval->d . ' days ago';
+						}
+						// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE HOUR
+					} else if ($interval->h >= 1) {
+						if ($interval->h == 1) {
+							$time_message = $interval->h . ' hour ago'; // ONE HOUR
+						} else {
+							$time_message = $interval->h . ' hours ago'; // MULTIPLE HOURS
+						}
+						// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE MINUTE
+					} else if ($interval->i >= 1) {
+						if ($interval->i == 1) {
+							$time_message = $interval->i . ' minute ago'; // ONE MINUTE
+						} else {
+							$time_message = $interval->i . ' minutes ago'; // MULTIPLE MINUTES
+						}
+						// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE SECOND
+					} else {
+						if ($interval->s < 30) {
+							$time_message = 'Just now'; // LESS THAN 30 SECONDS
+						} else {
+							$time_message = $interval->s . ' seconds ago'; // OVER 30 SECONDS
+						}
+					}
+
+					// CREATE POST STRING VARIABLE TO BE DISPLAYED
+					$str .= "<div class='status_post'>
+										<div class='post_profile_pic'>
+											<img src='$profile_pic' width='50' />
+										</div>
+
+										<div class='posted_by' style='color: #ACACAC;'>
+											<a href='$added_by'> $username </a> &nbsp;&nbsp;&nbsp;&nbsp; $time_message
+												$delete_button
+										</div>
+
+										<div id='post_body'>
+											$body
+											<br />
+											<br />
+											<br />
+										</div>
+
+										<div class='newsfeedPostOptions'>
+											<span onClick='javascript:toggle$id()'>Comments($comments_check_num)</span>&nbsp;&nbsp;&nbsp;
+											<iframe src='like.php?post_id=$id' scrolling='no'></iframe>
+										</div>
+
+									</div>
+									<div class='post_comment' id='toggleComment$id' style='display: none;'>
+										<iframe src='comment_frame.php?post_id=$id' id='comment_iframe' frameborder='0'></iframe>
+									</div>
+									<hr />";
+
+					?>
+
+					<script>
+						$(document).ready(function() {
+							// IF USER CLICKS TO DELETE POST
+							$('#post<?php echo $id; ?>').on('click', function() {
+								// CONFIRM USER WANTS TO DELETE POST
+								bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+									// SEND RESULTS TO DELETE_POST.PHP
+									$.post('includes/form_handlers/delete_post.php?post_id=<?php echo $id; ?>', {result:result});
+									// RELOAD PAGE
+									if (result) {
+										location.reload();
+									}
+								});
+							});
+						});
+					</script>
+
+					<?php
+
+				} // END WHILE LOOP
+
+
+				// IF THERE ARE MORE POSTS, ENABLE MORE SCROLLING
+				if ($count > $limit) {
+					$str .= "<input type='hidden' class='nextPage' value='" . ($page + 1) . "'>
+									 <input type='hidden' class='noMorePosts' value='false'>";
+					// ELSE DISPLAY 'NO MORE POSTS TO SHOW'
+				} else {
+					$str .= "<input type='hidden' class='noMorePosts' value='true'>
+									 <p style='text-align: center'>No More Posts to Show</p>";
+				}
+
+			}
+			// DISPLAY POST VARIABLE ON PAGE
+			echo $str;
 		}
 
 	}
