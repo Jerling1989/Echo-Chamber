@@ -17,6 +17,28 @@
 		$num_friends = (substr_count($user_array['friend_array'], ',')) - 1;
 	}
 
+	// IF USER HITS REMOVE FRIEND BUTTON
+	if (isset($_POST['remove_friend'])) {
+		// CREATE NEW USER OBJECT FOR LOGGED IN USER
+		$user = new User($connection, $userLoggedIn);
+		// RUN FUNCTION TO REMOVE USER OF PROFILE
+		$user->removeFriend($username);
+	}
+
+	// IF USER HITS ADD FRIEND BUTTON
+	if (isset($_POST['add_friend'])) {
+		// CREATE NEW USER OBJECT FOR LOGGED IN USER
+		$user = new User($connection, $userLoggedIn);
+		// RUN FUNCTION TO SEND REQUEST TO USER OF PROFILE
+		$user->sendRequest($username);
+	}
+
+	// IF USER HITS TO RESPOND TO FRIEND REQUEST
+	if (isset($_POST['respond_request'])) {
+		// REDIRECT TO FRIEND REQUEST PAGE
+		header('Location: requests.php');
+	}
+
 ?>
 
 	<style type="text/css">
@@ -40,7 +62,7 @@
 		<!-- END USER PROFILE INFO -->
 
 		<!-- FRIEND REQUEST BUTTON FORM -->
-		<form action="<?php echo $username; ?>">
+		<form action="<?php echo $username; ?>" method="POST">
 			<?php 
 				// CREATE NEW USER OBJECT FOR OWNER OF PROFILE
 				$profile_user_obj = new User($connection, $username);

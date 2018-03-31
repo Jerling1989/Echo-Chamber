@@ -87,9 +87,9 @@
 		}
 
 		// CHECK IF USER RECIEVED FRIEND REQUEST
-		public function didReceiveRequest($user_to) {
+		public function didReceiveRequest($user_from) {
 			// USER_FROM VARIABLE
-			$user_from = $this->user['username'];
+			$user_to = $this->user['username'];
 			// DATABASE QUERY (FRIEND REQUEST)
 			$check_request_query = mysqli_query($this->connection, "SELECT * FROM friend_requests WHERE user_to='$user_to' AND user_from ='$user_from'");
 
@@ -102,9 +102,9 @@
 		}
 
 		// CHECK IF USER SENT FRIEND REQUEST
-		public function didSendRequest($user_from) {
+		public function didSendRequest($user_to) {
 			// USER_TO VARIABLE
-			$user_to = $this->user['username'];
+			$user_from = $this->user['username'];
 			// DATABASE QUERY (FRIEND REQUEST)
 			$check_request_query = mysqli_query($this->connection, "SELECT * FROM friend_requests WHERE user_to='$user_to' AND user_from ='$user_from'");
 
@@ -137,6 +137,16 @@
 			// UPDATE NEW ARRAY INTO USER PROFILE DATABASE
 			$remove_friend = mysqli_query($this->connection, "UPDATE users SET friend_array='$new_friend_array' WHERE username='$user_to_remove'");
 		}
+
+		// FUNCTION TO SEND FRIEND REQUEST
+		public function sendRequest($user_to) {
+			// $USER_FROM VARIABLE
+			$user_from = $this->user['username'];
+			// DATABASE QUERY (SEND REQUEST DATA INTO FRIEND_REQUESTS TABLE)
+			$query = mysqli_query($this->connection, "INSERT INTO friend_requests VALUES('', '$user_to', '$user_from')");
+		}
+
+
 
 	}
 
