@@ -24,8 +24,9 @@
 
 
 
-<html>
+<html lang="en-US">
 <head>
+	<meta charset="UTF-8">
 	<!-- PAGE TITLE -->
 	<title>Echo Chamber</title>
 	<!-- FAVICON -->

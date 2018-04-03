@@ -18,3 +18,12 @@ $(document).ready(function() {
 	});
 
 });
+
+// FUNCTION TO GET USERS FROM SEARCH FOR NEW USER TO MESSAGE
+function getUsers(value, user) {
+	// POST AJAX WITH VALUES
+	$.post('includes/handlers/ajax_friend_search.php', {query:value, userLoggedIn:user}, function(data) {
+		// LOAD DATA IN RESULTS DIV
+		$('.results').html(data);
+	});
+}
