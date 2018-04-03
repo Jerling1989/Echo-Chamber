@@ -364,7 +364,36 @@ textarea:focus {
 	border-radius: 5px;
 }
 
+.message {
+	border: 1px solid #000000;
+	padding: 5px 10px;
+	display: inline-block;
+	color: #FFFFFF;
+}
 
+.message#blue {
+	background-color: #3498DB;
+	border-color: #2980B9;
+	border-radius: 0px 5px 5px 5px;
+	float: left;
+	margin-bottom: 5px;
+}
+
+.message#green {
+	background-color: #2ECC71;
+	border-color: #27AE60;
+	border-radius: 5px 0px 5px 5px;
+	float: right;
+	margin-bottom: 5px;
+}
+
+.loaded_messages {
+	height: 65%;
+	min-height: 300px;
+	max-height: 400px;
+	overflow: scroll;
+	margin-bottom: 10px;
+}
 
 
 

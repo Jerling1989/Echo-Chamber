@@ -72,7 +72,7 @@
 				$body = $row['body'];
 
 				// CONDITIONAL STATEMENT TO SET $DIV_TOP VARIABLE WITH CORRESPONDING DIV ID
-				$div_top = ($user_to == $userLoggedIn) ? '<div class="message" id="green">' : '<div class="message" id="blue">';
+				$div_top = ($user_to == $userLoggedIn) ? '<div class="message" id="blue">' : '<div class="message" id="green">';
 				// CONCATENATE MESSAGE INFO TO $DATA VARIABLE
 				$data = $data . $div_top . $body . '</div><br /><br />';
 			}
