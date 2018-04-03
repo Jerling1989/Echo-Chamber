@@ -53,6 +53,17 @@
 			}
 		}
 
+		// FUNCTION TO RETRIEVE MESSAGES
+		public function getMessages() {
+			// SET $USERLOGGEDIN VARIABLE
+			$userLoggedIn = $this->user_obj->getUsername();
+			$data = '';
+			// DATABASE QUERY (UPDATE OPENED TO "YES")
+			$query = mysqli_query($this->connection, "UPDATE messages SET opened='yes' WHERE user_to='$userLoggedIn' AND user_from='$otherUser'");
+			// DATABASE QUERY (LOAD MESSAGES BETWEEN TWO USERS)
+			$get_messages_query = mysqli_query($this->connection, "SELECT * FROM messages WHERE (user_to='$userLoggedIn' AND user_from='$otherUser') OR (user_to='$otherUser' AND user_from='$userLoggedIn')");
+		}
+
 
 
 	}

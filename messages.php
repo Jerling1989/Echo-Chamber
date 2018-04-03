@@ -67,14 +67,19 @@
 <!-- MAIN MESSAGES COLUMN -->
 <div class="main-column column" id="main-column">
 	<?php
-		// IF USER IS NOT NEW CREATE HEADING WITH LINK TO USER ACCOUNT AND FIRST & LAST NAME
+		// IF USER_TO IS NOT NEW CREATE HEADING WITH LINK TO USER ACCOUNT AND FIRST & LAST NAME
 		if ($user_to != 'new') {
 			echo '<h4>You and <a href="$user_to">' . $user_to_obj->getFirstAndLastName() . '</a></h4><hr /><br />';
+			echo '<div class="loaded_messages">';
+			echo $message_obj->getMessages($user_to);
+			echo '</div>';
+		} else {
+			echo '<h4>New Message</h4>';
 		}
 	?>
 
 	<!-- MESSAGES DIV -->
-	<div class="loaded_messages">
+	<div class="message_post">
 		<!-- MESSAGE FORM -->
 		<form action="" method="POST">
 			<?php
