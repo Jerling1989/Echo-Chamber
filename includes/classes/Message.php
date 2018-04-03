@@ -54,14 +54,30 @@
 		}
 
 		// FUNCTION TO RETRIEVE MESSAGES
-		public function getMessages() {
+		public function getMessages($otherUser) {
 			// SET $USERLOGGEDIN VARIABLE
 			$userLoggedIn = $this->user_obj->getUsername();
+			// CREATE EMPTY $DATA VARIABLE
 			$data = '';
 			// DATABASE QUERY (UPDATE OPENED TO "YES")
 			$query = mysqli_query($this->connection, "UPDATE messages SET opened='yes' WHERE user_to='$userLoggedIn' AND user_from='$otherUser'");
 			// DATABASE QUERY (LOAD MESSAGES BETWEEN TWO USERS)
 			$get_messages_query = mysqli_query($this->connection, "SELECT * FROM messages WHERE (user_to='$userLoggedIn' AND user_from='$otherUser') OR (user_to='$otherUser' AND user_from='$userLoggedIn')");
+
+			// WHILE DATABASE QUERY YEILDS RESULTS
+			while ($row = mysqli_fetch_array($get_messages_query)) {
+				// SET VARIABLES
+				$user_to = $row['user_to'];
+				$user_from = $row['user_from'];
+				$body = $row['body'];
+
+				// CONDITIONAL STATEMENT TO SET $DIV_TOP VARIABLE WITH CORRESPONDING DIV ID
+				$div_top = ($user_to == $userLoggedIn) ? '<div class="message" id="green">' : '<div class="message" id="blue">';
+				// CONCATENATE MESSAGE INFO TO $DATA VARIABLE
+				$data = $data . $div_top . $body . '</div><br /><br />';
+			}
+			// RETURN $DATA VARIABLE
+			return $data;
 		}
 
 

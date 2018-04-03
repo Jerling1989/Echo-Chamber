@@ -30,9 +30,7 @@
 	<title>Echo Chamber</title>
 	<!-- FAVICON -->
 	<link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
-	<!-- META DATA -->
-  <meta charset="utf-8" />
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<!-- MOBILE VIEWPORT -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- FONT AWESOME LINKS -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
