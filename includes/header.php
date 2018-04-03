@@ -4,6 +4,7 @@
 	require 'config/config.php';
 	include('includes/classes/User.php');
 	include('includes/classes/Post.php');
+	include('includes/classes/Message.php');
 
 	// CHECK IF USER IS SIGNED IN
 	if(isset($_SESSION['username'])) {
