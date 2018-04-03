@@ -206,10 +206,10 @@
 													 	<div class="user_found_messages">
 														 	<img src="'.$user_found_obj->getProfilePic().'" style="border-radius: 5px; margin-right: 5px;" />'
 														 	.$user_found_obj->getFirstAndLastName().'
-														 	<span class="timestamp_smaller" id="grey">'
+														 	<span class="timestamp_smaller grey-font">'
 														 		.$latest_message_details[2]. 
 														 	'</span>
-														 	<p id="grey" style="margin: 0;">'
+														 	<p class="grey-font" style="margin: 0;">'
 														 		.$latest_message_details[0].$split. 
 														 	'</p>
 														</div>
