@@ -40,8 +40,17 @@
 				return $user_from;
 			}
 
+		}
 
-
+		// FUNCTION TO SEND NEW MESSAGE
+		public function sendMessage($user_to, $body, $date) {
+			// IF BODY OF MESSAGE IS NOT BLANK
+			if ($body != '') {
+				// SET $USERLOGGEDIN VARIABLE
+				$userLoggedIn = $this->user_obj->getUsername();
+				// DATABASE QUERY (INSERT MESSAGE INTO MESSAGES TABLE)
+				$query = mysqli_query($this->connection, "INSERT INTO messages VALUES('', '$user_to', '$userLoggedIn', '$body', '$date', 'no', 'no', 'no')");
+			}
 		}
 
 

@@ -24,12 +24,22 @@
 		$user_to_obj = new User($connection, $user_to);
 	}
 
+	// IF USER SUBMITS A MESSAGE
+	if (isset($_POST['post_message'])) {
+		if (isset($_POST['message_body'])) {
+			// SET MESSAGE VARIABLES
+			$body = mysqli_real_escape_string($connection, $_POST['message_body']);
+			$date = date('Y-m-d H:i:s');
+			// CREATE NEW MESSAGE OBJECT
+			$message_obj->sendMessage($user_to, $body, $date);
+		}
+	}
+
 ?>
 
 
 <!-- USER DETAILS PANEL -->
 <div class="user-details column">
-
 	<!-- PROFILE PIC AND LINK -->
 	<a href="<?php echo $userLoggedIn; ?>">
 		<img src="<?php echo $user['profile_pic']; ?>" />
@@ -50,11 +60,11 @@
 		?>
 	</div>
 	<!-- END NAME, POSTS, & LIKES -->
-
 </div>
 <!-- END USER DETAILS PANEL -->
 
 
+<!-- MAIN MESSAGES COLUMN -->
 <div class="main-column column" id="main-column">
 	<?php
 		// IF USER IS NOT NEW CREATE HEADING WITH LINK TO USER ACCOUNT AND FIRST & LAST NAME
@@ -63,24 +73,30 @@
 		}
 	?>
 
+	<!-- MESSAGES DIV -->
 	<div class="loaded_messages">
+		<!-- MESSAGE FORM -->
 		<form action="" method="POST">
 			<?php
-
+				// FORM FOR SENDING MESSAGE TO NEW USER
 				if ($user_to == 'new') {
 					echo 'Select the friend you would like to message <br /><br />';
 					echo 'To: <input type="text" />';
 					echo '<div class="results"></div>';
+
+					// FORM FOR CONTINUING TO SEND MESSAGES TO SELECTED USER
 				} else {
 					echo '<textarea name="message_body" id="message_textarea" placeholder="Write your message..."></textarea>';
 					echo '<input type="submit" name="post_message" class="info" id="message_submit" value="Send" />';
 				}
-
 			?>
 		</form>
+		<!-- END MESSAGE FORM -->
 	</div>
+	<!-- END MESSAGES DIV -->
 
 </div>
+<!-- END MAIN MESSAGES COLUMN -->
 
 
 
