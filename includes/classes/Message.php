@@ -80,6 +80,44 @@
 			return $data;
 		}
 
+		// FUNCTION TO GET LATEST MESSAGE BETWEEN USERS
+		public function getLatestMessage($userLoggedIn, $username) {
+
+		}
+
+		// FUNCTION TO LOAD CONVERSATION LIST
+		public function getConvos() {
+			// SET $USERLOGGEDIN VARIABLE
+			$userLoggedIn = $this->user_obj->getUsername();
+			// CREATE EMPTY $RETURN_STRING VARIABLE
+			$return_string = '';
+			// CREATE EMPTY ARRAY FOR $CONVOS VARIABLE
+			$convos = array();
+
+			// DATABASE QUERY (FIND USERNAMES OF PEOPLE IN CONVERSATIONS)
+			$query = mysqli_query($this->connection, "SELECT user_to, user_from FROM messages WHERE user_to='$userLoggedIn' OR user_from='$userLoggedIn'");
+
+			// WHILE DATABASE QUERY YEILDS RESULTS
+			while ($row = mysqli_fetch_array($query)) {
+				// CONDITIONAL TO SET $USER_TO_PUSH VARIABLE TO PROPER USER
+				$user_to_push = ($row['user_to'] != $userLoggedIn) ? $row['user_to'] : $row['user_from'];
+
+				// CHECK THAT USER IS NOT ALREADY IN ARRAY
+				if (!in_array($user_to_push, $convos)) {
+					// PUSH USER INTO ARRAY
+					array_push($convos, $user_to_push);
+				}
+
+				// FOR EACH ITERATION OF THE $CONVOS ARRAY
+				foreach ($convos as $username) {
+					// CREATE NEW USER OBJECT
+					$user_found_obj = new User($this->connection, $username);
+					// CREATE VARIABLE OF LATEST MESSAGE BETWEEN USERS
+					$latest_message_details = $this->getLatestMessage($userLoggedIn, $username);
+				}
+			}
+		}
+
 
 
 	}
