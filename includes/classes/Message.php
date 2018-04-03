@@ -61,7 +61,7 @@
 			$data = '';
 			// DATABASE QUERY (UPDATE OPENED TO "YES")
 			$query = mysqli_query($this->connection, "UPDATE messages SET opened='yes' WHERE user_to='$userLoggedIn' AND user_from='$otherUser'");
-			// DATABASE QUERY (LOAD MESSAGES BETWEEN TWO USERS)
+			// DATABASE QUERY (FIND MESSAGES BETWEEN TWO USERS)
 			$get_messages_query = mysqli_query($this->connection, "SELECT * FROM messages WHERE (user_to='$userLoggedIn' AND user_from='$otherUser') OR (user_to='$otherUser' AND user_from='$userLoggedIn')");
 
 			// WHILE DATABASE QUERY YEILDS RESULTS
@@ -81,8 +81,85 @@
 		}
 
 		// FUNCTION TO GET LATEST MESSAGE BETWEEN USERS
-		public function getLatestMessage($userLoggedIn, $username) {
+		public function getLatestMessage($userLoggedIn, $user2) {
+			// CREATE EMPTY ARRAY FOR THE $DETAILS_ARRAY VARIABLE
+			$details_array = array();
 
+			// DATABASE QUERY (FIND 1 MESSAGE BETWEEN BOTH USERS)
+			$query = mysqli_query($this->connection, "SELECT body, user_to FROM message WHERE (user_to='$userLoggedIn' AND user_from='$user2') OR (user_to='$user2' AND user_from='$userLoggedIn') ORDER BY id DESC LIMIT 1");
+
+			// STORE QUERY RESULTS INTO $ROW ARRAY
+			$row = mysqli_fetch_array($query);
+			// CONDITIONAL STATEMENT TO SET $SENT_BY TO PROPER STRING
+			$sent_by = ($row['user_to'] == $userLoggedIn) ? 'They said: ' : 'You said: ';
+
+			// CURRENT TIME
+			$date_time_now = date('Y-m-d H:i:s');
+			// DATE POST WAS ADDED VARIABLE
+			$start_date = new DateTime($date_time);
+			// CURRENT DATE VARIABLE
+			$end_date = new DateTime($date_time_now);
+			// DIFFERENCE BETWEEN BOTH DATE VARIABLES
+			$interval = $start_date->diff($end_date);
+			// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE YEAR
+			if ($interval->y >= 1) {
+				if($interval == 1) {
+					$time_message = $interval->y . ' year ago'; // ONE YEAR
+				} else {
+					$time_message = $interval->y . ' years ago'; // MULTIPLE YEARS
+				}
+				// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE MONTH
+			} else if ($interval->m >= 1) {
+				if ($interval->d == 0) {
+					$days = ' ago'; // NO ADDITIONAL DAYS
+				} else if ($interval->d == 1) {
+					$days = $interval->d . ' day ago'; // ONE ADDITIONAL DAYS
+				} else {
+					$days = $interval->d . ' days ago'; // MULTIPLE ADDITIONAL DAYS
+				}
+
+				if($interval->m == 1) {
+					$time_message = $interval->m . ' month ago' . $days; // ONE MONTH PLUS DAYS
+				} else {
+					$time_message = $interval->m . ' months ago' . $days; // MULTIPLE MONTHS PLUS DAYS
+				}
+				// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE DAY
+			} else if ($interval->d >= 1) {
+				if ($interval->d == 1) {
+					$time_message = 'Yesterday';
+				} else {
+					$time_message = $interval->d . ' days ago';
+				}
+				// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE HOUR
+			} else if ($interval->h >= 1) {
+				if ($interval->h == 1) {
+					$time_message = $interval->h . ' hour ago'; // ONE HOUR
+				} else {
+					$time_message = $interval->h . ' hours ago'; // MULTIPLE HOURS
+				}
+				// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE MINUTE
+			} else if ($interval->i >= 1) {
+				if ($interval->i == 1) {
+					$time_message = $interval->i . ' minute ago'; // ONE MINUTE
+				} else {
+					$time_message = $interval->i . ' minutes ago'; // MULTIPLE MINUTES
+				}
+				// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE SECOND
+			} else {
+				if ($interval->s < 30) {
+					$time_message = 'Just now'; // LESS THAN 30 SECONDS
+				} else {
+					$time_message = $interval->s . ' seconds ago'; // OVER 30 SECONDS
+				}
+			}
+
+			// PUSH MESSAGE DETAILS INTO $DETAILS_ARRAY
+			array_push($details_array, $sent_by);
+			array_push($details_array, $row['body']);
+			array_push($details_array, $time_message);
+
+			// RETURN $DETAILS_ARRAY
+			return $details_array;
 		}
 
 		// FUNCTION TO LOAD CONVERSATION LIST
@@ -114,6 +191,14 @@
 					$user_found_obj = new User($this->connection, $username);
 					// CREATE VARIABLE OF LATEST MESSAGE BETWEEN USERS
 					$latest_message_details = $this->getLatestMessage($userLoggedIn, $username);
+
+					// CONDITIONAL STATEMENT TO SET $DOTS VARIABLE TO ELLIPSIS 
+					// IF MESSAGE LENGTH IS LONGER THAN OR EQUAL TO 12 CHARACTERS
+					$dots = (strlen($latest_message_details[1]) >= 12) ? '...' : '';
+					// END THE $SPLIT VARIABLE AFTER 12 CHARACTERS
+					$split = str_split($latest_message_details[1], 12);
+					// CONCATENATE $DOTS TO END OF $SPLIT VARIABLE
+					$split = $split[0] . $dots
 				}
 			}
 		}
