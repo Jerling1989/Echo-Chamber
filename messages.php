@@ -69,7 +69,7 @@
 	<?php
 		// IF USER_TO IS NOT NEW CREATE HEADING WITH LINK TO USER ACCOUNT AND FIRST & LAST NAME
 		if ($user_to != 'new') {
-			echo '<h4>You and <a href="$user_to">' . $user_to_obj->getFirstAndLastName() . '</a></h4><hr /><br />';
+			echo '<h4>You and <a href="'.$user_to.'">' . $user_to_obj->getFirstAndLastName() . '</a></h4><hr /><br />';
 			echo '<div class="loaded_messages" id="scroll_messages">';
 			echo $message_obj->getMessages($user_to);
 			echo '</div>';
@@ -107,22 +107,23 @@
 	</script>
 	<!-- END SCRIPT TO LOAD MESSAGES PROPERLY -->
 
-	<!-- CONVERSATION PANEL -->
-	<div class="user_details column" id="conversations">
-		<h4>Conversations</h4>
-
-		<div class="loaded_conversations">
-			<?php echo $message_obj->getConvos(); ?>
-		</div>
-
-		<br />
-		<a href="messages.php?u=new">New Message</a>
-	</div>
-	<!-- END CONVERSATION PANEL -->
-
 
 </div>
 <!-- END MAIN MESSAGES COLUMN -->
+
+
+<!-- CONVERSATION PANEL -->
+<div class="user-details column" id="conversations">
+	<h4>Conversations</h4>
+
+	<div class="loaded_conversations">
+		<?php echo $message_obj->getConvos(); ?>
+	</div>
+
+	<br />
+	<a href="messages.php?u=new">New Message</a>
+</div>
+<!-- END CONVERSATION PANEL -->
 
 
 

@@ -81,12 +81,12 @@
 		}
 
 		// FUNCTION TO GET LATEST MESSAGE BETWEEN USERS
-		public function getLatestMessage($userLoggedIn, $user2) {
+		public function getLatestMessage($userLoggedIn, $username) {
 			// CREATE EMPTY ARRAY FOR THE $DETAILS_ARRAY VARIABLE
 			$details_array = array();
 
 			// DATABASE QUERY (FIND 1 MESSAGE BETWEEN BOTH USERS)
-			$query = mysqli_query($this->connection, "SELECT body, user_to FROM message WHERE (user_to='$userLoggedIn' AND user_from='$user2') OR (user_to='$user2' AND user_from='$userLoggedIn') ORDER BY id DESC LIMIT 1");
+			$query = mysqli_query($this->connection, "SELECT body, user_to, date FROM messages WHERE (user_to='$userLoggedIn' AND user_from='$username') OR (user_to='$username' AND user_from='$userLoggedIn') ORDER BY id DESC LIMIT 1");
 
 			// STORE QUERY RESULTS INTO $ROW ARRAY
 			$row = mysqli_fetch_array($query);
@@ -96,7 +96,7 @@
 			// CURRENT TIME
 			$date_time_now = date('Y-m-d H:i:s');
 			// DATE POST WAS ADDED VARIABLE
-			$start_date = new DateTime($date_time);
+			$start_date = new DateTime($row['date']);
 			// CURRENT DATE VARIABLE
 			$end_date = new DateTime($date_time_now);
 			// DIFFERENCE BETWEEN BOTH DATE VARIABLES
@@ -172,7 +172,7 @@
 			$convos = array();
 
 			// DATABASE QUERY (FIND USERNAMES OF PEOPLE IN CONVERSATIONS)
-			$query = mysqli_query($this->connection, "SELECT user_to, user_from FROM messages WHERE user_to='$userLoggedIn' OR user_from='$userLoggedIn'");
+			$query = mysqli_query($this->connection, "SELECT user_to, user_from FROM messages WHERE user_to='$userLoggedIn' OR user_from='$userLoggedIn' ORDER BY id DESC");
 
 			// WHILE DATABASE QUERY YEILDS RESULTS
 			while ($row = mysqli_fetch_array($query)) {
@@ -184,23 +184,41 @@
 					// PUSH USER INTO ARRAY
 					array_push($convos, $user_to_push);
 				}
-
-				// FOR EACH ITERATION OF THE $CONVOS ARRAY
-				foreach ($convos as $username) {
-					// CREATE NEW USER OBJECT
-					$user_found_obj = new User($this->connection, $username);
-					// CREATE VARIABLE OF LATEST MESSAGE BETWEEN USERS
-					$latest_message_details = $this->getLatestMessage($userLoggedIn, $username);
-
-					// CONDITIONAL STATEMENT TO SET $DOTS VARIABLE TO ELLIPSIS 
-					// IF MESSAGE LENGTH IS LONGER THAN OR EQUAL TO 12 CHARACTERS
-					$dots = (strlen($latest_message_details[1]) >= 12) ? '...' : '';
-					// END THE $SPLIT VARIABLE AFTER 12 CHARACTERS
-					$split = str_split($latest_message_details[1], 12);
-					// CONCATENATE $DOTS TO END OF $SPLIT VARIABLE
-					$split = $split[0] . $dots
-				}
 			}
+
+			// FOR EACH ITERATION OF THE $CONVOS ARRAY SET $USERNAME VARIABLE
+			foreach ($convos as $username) {
+				// CREATE NEW USER OBJECT
+				$user_found_obj = new User($this->connection, $username);
+				// CREATE VARIABLE OF LATEST MESSAGE BETWEEN USERS
+				$latest_message_details = $this->getLatestMessage($userLoggedIn, $username);
+
+				// CONDITIONAL STATEMENT TO SET $DOTS VARIABLE TO ELLIPSIS 
+				// IF MESSAGE LENGTH IS LONGER THAN OR EQUAL TO 12 CHARACTERS
+				$dots = (strlen($latest_message_details[1]) >= 12) ? '...' : '';
+				// END THE $SPLIT VARIABLE AFTER 12 CHARACTERS
+				$split = str_split($latest_message_details[1], 12);
+				// CONCATENATE $DOTS TO END OF $SPLIT VARIABLE
+				$split = $split[0] . $dots;
+
+				// ADD MESSAGE DETAILS TO $RETURN_STRING VARIABLE
+				$return_string .= '<a href="messages.php?u='.$username.'">
+													 	<div class="user_found_messages">
+														 	<img src="'.$user_found_obj->getProfilePic().'" style="border-radius: 5px; margin-right: 5px;" />'
+														 	.$user_found_obj->getFirstAndLastName().'
+														 	<span class="timestamp_smaller" id="grey">'
+														 		.$latest_message_details[2]. 
+														 	'</span>
+														 	<p id="grey" style="margin: 0;">'
+														 		.$latest_message_details[0].$split. 
+														 	'</p>
+														</div>
+													 </a>';
+			}
+
+			// RETURN $RETURN_STRING
+			return $return_string;
+			
 		}
 
 
