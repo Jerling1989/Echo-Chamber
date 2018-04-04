@@ -2,6 +2,8 @@
 
 	// INCLUDE NECCESSARY FILES AND SCRIPTS
 	include('includes/header.php');
+
+	$message_obj = new Message($connection, $userLoggedIn);
 	
 	// CHECK IF USERNAME IS SET FOR URL
 	if(isset($_GET['profile_username'])) {
@@ -36,6 +38,23 @@
 		// REDIRECT TO FRIEND REQUEST PAGE
 		header('Location: requests.php');
 	}
+
+	// IF USER HITS SUBMIT MESSAGE BUTTON (PROFILE MESSAGE TAB FORM)
+	if (isset($_POST['post_message'])) {
+		if (isset($_POST['message_body'])) {
+			$body = mysqli_real_escape_string($connection, $_POST['message_body']);
+			$date = date('Y-m-d H:i:s');
+			$message_obj->sendMessage($username, $body, $date);
+		}
+	}
+
+	$link = '#profileTabs a[href="#messages_div"]';
+
+	echo "<script>
+					$(function() {
+						$('".$link."').tab('show');
+					});
+				</script>";
 
 ?>
 
@@ -154,7 +173,6 @@
 			<!-- MESSAGES TAB -->
 			<div class="tab-pane fade" role="tabpanel" id="messages_div">
 				<?php
-					$message_obj = new Message($connection, $userLoggedIn);
 
 					echo '<h4>You and <a href="'.$username.'">' . $profile_user_obj->getFirstAndLastName() . '</a></h4><hr /><br />';
 					echo '<div class="loaded_messages" id="scroll_messages">';
