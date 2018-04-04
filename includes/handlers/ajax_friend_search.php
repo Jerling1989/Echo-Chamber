@@ -42,7 +42,8 @@
 				$mutual_friends = '';
 			}
 
-
+			// IF QUERY RESULTS YEILD FRIENDS OF USER
+			// CREATE RESULTS DIV OF QUERY RESULTS
 			if ($user->isFriend($row['username'])) {
 				echo '<div class="resultDisplay">
 								<a href="messages.php?u='.$row['username'].'" style="color: #000;">

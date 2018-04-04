@@ -117,11 +117,45 @@
 	<!-- PROFILE FEED -->
 	<div class="profile-main-column column">
 
-		<!-- DIV TO DISPLAY POSTS -->
-		<div class="posts_area"></div>
 
-		<!-- LOADING GIF -->
-		<div id="loading"><img src="assets/img/icons/loading.gif" /></div>
+		<ul class="nav nav-tabs" id="profile-tabs" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link active" href="#newsfeed_div" aria-controls="newsfeed_div" role="tab" data-toggle="tab">Newsfeed</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#about_div" aria-controls="about_div" role="tab" data-toggle="tab">About</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#messages_div" aria-controls="messages_div" role="tab" data-toggle="tab">Messages</a>
+		  </li>
+		</ul>
+
+
+		<div class="tab-content">
+
+			<!-- NEWSFEED TAB -->
+			<div class="tab-pane fade show active" role="tabpanel" id="newsfeed_div">
+				<!-- DIV TO DISPLAY POSTS -->
+				<div class="posts_area"></div>
+				<!-- LOADING GIF -->
+				<div id="loading"><img src="assets/img/icons/loading.gif" /></div>
+			</div>
+			<!-- END NEWSFEED TAB -->
+
+
+			<div class="tab-pane fade" role="tabpanel" id="about_div">
+				
+			</div>
+
+
+			<div class="tab-pane fade" role="tabpanel" id="messages_div">
+				
+			</div>
+
+		</div>
+
+
+		
 
 	</div>
 	<!-- END PROFILE FEED -->
