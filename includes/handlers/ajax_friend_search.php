@@ -11,4 +11,37 @@
 	// SPLIT USER SEARCH QUERY AT SPACES
 	$names = explode(' ', $query);
 
+	// IF UNDERSCORE IS IN QUERY STRING
+	if (strpos($query, '_') !== false) {
+		// DATABASE QUERY (FIND USERS SIMILAR TO $QUERY STRING)
+		$usersReturned = mysqli_query($connection, "SELECT * FROM users WHERE username LIKE '$query%' AND user_closed='no' LIMIT 8");
+		// IF THERE ARE TWO ELEMENTS IN THE $NAMES ARRAY
+	} else if (count($names) == 2) {
+		// DATABASE QUERY (FIND USERS SIMILAR TO $NAMES ARRAY ELEMENTS)
+		$usersReturned = mysqli_query($connection, "SELECT * FROM users WHERE (first_name LIKE '%$names[0]%' AND last_name LIKE '%$names[1]%') AND user_closed='no' LIMIT 8");
+		// IF THERE IS ONLY ONE ELEMENT IN THE $NAMES ARRAY
+	} else {
+		// DATABASE QUERY (FIND USERS SIMILAR TO $NAMES ARRAY ELEMENT)
+		$usersReturned = mysqli_query($connection, "SELECT * FROM users WHERE (first_name LIKE '%$names[0]%' AND last_name LIKE '%$names[0]%') AND user_closed='no' LIMIT 8");
+	}
+
+	// IF USER QUERY IS NOT EMPTY
+	if ($query != '') {
+		// LOOP WHILE DATABASE QUERY YEILDS RESULTS
+		while ($row = mysqli_fetch_array($usersReturned)) {
+			// CREATE NEW USER OBJECT
+			$user = new User($connection, $userLoggedIn)
+
+			// IF USERNAME IS NOT $USERLOGGEDIN
+			if ($row['username'] != $userLoggedIn) {
+				// CALCULATE NUMBER OF MUTUAL FRIENDS
+				$mutual_friends = $user->getMutualFriends($row['username']) . ' friends in common';
+				// ELSE...
+			} else {
+				// LEAVE MUTUAL FRIENDS BLANK
+				$mutual_friends = '';
+			}
+		}
+	}
+
 ?>
