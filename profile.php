@@ -117,20 +117,22 @@
 	<!-- PROFILE FEED -->
 	<div class="profile-main-column column">
 
-
+		<!-- TAB NAVIGATION -->
 		<ul class="nav nav-tabs" id="profile-tabs" role="tablist">
 		  <li class="nav-item">
 		    <a class="nav-link active" href="#newsfeed_div" aria-controls="newsfeed_div" role="tab" data-toggle="tab">Newsfeed</a>
 		  </li>
-		  <li class="nav-item">
+		  <!-- <li class="nav-item">
 		    <a class="nav-link" href="#about_div" aria-controls="about_div" role="tab" data-toggle="tab">About</a>
-		  </li>
+		  </li> -->
 		  <li class="nav-item">
 		    <a class="nav-link" href="#messages_div" aria-controls="messages_div" role="tab" data-toggle="tab">Messages</a>
 		  </li>
 		</ul>
+		<!-- END TAB NAVIGATION -->
 
 
+		<!-- TAB CONTENT LAYOUT -->
 		<div class="tab-content">
 
 			<!-- NEWSFEED TAB -->
@@ -143,20 +145,48 @@
 			<!-- END NEWSFEED TAB -->
 
 
-			<div class="tab-pane fade" role="tabpanel" id="about_div">
-				
-			</div>
+			<!-- ABOUT TAB -->
+			<!-- <div class="tab-pane fade" role="tabpanel" id="about_div">
+			</div> -->
+			<!-- END ABOUT TAB -->
+			
 
-
+			<!-- MESSAGES TAB -->
 			<div class="tab-pane fade" role="tabpanel" id="messages_div">
-				
+				<?php
+					$message_obj = new Message($connection, $userLoggedIn);
+
+					echo '<h4>You and <a href="'.$username.'">' . $profile_user_obj->getFirstAndLastName() . '</a></h4><hr /><br />';
+					echo '<div class="loaded_messages" id="scroll_messages">';
+					echo $message_obj->getMessages($username);
+					echo '</div>';
+				?>
+
+				<!-- MESSAGES DIV -->
+				<div class="message_post">
+					<!-- MESSAGE FORM -->
+					<form action="" method="POST">
+							<textarea name="message_body" id="message_textarea" placeholder="Write your message..."></textarea>'
+							<input type="submit" name="post_message" class="info" id="message_submit" value="Send" />
+					</form>
+					<!-- END MESSAGE FORM -->
+				</div>
+				<!-- END MESSAGES DIV -->
+
+				<!-- SCRIPT TO LOAD MESSAGES PROPERLY -->
+				<script>
+					var div = document.getElementById('scroll_messages');
+					div.scrollTop = div.scrollHeight;
+				</script>
+				<!-- END SCRIPT TO LOAD MESSAGES PROPERLY -->
 			</div>
+			<!-- END MESSAGES TAB -->
 
 		</div>
+		<!-- END TAB CONTENT LAYOUT -->
 
 
 		
-
 	</div>
 	<!-- END PROFILE FEED -->
 
