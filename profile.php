@@ -46,15 +46,15 @@
 			$date = date('Y-m-d H:i:s');
 			$message_obj->sendMessage($username, $body, $date);
 		}
+
+		$link = '#profile-tabs a[href="#messages_div"]';
+
+		echo "<script>
+						$(function() {
+							$('".$link."').tab('show');
+						});
+					</script>";
 	}
-
-	$link = '#profileTabs a[href="#messages_div"]';
-
-	echo "<script>
-					$(function() {
-						$('".$link."').tab('show');
-					});
-				</script>";
 
 ?>
 
