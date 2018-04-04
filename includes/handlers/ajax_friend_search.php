@@ -45,14 +45,14 @@
 
 			if ($user->isFriend($row['username'])) {
 				echo '<div class="resultDisplay">
-								<a href="messages.php?u="'.$row['username'].'" style="color: #000;">
+								<a href="messages.php?u='.$row['username'].'" style="color: #000;">
 									<div class="liveSearchProfilePic">
 										<img src="'.$row['profile_pic'].'" />
 									</div>
 									<div class="liveSearchText">
 										'.$row['first_name'].' '.$row['last_name'].'
-										<p>'.$row['username'].'</p>
-										<p class="grey-font">'.$mutual_friends.'</p>
+										<p style="margin: 0px;">'.$row['username'].'</p>
+										<p style="color: #8C8C8C;">'.$mutual_friends.'</p>
 									</div>
 								</a>
 							</div>';
