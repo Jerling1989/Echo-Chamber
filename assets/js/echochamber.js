@@ -27,6 +27,7 @@ function getUsers(value, user) {
 		// LOAD DATA IN RESULTS DIV
 		$('.results').html(data);
 	});
+}
 
 
 // FUNCTION TO LOAD DATA FOR DROPDOWN MENU ITEMS
@@ -64,12 +65,11 @@ function getDropdownData(user, type) {
 			}
 		});
 
-		// IF DROPDOWN IS OPEN, CLOSE ON CLICK (NAVBAR MESSAGES ICON)
+	// IF DROPDOWN IS OPEN, CLOSE ON CLICK (NAVBAR MESSAGES ICON)
 	} else {
 		$('.dropdown_data_window').html('');
 		$('.dropdown_data_window').css({'padding':'0px', 'height':'0px'});
 	}
-
 }
 
 

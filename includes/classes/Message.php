@@ -298,7 +298,7 @@
 
 				// ADD MESSAGE DETAILS TO $RETURN_STRING VARIABLE
 				$return_string .= '<a href="messages.php?u='.$username.'">
-													 	<div class="user_found_messages">
+													 	<div class="user_found_messages" style="'.$style.'">
 														 	<img src="'.$user_found_obj->getProfilePic().'" style="border-radius: 5px; margin-right: 5px;" />'
 														 	.$user_found_obj->getFirstAndLastName().'
 														 	<span class="timestamp_smaller grey-font">'
@@ -309,6 +309,15 @@
 														 	'</p>
 														</div>
 													 </a>';
+			}
+
+			// IF POSTS WERE LOADED
+			if ($count > $limit) {
+				$return_string .= "<input type='hidden' class='nextPageDropdownData' value='".($page+1)."' />
+													 <input type='hidden' class='noMoreDropdownData' value='false' />";
+			} else {
+				$return_string .= "<input type='hidden' class='noMoreDropdownData' value='true' />
+													 <p style='text-align: center;'>No More Messages to Load</p>";
 			}
 
 			// RETURN $RETURN_STRING
