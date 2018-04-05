@@ -53,7 +53,7 @@ function getDropdownData(user, type) {
 		var ajaxreq = $.ajax({
 			url: 'includes/handlers/' + pageName,
 			type: 'POST',
-			data: 'page=1&user=' + user,
+			data: 'page=1&userLoggedIn=' + user,
 			cache: false,
 			// IF AJAX CALL IS SUCCESSFUL
 			success: function(response) {
