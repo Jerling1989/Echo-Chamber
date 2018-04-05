@@ -77,6 +77,18 @@
 
 		<!-- NAVIGATION -->
 		<nav>
+
+			<!-- PHP SCRIPT FOR NOTIFICATION BADGES -->
+			<?php
+
+				// UNREAD MESSAGES
+				$messages = new Message($connection, $userLoggedIn);
+				$num_messages = $messages->getUnreadNumber();
+
+			?>
+			<!-- END PHP SCRIPT FOR NOTIFICATION BADGES -->
+
+
 			<!-- USER PROFILE -->
 			<a href="<?php echo $userLoggedIn; ?>">
 				<?php
@@ -90,6 +102,13 @@
 			<!-- MESSAGES -->
 			<a href="javascript:void(0);" onclick="getDropdownData('<?php echo $userLoggedIn; ?>', 'message')">
 				<i class="fas fa-envelope fa-lg"></i>
+				<?php
+					if ($num_messages > 0) {
+						echo '<span class="notification_badge" id="unread_message">'
+										.$num_messages.
+									'</span>';
+					}
+				?>
 			</a>
 			<!-- NOTIFICATIONS -->
 			<a href="#">
@@ -130,7 +149,7 @@
 		$(document).ready(function() {
 
 			// AUTO LOAD POSTS (INFINITE SCROLLING) FUNCTION
-			$(window).scroll(function() {
+			$('.dropdown_data_window').scroll(function() {
 				// DROPDOWN_DATA_WINDOW DIV HEIGHT VARIABLE
 				var inner_height = $('.dropdown_data_window').innerHeight();
 				// SCROLLTOP VARIABLE
@@ -166,14 +185,12 @@
 
 						success: function(response) {
 							// REMOVE CURRENT .NEXTPAGE
-							$('.posts_area').find('.nextPage').remove();
+							$('.dropdown_data_window').find('.nextPageDropdownData').remove();
 							// REMOVE CURRENT NOMORE POSTS
-							$('.posts_area').find('.noMorePosts').remove();
+							$('.dropdown_data_window').find('.noMoreDropdownData').remove();
 
-							// HIDE LOADING GIF
-							$('#loading').hide();
 							// LOAD POSTS ONTO POSTS_AREA DIV
-							$('.posts_area').append(response);
+							$('.dropdown_data_window').append(response);
 						}
 					});
 
