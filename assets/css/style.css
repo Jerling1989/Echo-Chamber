@@ -455,6 +455,18 @@ textarea:focus {
 	margin-top: 25px;
 }
 
+.dropdown_data_window {
+	width: 300px;
+	background-color: #FFFFFF;
+	border: 1px solid #DADADA;
+	border-radius: 0px 0px 8px 8px;
+	border-top: none;
+	position: absolute;
+	right: 10px;
+	top: 40px;
+	overflow: scroll;
+}
+
 
 
 

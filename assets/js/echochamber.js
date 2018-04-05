@@ -60,7 +60,7 @@ function getDropdownData(user, type) {
 			success: function(response) {
 				// PUT AJAX RESPONSE DATA INTO CORRECT DROPDOWN MENU
 				$('.dropdown_data_window').html(response);
-				$('.dropdown_data_window').css({'padding':'0px', 'height':'280px'});
+				$('.dropdown_data_window').css({'padding':'0px', 'height':'280px', 'border' : '1px solid #DADADA'});
 				$('#dropdown_data_type').val(type);
 			}
 		});
@@ -68,7 +68,7 @@ function getDropdownData(user, type) {
 	// IF DROPDOWN IS OPEN, CLOSE ON CLICK (NAVBAR MESSAGES ICON)
 	} else {
 		$('.dropdown_data_window').html('');
-		$('.dropdown_data_window').css({'padding':'0px', 'height':'0px'});
+		$('.dropdown_data_window').css({'padding':'0px', 'height':'0px', 'border' : 'none'});
 	}
 }
 

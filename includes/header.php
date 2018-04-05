@@ -110,7 +110,7 @@
 		</nav>
 		<!-- END NAVIGATION -->
 
-		<div class="dropdown_data_window">
+		<div class="dropdown_data_window" style="height: 0px; border: none;">
 			
 		</div>
 
