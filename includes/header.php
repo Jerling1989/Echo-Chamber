@@ -88,7 +88,7 @@
 				<i class="fas fa-home fa-lg"></i>
 			</a>
 			<!-- MESSAGES -->
-			<a href="javascript:void(0);" onclick="getDropdownData(<?php echo $userLoggedIn; ?>, 'message')">
+			<a href="javascript:void(0);" onclick="getDropdownData('<?php echo $userLoggedIn; ?>', 'message')">
 				<i class="fas fa-envelope fa-lg"></i>
 			</a>
 			<!-- NOTIFICATIONS -->
