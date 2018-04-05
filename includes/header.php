@@ -88,7 +88,7 @@
 				<i class="fas fa-home fa-lg"></i>
 			</a>
 			<!-- MESSAGES -->
-			<a href="#">
+			<a href="javascript:void(0);" onclick="getDropdownData(<?php echo $userLoggedIn; ?>, 'message')">
 				<i class="fas fa-envelope fa-lg"></i>
 			</a>
 			<!-- NOTIFICATIONS -->
@@ -110,13 +110,17 @@
 		</nav>
 		<!-- END NAVIGATION -->
 
+		<div class="dropdown_data_window">
+			
+		</div>
+
+		<input type="hidden" id="dropdown_data_type" value="" />
+
 	</div>
 	<!-- END TOP BAR -->
 
 	<!-- WRAPPER DIV -->
 	<div class="wrapper">
-
-
 
 
 
