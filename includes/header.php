@@ -119,6 +119,78 @@
 	</div>
 	<!-- END TOP BAR -->
 
+
+	<!-- POST LOADING SCRIPT (NEWSFEED) -->
+	<script>
+
+		// CREATE USERLOGGEDIN VARIABLE
+		var userLoggedIn = '<?php echo $userLoggedIn; ?>';
+
+		// DOCUMENT READY FUNCTION
+		$(document).ready(function() {
+
+			// AUTO LOAD POSTS (INFINITE SCROLLING) FUNCTION
+			$(window).scroll(function() {
+				// DROPDOWN_DATA_WINDOW DIV HEIGHT VARIABLE
+				var inner_height = $('.dropdown_data_window').innerHeight();
+				// SCROLLTOP VARIABLE
+				var scroll_top = $('.dropdown_data_window').scrollTop();
+				// VARIABLE FOR NEXT PAGE (MORE POSTS)
+				var page = $('.dropdown_data_window').find('.nextPageDropdownData').val();
+				// VARIABLE FOR NO MORE POSTS
+				var noMoreData = $('.dropdown_data_window').find('.noMoreDropdownData').val();
+
+				// CHECK IF THE PAGE IS SCROLLED TO THE BOTTOM OF POSTS_AREA DIV
+				// AND THERE ARE ALSO MORE POSTS
+				if ((scroll_top + inner_height >= $('.dropdown_data_window')[0].scrollHeight) && noMoreData == 'false') {
+
+					// VARIABLE TO HOLD NAME OF PAGE TO SEND AJAX REQUESTS TO
+					var pageName;
+					// GET VALUE OF INPUT WITH ID #DROPDOWN_DATA_TYPE
+					var type = $('#dropdown_data_type').val();
+
+					// IF TYPE IS "NOTIIFICATION"
+					if (type == 'notification') {
+						pageName = 	'ajax_load_notifications.php';
+						// IF TYPE IS "MESSAGE"
+					} else if (type == 'message') {
+						pageName = 'ajax_load_messages.php';
+					}
+
+					// VARIABLE OF AJAX REQUEST FOR MORE POSTS
+					var ajaxReq = $.ajax({
+						url: 'includes/handlers/' + pageName,
+						type: 'POST',
+						data: 'page=' + page + '&userLoggedIn=' + userLoggedIn,
+						cache:false,
+
+						success: function(response) {
+							// REMOVE CURRENT .NEXTPAGE
+							$('.posts_area').find('.nextPage').remove();
+							// REMOVE CURRENT NOMORE POSTS
+							$('.posts_area').find('.noMorePosts').remove();
+
+							// HIDE LOADING GIF
+							$('#loading').hide();
+							// LOAD POSTS ONTO POSTS_AREA DIV
+							$('.posts_area').append(response);
+						}
+					});
+
+
+				} // END IF
+
+				return false;
+
+			}); // END AUTO LOAD POSTS FUNCTION
+
+		});
+
+	</script>
+	<!-- END POST LOADING SCRIPT (NEWSFEED) -->
+
+
+
 	<!-- WRAPPER DIV -->
 	<div class="wrapper">
 
