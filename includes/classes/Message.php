@@ -221,6 +221,101 @@
 			
 		}
 
+		// FUNCTION TO LOAD MESSAGES FOR DROPDOWN MENU
+		public function getConvosDropdown($data, $limit) {
+			// SET $PAGE VARIABLE
+			$page = $data['page'];
+			// SET $USERLOGGEDIN VARIABLE
+			$userLoggedIn = $this->user_obj->getUsername();
+			// CREATE EMPTY $RETURN_STRING VARIABLE
+			$return_string = '';
+			// CREATE EMPTY ARRAY FOR $CONVOS VARIABLE
+			$convos = array();
+
+			// IF STATEMENT TO TELL WHEN TO LOAD POSTS
+			if ($page == 1) {
+				$start = 0;
+			} else {
+				$start = ($page - 1) * $limit;
+			}
+
+			// DATABASE QUERY (CHANGE VIEWED TO "YES" IN MESSAGES TABLE)
+			$set_viewed_query = mysqli_query($this->connection, "UPDATE messages SET viewed='yes' WHERE user_to='$userLoggedIn'");
+
+			// DATABASE QUERY (FIND USERNAMES OF PEOPLE IN CONVERSATIONS)
+			$query = mysqli_query($this->connection, "SELECT user_to, user_from FROM messages WHERE user_to='$userLoggedIn' OR user_from='$userLoggedIn' ORDER BY id DESC");
+
+			// WHILE DATABASE QUERY YEILDS RESULTS
+			while ($row = mysqli_fetch_array($query)) {
+				// CONDITIONAL TO SET $USER_TO_PUSH VARIABLE TO PROPER USER
+				$user_to_push = ($row['user_to'] != $userLoggedIn) ? $row['user_to'] : $row['user_from'];
+
+				// CHECK THAT USER IS NOT ALREADY IN ARRAY
+				if (!in_array($user_to_push, $convos)) {
+					// PUSH USER INTO ARRAY
+					array_push($convos, $user_to_push);
+				}
+			}
+
+			$num_iterations = 0; // NUMBER OF MESSAGES CHECKED
+			$count = 1; // NUMBER OF MESSAGES POSTED
+
+			// FOR EACH ITERATION OF THE $CONVOS ARRAY SET $USERNAME VARIABLE
+			foreach ($convos as $username) {
+
+				// IF IT HASN'T REACHED START POINT CONTINUE
+				if ($num_iterations++ < $start) {
+					continue;
+				}
+
+				// IF NUMBER OF MESSAGES EXCEEDS LIMIT, BREAK LOOP
+				if ($count > $limit) {
+					break;
+				} else {
+					$count++;
+				}
+
+				// DATABASE QUERY (FIND OPENED MESSAGED BETWEEN USERS)
+				$is_unread_query = mysqli_query($this->connection, "SELECT opened FROM messages WHERE user_to='$userLoggedIn' AND user_from='$username' ORDER BY id DESC");
+				// STORE QUERY RESULTS IN $ROW ARRAY
+				$row = mysqli_fetch_array($is_unread_query);
+				// CONDITIONAL TO STORE DIFFERENT BACKGROUND-COLOR IN $STYLE VARIABLE
+				// TO DISTINGUISH BETWEEN OPENED AND UNOPENED MESSAGES
+				$style = ($row['opened'] == 'no') ? "background-color: #DDEDFF;" : "";
+
+				// CREATE NEW USER OBJECT
+				$user_found_obj = new User($this->connection, $username);
+				// CREATE VARIABLE OF LATEST MESSAGE BETWEEN USERS
+				$latest_message_details = $this->getLatestMessage($userLoggedIn, $username);
+
+				// CONDITIONAL STATEMENT TO SET $DOTS VARIABLE TO ELLIPSIS 
+				// IF MESSAGE LENGTH IS LONGER THAN OR EQUAL TO 12 CHARACTERS
+				$dots = (strlen($latest_message_details[1]) >= 12) ? '...' : '';
+				// END THE $SPLIT VARIABLE AFTER 12 CHARACTERS
+				$split = str_split($latest_message_details[1], 12);
+				// CONCATENATE $DOTS TO END OF $SPLIT VARIABLE
+				$split = $split[0] . $dots;
+
+				// ADD MESSAGE DETAILS TO $RETURN_STRING VARIABLE
+				$return_string .= '<a href="messages.php?u='.$username.'">
+													 	<div class="user_found_messages">
+														 	<img src="'.$user_found_obj->getProfilePic().'" style="border-radius: 5px; margin-right: 5px;" />'
+														 	.$user_found_obj->getFirstAndLastName().'
+														 	<span class="timestamp_smaller grey-font">'
+														 		.$latest_message_details[2]. 
+														 	'</span>
+														 	<p class="grey-font" style="margin: 0;">'
+														 		.$latest_message_details[0].$split. 
+														 	'</p>
+														</div>
+													 </a>';
+			}
+
+			// RETURN $RETURN_STRING
+			return $return_string;
+
+		}
+
 
 
 	}
