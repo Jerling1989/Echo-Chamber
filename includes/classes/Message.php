@@ -328,7 +328,7 @@
 		public function getUnreadNumber() {
 			// SET $USERLOGGEDIN VARIABLE
 			$userLoggedIn = $this->user_obj->getUsername();
-			// DATABASE QUERY (FIND ALL UNVIEWED MESSAGED SENT TO LOGGED IN USER)
+			// DATABASE QUERY (FIND ALL UNVIEWED MESSAGES SENT TO LOGGED IN USER)
 			$query = mysqli_query($this->connection, "SELECT * FROM messages WHERE viewed='no' AND user_to='$userLoggedIn'");
 			// RETURN NUMBER OF RESULTS FROM QUERY
 			return mysqli_num_rows($query);
