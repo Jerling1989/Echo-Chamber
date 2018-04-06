@@ -193,8 +193,13 @@
 
 				<!-- SCRIPT TO LOAD MESSAGES PROPERLY -->
 				<script>
-					var div = document.getElementById('scroll_messages');
-					div.scrollTop = div.scrollHeight;
+		      $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
+	          var div = document.getElementById("scroll_messages");
+	 
+	          if(div != null) {
+            	div.scrollTop = div.scrollHeight;  
+	          }
+		      });
 				</script>
 				<!-- END SCRIPT TO LOAD MESSAGES PROPERLY -->
 			</div>
