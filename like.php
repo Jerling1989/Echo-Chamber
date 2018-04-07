@@ -79,7 +79,8 @@
 			$user_likes = mysqli_query($connection, "UPDATE users SET num_likes='$total_user_likes' WHERE username='$user_liked'");
 			$insert_user = mysqli_query($connection, "INSERT INTO likes VALUES('', '$userLoggedIn', '$post_id')");
 
-			// IF USER LOGGED IN IS LIKING ANOTHER USER'S POST, INSERT NOTIFICATION INTO DATABASE
+			// IF USER LOGGED IN IS LIKING ANOTHER USER'S POST
+			// INSERT NOTIFICATION INTO DATABASE
 			if ($user_liked != $userLoggedIn) {
 				$notification = new Notification($this->connection, $userLoggedIn);
 				$notification->insertNotication($post_id, $user_to, 'like');

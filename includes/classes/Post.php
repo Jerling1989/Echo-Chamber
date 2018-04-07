@@ -39,7 +39,8 @@
 				// RETURN ID OF POST SUBMITTED
 				$return_id = mysqli_insert_id($this->connection);
 
-				// IF USER IS POSTING ON ANOTHER PROFILE INSERT NOTIFICATION INTO DATABASE
+				// IF USER LOGGED IN IS POSTING ON ANOTHER PROFILE 
+				// INSERT NOTIFICATION INTO DATABASE
 				if ($user_to != 'none') {
 					$notification = new Notification($this->connection, $userLoggedIn);
 					$notification->insertNotication($return_id, $user_to, 'profile_post');

@@ -71,6 +71,7 @@
 		$row = mysqli_fetch_array($user_query);
 		// STORE ADDED_BY INFO FOR POST IN VARIABLE
 		$posted_to = $row['added_by'];
+		$user_to = $row['user_to'];
 
 		// CHECK IF COMMENT FORM HAS BEEN SUBMITED
 		if (isset($_POST['postComment' . $post_id])) {
@@ -79,6 +80,21 @@
 			$post_body = mysqli_escape_string($connection, $post_body);
 			$date_time_now = date('Y-m-d H:i:s');
 			$insert_post = mysqli_query($connection, "INSERT INTO comments VALUES ('', '$post_body', '$userLoggedIn', '$posted_to', '$date_time_now', 'no', '$post_id')");
+
+			// IF USER LOGGED IN IS NOT COMMENTING ON THIER OWN POST
+			// INSERT NOTIFICATION INTO DATABASE
+			if ($posted_to != $userLoggedIn) {
+				$notification = new Notification($this->connection, $userLoggedIn);
+				$notification->insertNotication($post_id, $posted_to, 'comment');
+
+			}
+			// IF USER LOGGED IN IS COMMENTING ON ANOTHER USER'S PROFILE POST
+			// INSERT NOTIFICATION INTO DATABASE
+			if ($user_to != 'none' && $user_to != $userLoggedIn) {
+				$notification = new Notification($this->connection, $userLoggedIn);
+				$notification->insertNotication($post_id, $user_to, 'profile_comment');
+			}
+
 			// SUCCESSFUL COMMENT POST MESSAGE
 			echo '<p>Comment Posted!</p>';
 		}
