@@ -71,7 +71,6 @@
 		$row = mysqli_fetch_array($user_details_query);
 		$total_user_likes = $row['num_likes'];
 
-
 		// IF LIKE BUTTON IS PRESSED
 		if (isset($_POST['like_button'])) {
 			$total_likes++;
@@ -80,7 +79,11 @@
 			$user_likes = mysqli_query($connection, "UPDATE users SET num_likes='$total_user_likes' WHERE username='$user_liked'");
 			$insert_user = mysqli_query($connection, "INSERT INTO likes VALUES('', '$userLoggedIn', '$post_id')");
 
-			// INSERT NOTIFICATIONS
+			// IF USER LOGGED IN IS LIKING ANOTHER USER'S POST, INSERT NOTIFICATION INTO DATABASE
+			if ($user_liked != $userLoggedIn) {
+				$notification = new Notification($this->connection, $userLoggedIn);
+				$notification->insertNotication($post_id, $user_to, 'like');
+			}
 		}
 
 		// IF UNLIKE BUTTON IS PRESSED
@@ -92,7 +95,6 @@
 			$insert_user = mysqli_query($connection, "DELETE FROM likes WHERE username='$userLoggedIn' AND post_id='$post_id'");
 
 		}
-
 
 		// DATABASE QUERY TO CHECK IF USER LIKED POST
 		$check_query = mysqli_query($connection, "SELECT * FROM likes WHERE username='$userLoggedIn' AND post_id='$post_id'");
