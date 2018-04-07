@@ -14,7 +14,7 @@
 		}
 
 
-		// FUNCTION TO GET MESSAGE NOTIFICATION
+		// FUNCTION TO GET NUMBER OF NOTIFICATIONS
 		public function getUnreadNumber() {
 			// SET $USERLOGGEDIN VARIABLE
 			$userLoggedIn = $this->user_obj->getUsername();

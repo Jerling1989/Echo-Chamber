@@ -86,6 +86,10 @@
 				$messages = new Message($connection, $userLoggedIn);
 				$num_messages = $messages->getUnreadNumber();
 
+				// UNREAD NOTIFICATIONS
+				$notifications = new Notification($connection, $userLoggedIn);
+				$num_notifications = $notifications->getUnreadNumber();
+
 			?>
 			<!-- END PHP SCRIPT FOR NOTIFICATION BADGES -->
 
@@ -112,8 +116,15 @@
 				?>
 			</a>
 			<!-- NOTIFICATIONS -->
-			<a href="#">
+			<a href="javascript:void(0);" onclick="getDropdownData('<?php echo $userLoggedIn; ?>', 'notification')">
 				<i class="fas fa-bell fa-lg"></i>
+				<?php
+					if ($num_notifications > 0) {
+						echo '<span class="notification_badge" id="unread_notification">'
+										.$num_notifications.
+									'</span>';
+					}
+				?>
 			</a>
 			<!-- FRIEND REQUESTS -->
 			<a href="requests.php">

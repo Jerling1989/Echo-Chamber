@@ -40,6 +40,10 @@ function getDropdownData(user, type) {
 
 		// IF TYPE IS NOTIFICATION
 		if (type == 'notification') {
+			// ASSIGN AJAX_LOAD_NOTIFICATIONS.PHP TO PAGENAME VARIABLE
+			pageName = 'ajax_load_notifications.php';
+			// REMOVE #UNREAD_NOTIFICATION DIV
+			$('span').remove('#unread_notification');
 
 
 			// IF TYPES IS MESSAGE
