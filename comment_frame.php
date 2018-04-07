@@ -25,6 +25,7 @@
 		require 'config/config.php';
 		include('includes/classes/User.php');
 		include('includes/classes/Post.php');
+		include('includes/classes/Notification.php');
 
 		// CHECK IF USER IS SIGNED IN
 		if(isset($_SESSION['username'])) {
@@ -84,15 +85,32 @@
 			// IF USER LOGGED IN IS NOT COMMENTING ON THIER OWN POST
 			// INSERT NOTIFICATION INTO DATABASE
 			if ($posted_to != $userLoggedIn) {
-				$notification = new Notification($this->connection, $userLoggedIn);
+				$notification = new Notification($connection, $userLoggedIn);
 				$notification->insertNotication($post_id, $posted_to, 'comment');
 
 			}
 			// IF USER LOGGED IN IS COMMENTING ON ANOTHER USER'S PROFILE POST
 			// INSERT NOTIFICATION INTO DATABASE
 			if ($user_to != 'none' && $user_to != $userLoggedIn) {
-				$notification = new Notification($this->connection, $userLoggedIn);
+				$notification = new Notification($connection, $userLoggedIn);
 				$notification->insertNotication($post_id, $user_to, 'profile_comment');
+			}
+
+			// DATABASE QUERY (SELECT ALL COMMENTS WITH $POST_ID)
+			$get_commenters = mysqli_query($connection, "SELECT * FROM comments WHERE post_id='$post_id'");
+			// CREATE $NOTIFIED_USERS ARRAY
+			$notified_users = array();
+
+			// LOOP WHILE THE QUERY YEILDS RESULTS
+			while ($row = mysqli_fetch_array($get_commenters)) {
+				// IF ALL THESE CONDITIONS ARE MET, INSERT NOTIFICATION INTO DATABASE
+				if ($row['posted_by'] != $posted_to && $row['posted_by'] != $user_to
+				&& $row['posted_by'] != $userLoggedIn && !in_array($row['posted_by'], $notified_users)) {
+					$notification = new Notification($connection, $userLoggedIn);
+					$notification->insertNotication($post_id, $row['posted_by'], 'comment_non_owner');
+
+					array_push($notified_users, $row['posted_by']);
+				}
 			}
 
 			// SUCCESSFUL COMMENT POST MESSAGE

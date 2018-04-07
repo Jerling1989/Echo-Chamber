@@ -35,6 +35,7 @@
 		require 'config/config.php';
 		include('includes/classes/User.php');
 		include('includes/classes/Post.php');
+		include('includes/classes/Notification.php');
 
 		// CHECK IF USER IS SIGNED IN
 		if(isset($_SESSION['username'])) {
@@ -82,7 +83,7 @@
 			// IF USER LOGGED IN IS LIKING ANOTHER USER'S POST
 			// INSERT NOTIFICATION INTO DATABASE
 			if ($user_liked != $userLoggedIn) {
-				$notification = new Notification($this->connection, $userLoggedIn);
+				$notification = new Notification($connection, $userLoggedIn);
 				$notification->insertNotication($post_id, $user_to, 'like');
 			}
 		}
