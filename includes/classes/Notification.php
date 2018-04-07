@@ -40,7 +40,7 @@
 				case 'like':
 					$message = $userLoggedInName . ' liked your post';
 					break;
-				case 'profile':
+				case 'profile_post':
 					$message = $userLoggedInName . ' posted on your post';
 					break;
 				case 'comment_non_owner':

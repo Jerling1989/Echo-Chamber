@@ -39,8 +39,11 @@
 				// RETURN ID OF POST SUBMITTED
 				$return_id = mysqli_insert_id($this->connection);
 
-				// INSERT NOTIFICATION
-
+				// IF USER IS POSTING ON ANOTHER PROFILE INSERT NOTIFICATION INTO DATABASE
+				if ($user_to != 'none') {
+					$notification = new Notification($this->connection, $userLoggedIn);
+					$notification->insertNotication($return_id, $user_to, 'profile_post');
+				}
 
 				// GET NUMBER OF POSTS FROM DATABASE
 				$num_posts = $this->user_obj->getNumPosts();
