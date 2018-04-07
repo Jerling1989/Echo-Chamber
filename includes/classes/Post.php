@@ -42,8 +42,8 @@
 				// IF USER LOGGED IN IS POSTING ON ANOTHER PROFILE 
 				// INSERT NOTIFICATION INTO DATABASE
 				if ($user_to != 'none') {
-					$notification = new Notification($this->connection, $userLoggedIn);
-					$notification->insertNotication($return_id, $user_to, 'profile_post');
+					$notification = new Notification($this->connection, $added_by);
+					$notification->insertNotification($return_id, $user_to, 'profile_post');
 				}
 
 				// GET NUMBER OF POSTS FROM DATABASE

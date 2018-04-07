@@ -84,7 +84,7 @@
 			// INSERT NOTIFICATION INTO DATABASE
 			if ($user_liked != $userLoggedIn) {
 				$notification = new Notification($connection, $userLoggedIn);
-				$notification->insertNotication($post_id, $user_to, 'like');
+				$notification->insertNotification($post_id, $user_liked, 'like');
 			}
 		}
 

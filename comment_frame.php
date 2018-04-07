@@ -86,14 +86,14 @@
 			// INSERT NOTIFICATION INTO DATABASE
 			if ($posted_to != $userLoggedIn) {
 				$notification = new Notification($connection, $userLoggedIn);
-				$notification->insertNotication($post_id, $posted_to, 'comment');
+				$notification->insertNotification($post_id, $posted_to, 'comment');
 
 			}
 			// IF USER LOGGED IN IS COMMENTING ON ANOTHER USER'S PROFILE POST
 			// INSERT NOTIFICATION INTO DATABASE
 			if ($user_to != 'none' && $user_to != $userLoggedIn) {
 				$notification = new Notification($connection, $userLoggedIn);
-				$notification->insertNotication($post_id, $user_to, 'profile_comment');
+				$notification->insertNotification($post_id, $user_to, 'profile_comment');
 			}
 
 			// DATABASE QUERY (SELECT ALL COMMENTS WITH $POST_ID)
@@ -107,7 +107,7 @@
 				if ($row['posted_by'] != $posted_to && $row['posted_by'] != $user_to
 				&& $row['posted_by'] != $userLoggedIn && !in_array($row['posted_by'], $notified_users)) {
 					$notification = new Notification($connection, $userLoggedIn);
-					$notification->insertNotication($post_id, $row['posted_by'], 'comment_non_owner');
+					$notification->insertNotification($post_id, $row['posted_by'], 'comment_non_owner');
 
 					array_push($notified_users, $row['posted_by']);
 				}

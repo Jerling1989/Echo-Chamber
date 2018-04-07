@@ -4,6 +4,7 @@
 	require '../../config/config.php';
 	include('../classes/User.php');
 	include('../classes/Post.php');
+	include('../classes/Notification.php');
 
 	// IF PROFILE POST FORM IS SUBMITTED WITH CONTENT IN POST BODY
 	if(isset($_POST['post_body'])) {

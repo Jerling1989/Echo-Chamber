@@ -41,7 +41,7 @@
 					$message = $userLoggedInName . ' liked your post';
 					break;
 				case 'profile_post':
-					$message = $userLoggedInName . ' posted on your post';
+					$message = $userLoggedInName . ' posted on your profile';
 					break;
 				case 'comment_non_owner':
 					$message = $userLoggedInName . ' commented on a post you commented on';
