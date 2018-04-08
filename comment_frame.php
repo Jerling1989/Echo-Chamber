@@ -1,4 +1,28 @@
-<!DOCTYPE html>
+<?php
+
+	// REQUIRE/INCLUDE NECCESSARY FILES AND SCRIPTS
+	require 'config/config.php';
+	include('includes/classes/User.php');
+	include('includes/classes/Post.php');
+	include('includes/classes/Notification.php');
+
+	// CHECK IF USER IS SIGNED IN
+	if(isset($_SESSION['username'])) {
+		// CREATE VARIABLE FOR USERNAME
+		$userLoggedIn = $_SESSION['username'];
+
+		// QUERY TO FIND USER DETAILS
+		$user_details_query = mysqli_query($connection, "SELECT * FROM users WHERE username='$userLoggedIn'");
+		// STORE USER DETAILS INTO ARRAY
+		$user = mysqli_fetch_array($user_details_query);
+
+		// IF NOT SIGNED IN REDIRECT USER TO LOGIN PAGE
+	} else {
+		header('Location: register.php');
+	}
+
+?>
+
 <html>
 <head>
 	<!-- PAGE TITLE -->
@@ -19,30 +43,6 @@
 		}
 	</style>
 
-	<?php
-
-		// REQUIRE/INCLUDE NECCESSARY FILES AND SCRIPTS
-		require 'config/config.php';
-		include('includes/classes/User.php');
-		include('includes/classes/Post.php');
-		include('includes/classes/Notification.php');
-
-		// CHECK IF USER IS SIGNED IN
-		if(isset($_SESSION['username'])) {
-			// CREATE VARIABLE FOR USERNAME
-			$userLoggedIn = $_SESSION['username'];
-
-			// QUERY TO FIND USER DETAILS
-			$user_details_query = mysqli_query($connection, "SELECT * FROM users WHERE username='$userLoggedIn'");
-			// STORE USER DETAILS INTO ARRAY
-			$user = mysqli_fetch_array($user_details_query);
-
-			// IF NOT SIGNED IN REDIRECT USER TO LOGIN PAGE
-		} else {
-			header('Location: register.php');
-		}
-
-	?>
 
 	<script>
 		// CREATE TOGGLE FUNCTION

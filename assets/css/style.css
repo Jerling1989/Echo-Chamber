@@ -484,6 +484,24 @@ textarea:focus {
 	height: 14px;
 }
 
+.resultDisplayNotification {
+	height: auto;
+	min-height: 60px;
+	color: #1485BD;
+	padding: 8px 8px 10px 8px;
+}
+.resultDisplayNotification img {
+	height: 40px;
+	border-radius: 5px;
+	margin: 1px 12px 0px 2px;
+	float: left;
+}
+
+.timestamp_smaller {
+	font-size: 85%;
+	margin: 0px;
+}
+
 
 
 

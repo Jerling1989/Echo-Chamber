@@ -72,9 +72,9 @@
 				// CREATE $USER_FROM VARIABLE
 				$user_from = $row['user_from'];
 				// DATABASE QUERY (SELECT ALL DATA FOR USER WHO NOTIFICATION IS FROM)
-				$query = mysqli_query($this->connection, "SELECT * FROM users WHERE username='$user_from'");
+				$user_data_query = mysqli_query($this->connection, "SELECT * FROM users WHERE username='$user_from'");
 				// STORE QUERY RESULTS IN $USER_DATA ARRAY
-				$user_data = mysqli_fetch_array($query);
+				$user_data = mysqli_fetch_array($user_data_query);
 
 
 				// CURRENT TIME
@@ -146,14 +146,15 @@
 
 				// ADD MESSAGE DETAILS TO $RETURN_STRING VARIABLE
 				$return_string .= '<a href="'.$row['link'].'">
-													 	<div class="notificationsProfilePic">
-													 		<img src="'.$user_data['profile_pic'].'" />
-													 		<p class="timestamp_smaller grey-font">
-													 		'.$time_message.'
-													 		</p>'.$row['message'].'
+														<div class="resultDisplay resultDisplayNotification" style="'.$style.'">
+														 	<div class="notificationsProfilePic">
+														 		<img src="'.$user_data['profile_pic'].'" />
+														 		<p class="timestamp_smaller grey-font">
+														 		'.$time_message.'
+														 		</p><br />'.$row['message'].'
+														 	</div>
 													 	</div>
 													 </a>';
-			}
 
 			// IF POSTS WERE LOADED
 			if ($count > $limit) {
