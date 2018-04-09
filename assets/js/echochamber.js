@@ -36,6 +36,26 @@ $(document).ready(function() {
 });
 
 
+// CLOSE DROPDOWN WINDOWS WHEN USER CLICKS AWAY
+$(document).click(function(e) {
+
+	// IF USER CLICKS AWAY FROM SEARCH RESULTS
+	if (e.target.class != 'search_results' && e.target.id != 'search_text_input') {
+		$('.search_results').html('');
+		$('.search_results_footer').html('');
+		$('.search_results_footer').toggleClass('search_results_footer_empty');
+		$('.search_results_footer').toggleClass('search_results_footer');
+	}
+
+	// IF USER CLICKS AWAY FROM MESSAGE/NOTIFICATION DROPDOWN WINDOW
+	if (e.target.class != 'dropdown_data_window') {
+		$('.dropdown_data_window').html('');
+		$('.dropdown_data_window').css({'padding':'0px', 'height':'0px'});
+	}
+
+});
+
+
 // FUNCTION TO GET USERS FROM SEARCH FOR NEW USER TO MESSAGE
 function getUsers(value, user) {
 	// POST AJAX WITH VALUES
@@ -110,7 +130,7 @@ function getLiveSearchUsers(value, user) {
 		$('.search_results_footer').html('<a href="search.php?q='+value+'">See All Results</a>');
 
 		// IF THE USER SEARCHES NOTHING
-		if (data = '') {
+		if (data == '') {
 			$('.search_results_footer').html('');
 			$('.search_results_footer').toggleClass('search_results_footer_empty');
 			$('.search_results_footer').toggleClass('search_results_footer');
