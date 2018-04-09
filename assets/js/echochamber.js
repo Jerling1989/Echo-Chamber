@@ -93,6 +93,30 @@ function getDropdownData(user, type) {
 }
 
 
+// FUNCTION TO LOAD DATA FROM SEARCH FORM
+function getLiveSearchUsers(value, user) {
+	// AJAX CALL
+	$.post('includes/handlers/ajax_search.php', {query:value, userLoggedIn:user}, function(data) {
+
+		// TOGGLE CLASS
+		if ($('.search_results_footer_empty')[0]) {
+			$('.search_results_footer_empty')[0].toggleClass('search_results_footer');
+			$('.search_results_footer_empty')[0].toggleClass('search_results_footer_empty');
+		}
+
+		// PUT DATA FROM AJAX CALL INTO SEARCH RESULTS LIVE PANEL
+		// WITH LINK TO RESULTS PAGE ON FOOTER
+		$('.search_results').html(data);
+		$('.search_results_footer').html('<a href="search.php?q='+value+'">See All Results</a>');
+
+		// IF THE USER SEARCHES NOTHING
+		if (data = '') {
+			$('.search_results_footer').html('');
+			$('.search_results_footer').toggleClass('search_results_footer_empty');
+			$('.search_results_footer').toggleClass('search_results_footer');
+		}
+	});
+}
 
 
 
