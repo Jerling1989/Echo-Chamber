@@ -23,7 +23,7 @@
 
 ?>
 
-<html>
+<html lang="en-US">
 <head>
 	<!-- PAGE TITLE -->
 	<title></title>

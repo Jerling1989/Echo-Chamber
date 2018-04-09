@@ -76,12 +76,29 @@
 		</div>
 		<!-- END LOGO -->
 
+		<!-- SEARCH FORM -->
+		<div class="search">
+			<form action="search.php" method="GET" name="search_form">
+				<input type="text" onkeyup="getLiveSearchUsers(this.value, '<?php echo $userLoggedIn; ?>')" name="q" placeholder="Search..." autocomplete="off" id="search_text_input" />
+
+				<div class="button_holder">
+					<img src="assets/img/icons/mglass_icon.png" />
+				</div>
+			</form>
+
+			<div class="search_results">
+			</div>
+
+			<div class="search_results_footer_empty">
+			</div>
+
+		</div>
+		<!-- END SEARCH FORM -->
+
 		<!-- NAVIGATION -->
 		<nav>
-
 			<!-- PHP SCRIPT FOR NOTIFICATION BADGES -->
 			<?php
-
 				// UNREAD MESSAGES
 				$messages = new Message($connection, $userLoggedIn);
 				$num_messages = $messages->getUnreadNumber();
@@ -93,11 +110,8 @@
 				// UNREAD FRIEND REQUESTS
 				$user_obj = new User($connection, $userLoggedIn);
 				$num_requests = $user_obj->getNumberOfFriendRequests();
-
-
 			?>
 			<!-- END PHP SCRIPT FOR NOTIFICATION BADGES -->
-
 
 			<!-- USER PROFILE -->
 			<a href="<?php echo $userLoggedIn; ?>">
