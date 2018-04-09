@@ -1,5 +1,21 @@
 $(document).ready(function() {
 
+	// EXPAND SEARCH FORM WHEN CLICKED ON
+	$('#search_text_input').focus(function() {
+		// IF WINDOW IS WIDER THAN 800PX
+		if (window.matchMedia('(min-width: 800px)').matches) {
+			// ANIMATE SEARCH FORM TO WIDEN
+			$(this).animate({width: '250px'}, 500);
+		}
+	});
+
+
+	// SUBMIT SEARCH FORM WHEN MAGNIFYING GLASS ICON IS PRESSED
+	$('.button_holder').on('click', function() {
+		document.search_form.submit();
+	});
+
+
 	// WHEN POST BUTTON IS CLICKED ON PROFILE POST MODAL
 	$('#submit_profile_post').click(function() {
 		// AJAX REQUEST FOR SENDING POST
