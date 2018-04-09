@@ -21,6 +21,16 @@
 			return $this->user['username'];
 		}
 
+		// GET NUMBER OF FRIEND REQUESTS FUNCTION
+		public function getNumberOfFriendRequests() {
+			// USERNAME VARIABLE
+			$username = $this->user['username'];
+			// DATABASE QUERY (NUMBER OF POSTS)
+			$query = mysqli_query($this->connection, "SELECT * FROM friend_requests WHERE user_to='$username'");
+			// RETURN NUMBER OF FRIEND REQUESTS
+			return mysqli_num_rows($query);
+		}
+
 		// GET NUMBER OF POSTS FUNCTION
 		public function getNumPosts() {
 			// USERNAME VARIABLE

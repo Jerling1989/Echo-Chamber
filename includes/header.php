@@ -90,6 +90,11 @@
 				$notifications = new Notification($connection, $userLoggedIn);
 				$num_notifications = $notifications->getUnreadNumber();
 
+				// UNREAD FRIEND REQUESTS
+				$user_obj = new User($connection, $userLoggedIn);
+				$num_requests = $user_obj->getNumberOfFriendRequests();
+
+
 			?>
 			<!-- END PHP SCRIPT FOR NOTIFICATION BADGES -->
 
@@ -129,6 +134,13 @@
 			<!-- FRIEND REQUESTS -->
 			<a href="requests.php">
 				<i class="fas fa-users fa-lg"></i>
+				<?php
+					if ($num_requests > 0) {
+						echo '<span class="notification_badge" id="unread_requests">'
+										.$num_requests.
+									'</span>';
+					}
+				?>
 			</a>
 			<!-- SETTTINGS -->
 			<a href="#">
