@@ -65,7 +65,7 @@
 				// SHOW SEARCH VARIATIONS
 				echo '<p class="grey-font">Try searching for:</p>';
 				echo '<a href="search.php?q='.$query.'&type=name">Names</a>,
-							<a href="search.php?q='.$query.'&type=username">Usernames</a><hr />';
+							<a href="search.php?q='.$query.'&type=username">Usernames</a><hr class="search_hr" />';
 
 				// LOOP WHILE QUERY YEILDS RESULTS
 				while ($row = mysqli_fetch_array($usersReturnedQuery)) {
@@ -87,7 +87,7 @@
 							$button  ='<input type="submit" name="'.$row['username'].'" class="warning" value="Respond to Request" />';
 							// IF USER LOGGED IN SENT FRIEND REQUEST TO USER FROM SEARCH
 						} else if ($user_obj->didSendRequest($row['username'])) {
-							$button  ='<input name="'.$row['username'].'" class="default" value="Request Sent" />';
+							$button  ='<input type="submit" name="'.$row['username'].'" class="default" value="Request Sent" />';
 							// OPTION FOR USER LOGGED IN TO SEND FRIEND REQUEST TO USER FROM SEARCH
 						} else {
 							$button  ='<input type="submit" name="'.$row['username'].'" class="success" value="Add Friend" />';
@@ -96,19 +96,39 @@
 						// GET NUMBER OF MUTUAL FRIENDS
 						$mutual_friends = $user_obj->getMutualFriends($row['username']).' friends in common';
 
-						// BUTTON FORMS
+
+						// WHEN USER CLICKS ON FRIEND BUTTON
+						if (isset($_POST[$row['username']])) {
+
+							// IF ALREADY FRIENDS, REMOVE FRIEND
+							if ($user_obj->isFriend($row['username'])) {
+								$user_obj->removeFriend($row['username']);
+								header("Location: http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+								// IF USER RECIEVED REQUEST, SENT TO REQUESTS PAGE
+							} else if ($user_obj->didReceiveRequest($row['username'])) {
+								header('Location: requests.php');
+								// IF USER SENT FRIEND REQUEST, 
+							} else if ($user_obj->didSendRequest($row['username'])) {
+								// MAYBE ADD REMOVE REQUEST FUNCTIONALITY
+								// ELSE SEND FRIEND REQUEST
+							} else {
+								$user_obj->sendRequest($row['username']);
+								header("Location: http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+							}
+
+						}
 
 
 
 					}
 
 					// RESULTS STRING
-					echo '<div class="search_result">
+					echo '<div class="search_result_page">
 									<div class="searchPageFriendButtons">
 										<form action="" method="POST">
-											'.$button.'<br />
+											'.$button.'
 										</form>
-									</div>
+									</div><br />
 									<div class="result_profile_pic">
 										<a href="'.$row['username'].'">
 											<img src="'.$row['profile_pic'].'" style="height: 100px;" />
@@ -120,7 +140,7 @@
 									</a>
 									<br />
 									'.$mutual_friends.' <br />
-								</div><hr />';
+								</div><br /><hr class="search_hr" />';
 
 				} // END WHILE LOOP
 
