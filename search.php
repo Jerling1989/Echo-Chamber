@@ -76,8 +76,29 @@
 					$button = '';
 					$mutual_friends = ''; 
 
-					// IF USER DID NOT FIND HIS/HER OWN USERNAME
+					// IF USER LOGGED IN DID NOT FIND HIS/HER OWN USERNAME
 					if ($user['username'] != $row['username']) {
+
+						// IF USER FROM SEARCH IS FRIENDS WITH LOGGED IN USER
+						if ($user_obj->isFriend($row['username'])) {
+							$button  ='<input type="submit" name="'.$row['username'].'" class="danger" value="Remove Friend" />';
+							// IF USER LOGGED IN RECIEVED FRIEND REQUEST FROM USER FROM SEARCH
+						} else if ($user_obj->didReceiveRequest($row['username'])) {
+							$button  ='<input type="submit" name="'.$row['username'].'" class="warning" value="Respond to Request" />';
+							// IF USER LOGGED IN SENT FRIEND REQUEST TO USER FROM SEARCH
+						} else if ($user_obj->didSendRequest($row['username'])) {
+							$button  ='<input name="'.$row['username'].'" class="default" value="Request Sent" />';
+							// OPTION FOR USER LOGGED IN TO SEND FRIEND REQUEST TO USER FROM SEARCH
+						} else {
+							$button  ='<input type="submit" name="'.$row['username'].'" class="success" value="Add Friend" />';
+						}
+
+						// GET NUMBER OF MUTUAL FRIENDS
+						$mutual_friends = $user_obj->getMutualFriends($row['username']).' friends in common';
+
+						// BUTTON FORMS
+
+						
 
 					}
 				}
