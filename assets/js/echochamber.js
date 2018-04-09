@@ -100,8 +100,8 @@ function getLiveSearchUsers(value, user) {
 
 		// TOGGLE CLASS
 		if ($('.search_results_footer_empty')[0]) {
-			$('.search_results_footer_empty')[0].toggleClass('search_results_footer');
-			$('.search_results_footer_empty')[0].toggleClass('search_results_footer_empty');
+			$('.search_results_footer_empty').toggleClass('search_results_footer');
+			$('.search_results_footer_empty').toggleClass('search_results_footer_empty');
 		}
 
 		// PUT DATA FROM AJAX CALL INTO SEARCH RESULTS LIVE PANEL

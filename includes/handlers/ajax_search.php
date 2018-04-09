@@ -50,8 +50,9 @@
 
 								<div class="liveSearchText">
 									'.$row['first_name'].' '.$row['last_name'].'
-									<p>'.$row['username'].'</p>
-									<p class="grey-font">'.$mutual_friends.'</p>
+									<p>'.$row['username'].'<br />
+									<span class="grey-font">'.$mutual_friends.'</span></p>
+									
 								</div>
 							</a>
 						</div>';
