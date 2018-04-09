@@ -42,14 +42,20 @@
 	<!-- END USER DETAILS PANEL -->
 
 
-
+	<!-- MAIN COLUMN -->
 	<div class="main-column column" id="main-column">
-
+		<!-- WHERE THE POST IS LOADED -->
 		<div class="posts_area">
-			
+			<?php
+
+				$post = new Post($connection, $userLoggedIn);
+				$post->getSinglePost($id)
+
+			?>
 		</div>
-		
+		<!-- END WHERE THE POST IS LOADED -->
 	</div>
+	<!-- END MAIN COLUMN -->
 
 
 

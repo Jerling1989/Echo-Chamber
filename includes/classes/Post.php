@@ -520,6 +520,10 @@
 		public function getSinglePost($post_id) {
 			// CREATE $USERLOGGEDIN VARIABLE
 			$userLoggedIn = $this->user_obj->getUsername();
+
+			// DATABASE QUERY (SET NOTIFICATION OPENED TO "YES")
+			$opened_query = mysqli_query($this->connection, "UPDATE notifications SET opened='yes' WHERE user_to='$userLoggedIn' AND link LIKE '%=$post_id'");
+			
 			// CREATE STRING VARIABLE
 			$str = '';
 			// DATABASE QUERY TO GET POSTS
