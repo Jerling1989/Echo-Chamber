@@ -19,7 +19,7 @@
 
 ?>
 
-
+<!-- MAIN COLUMN -->
 <div class="main-column column" id="main-column">
 
 	<?php
@@ -55,22 +55,45 @@
 				}
 
 				
+				// IF QUERY RETURNS NO RESULTS, SHOW MESSAGE OF NO RESULTS
+				if (mysqli_num_rows($usersReturnedQuery) == 0) {
+					echo "We can't find anyone with a ".$type." like: ".$query;
+					// ELSE, SHOW THE NUMBER OF RESULTS QUERY FOUND
+				} else {
+					echo mysqli_num_rows($usersReturnedQuery) . " results found: <br /><br />";
+				}
+				// SHOW SEARCH VARIATIONS
+				echo '<p class="grey-font">Try searching for:</p>';
+				echo '<a href="search.php?q='.$query.'&type=name">Names</a>,
+							<a href="search.php?q='.$query.'&type=username">Usernames</a><hr />';
 
+				// LOOP WHILE QUERY YEILDS RESULTS
+				while ($row = mysqli_fetch_array($usersReturnedQuery)) {
+					// CREATE NEW USER OBJECT
+					$user_obj = new User($connection, $user['username']);
+
+					// CREATE BLANK VARIABLES FOR $BUTTON & $MUTUAL_FRIENDS
+					$button = '';
+					$mutual_friends = ''; 
+
+					// IF USER DID NOT FIND HIS/HER OWN USERNAME
+					if ($user['username'] != $row['username']) {
+
+					}
+				}
 
 
 			}
 
-				
+		}		
 
 	?>
 	
 </div>
+<!-- END MAIN COLUMN -->
 
 
-
-
-
-
-
+</div>
+<!-- END WRAPPER DIV -->
 </body>
 </html>
