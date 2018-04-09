@@ -26,4 +26,40 @@
 
 
 
+	// IF USER SEARCH IS NOT BLANK
+	if ($query != '') {
+		// LOOP WHILE DATABASE QUERY YEILDS RESULTS
+		while ($row = mysqli_fetch_array($usersReturnedQuery)) {
+			// CREATE NEW USER OBJECT
+			$user = new User($connection, $userLoggedIn);
+
+			// IF QUERY RESULT IS NOT THE USER LOGGED IN CALCULATE NUMBER OF MUTUAL FRIENDS
+			if ($row['username'] != $userLoggedIn) {
+				$mutual_friends = $user->getMutualFriends($row['username']) . ' friends in common';
+				// IF QUERY RESULT IS USER LOGGED IN LEAVE MUTUAL FRIENDS BLANK
+			} else {
+				$mutual_friends = '';
+			}
+
+			// ECHO STRING OF USER INFO FROM DATABASE QUERY
+			echo '<div class="resultDisplay">
+							<a href="'.$row['username'].'" style="color: #1485BD;">
+								<div class="liveSearchProfilePic">
+									<img src="'.$row['profile_pic'].'" />
+								</div>
+
+								<div class="liveSearchText">
+									'.$row['first_name'].' '.$row['last_name'].'
+									<p>'.$row['username'].'</p>
+									<p class="grey-font">'.$mutual_friends.'</p>
+								</div>
+							</a>
+						</div>';
+
+		}
+
+	}
+
+
+
 ?>
