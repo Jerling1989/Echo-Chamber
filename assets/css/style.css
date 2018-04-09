@@ -554,6 +554,25 @@ textarea:focus {
 	color: #FFFFFF;
 }
 
+.search_result_page {
+	padding: 0px 10px 10px 10px;
+	height: 100px;
+}
+
+.searchPageFriendButtons {
+	float: right;
+	margin-top: 50px;
+}
+
+.result_profile_pic {
+	float: left;
+	margin-right: 10px;
+}
+
+.search_hr {
+	margin-bottom: 0px;
+	padding: 0px;
+}
 
 
 
