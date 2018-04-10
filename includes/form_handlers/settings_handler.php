@@ -57,12 +57,18 @@
 				$update_comments_two = mysqli_query($connection, "UPDATE comments SET posted_to='$new_username' WHERE posted_to='$userLoggedIn'");
 
 				// FIND FRIEND ARRAYS WITH CURRENT $USERLOGGEDIN USERNAME
-				$friend_array_query = mysqli_query($connection, "SELECT friend_array FROM users WHERE friend_array LIKE '%$userLoggedIn%'");
-				$friend_array_row = mysqli_fetch_array($friend_array_query);
-				$friend_array_username = $friend_array_row['friend_array'];
-				// REPLACE AND UPDATE USERNAME IN FRIEND ARRAYS
-				$new_friend_array = str_replace($userLoggedIn.',', $new_username.',', $friend_array_username);
-				$remove_friend = mysqli_query($connection, "UPDATE users SET friend_array='$new_friend_array' WHERE friend_array LIKE '%$userLoggedIn%'");
+				$friend_array_query = mysqli_query($connection, "SELECT * FROM users WHERE friend_array LIKE '%$userLoggedIn%' ORDER BY id DESC");
+
+				// LOOP WHILE QUERY YEILDS RESULTS
+				while ($friend_array_row = mysqli_fetch_array($friend_array_query)) {
+					// SET VARIABLES
+					$friend_array_username = $friend_array_row['username'];
+					$current_friend_array = $friend_array_row['friend_array'];
+					// REPLACE AND UPDATE USERNAME IN FRIEND ARRAYS
+					$new_friend_array = str_replace($userLoggedIn.',', $new_username.',', $current_friend_array);
+					$update_friend_array = mysqli_query($connection, "UPDATE users SET friend_array='$new_friend_array' WHERE username='$friend_array_username'");
+
+				}
 
 				// REPLACE $USERLOGGEDIN AND $_SESSION['USERNAME']
 				// VARIABLES WITH NEW USERNAME VALUE

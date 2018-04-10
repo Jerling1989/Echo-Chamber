@@ -3,6 +3,20 @@
 	// INCLUDE NECCESSARY FILES AND SCRIPTS
 	include('includes/header.php');
 
+	// IF USER CLICKS BUTTON TO NOT CLOSE ACCOUNT
+	if (isset($_POST['cancel'])) {
+		header('Location: settings.php');
+	}
+
+	// IF USER CLICKS BUTTON TO CLOSE ACCOUNT
+	if(isset($_POST['close_account'])) {
+		// DATABASE QUERY (UPDATE USER_CLOSED TO "YES")
+		$close_query = mysqli_query($connection, "UPDATE users SET user_closed='yes' WHERE username='$userLoggedIn'");
+		// END SESSION AND SEND USER TO REGISTER/LOGIN PAGE
+		session_destroy();
+		header('Location: register.php');
+	}
+
 ?>
 
 <div class="main-column column">

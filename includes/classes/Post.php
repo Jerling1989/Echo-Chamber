@@ -322,7 +322,7 @@
 				$num_iterations = 0;
 				$count = 1;
 
-				// LOOP THROUGH QUERY RESULTS ARRAY
+				// LOOP WHILE QUERY YEILDS RESULTS
 				while ($row = mysqli_fetch_array($data_query)) {
 					// CREATE POST VARIABLES
 					$id = $row['id'];
@@ -523,7 +523,7 @@
 
 			// DATABASE QUERY (SET NOTIFICATION OPENED TO "YES")
 			$opened_query = mysqli_query($this->connection, "UPDATE notifications SET opened='yes' WHERE user_to='$userLoggedIn' AND link LIKE '%=$post_id'");
-			
+
 			// CREATE STRING VARIABLE
 			$str = '';
 			// DATABASE QUERY TO GET POSTS
