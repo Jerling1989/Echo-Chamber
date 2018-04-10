@@ -80,6 +80,7 @@ nav a:hover {
 	border-radius: 5px;
 	box-shadow: 2px 2px 1px #D3D3D3;
 	z-index: -1;
+	color: #555555;
 }
 
 .user-details {
@@ -561,7 +562,14 @@ textarea:focus {
 
 .searchPageFriendButtons {
 	float: right;
-	margin-top: 50px;
+	margin-top: 20px;
+}
+
+.searchPageFriendButtons input[type='submit'] {
+	border: none;
+	padding: 7px 12px;
+	border-radius: 5px;
+	color: #FFFFFF;
 }
 
 .result_profile_pic {
@@ -574,6 +582,28 @@ textarea:focus {
 	padding: 0px;
 }
 
+#small_profile_pic {
+	height: 55px;
+	margin: 1px 12px 0px 2px;
+	float: left;
+}
+
+.settings_input {
+	border: 1px solid #CCCCCC;
+	height: 24px;
+	padding: 4px 6px;
+	margin-bottom: 10px;
+	border-radius: 4px;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.settings_submit {
+	border: none;
+	padding: 7px 12px;
+	border-radius: 5px;
+	color: #FFFFFF;
+}
 
 
 

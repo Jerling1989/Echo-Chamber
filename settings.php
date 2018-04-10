@@ -10,7 +10,7 @@
 	
 	<h4>Account Settings</h4>
 	<?php
-		echo '<img src="'.$user['profile_pic'].'" id="small_profile_pics" />';
+		echo '<img src="'.$user['profile_pic'].'" id="small_profile_pic" />';
 	?>
 	<br />
 	<a href="upload.php">Upload New Profile Picture</a><br /><br /><br />
@@ -30,41 +30,41 @@
 	?>
 
 	<form action="settings.php" method="POST">
-		First Name: <input type="text" name="first_name" value="<?php echo $first_name; ?>" />
+		First Name: <input type="text" name="first_name" value="<?php echo $first_name; ?>" class="settings_input" />
 		<br />
-		Last Name: <input type="text" name="last_name" value="<?php echo $last_name; ?>" />
+		Last Name: <input type="text" name="last_name" value="<?php echo $last_name; ?>" class="settings_input" />
 		<br />
-		Email: <input type="email" name="email" value="<?php echo $email; ?>" />
+		Email: <input type="email" name="email" value="<?php echo $email; ?>" class="settings_input" />
 		<br />
-		Username: <input type="text" name="username" value="<?php echo $username; ?>" />
+		Username: <input type="text" name="username" value="<?php echo $username; ?>" class="settings_input" />
 		<br />
 
 		<?php echo $message; ?>
 
-		<input type="submit" name="update_details" id="save_details" value="Update Details" />
+		<input type="submit" name="update_details" id="save_details" value="Update Details" class="info settings_submit" />
 		<br />
 	</form>
 	<br />
 
 	<h4>Change Password</h4>
 	<form action="settings.php" method="POST">
-		Old Password: <input type="password" name="old_password" />
+		Old Password: <input type="password" name="old_password" class="settings_input" />
 		<br />
-		New Password: <input type="password" name="new_password_1" />
+		New Password: <input type="password" name="new_password_1" class="settings_input" />
 		<br />
-		Confirm New Password: <input type="password" name="new_password_2" />
+		Confirm New Password: <input type="password" name="new_password_2" class="settings_input" />
 		<br />
 
 		<?php echo $password_message; ?>
 
-		<input type="submit" name="update_password" id="save_details" value="Update Password" />
+		<input type="submit" name="update_password" id="save_details" value="Update Password" class="info settings_submit" />
 		<br />
 	</form>
 	<br />
 
 	<h4>Close Account</h4>
 	<form action="settings.php" method="POST">
-		<input type="submit" name="close_account" id="close_account" value="Close Account" />
+		<input type="submit" name="close_account" id="close_account" value="Close Account" class="danger settings_submit" />
 	</form>
 	<br />
 
