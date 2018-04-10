@@ -1,3 +1,4 @@
+/* GENERAL STYLES */
 @font-face {
 	font-family: 'Bellota-LightItalic';
 	src: url('../fonts/Bellota-LightItalic.otf');
@@ -6,6 +7,10 @@
 @font-face {
 	font-family: 'Bellota-BoldItalic';
 	src: url('../fonts/Bellota-BoldItalic.otf');
+}
+
+textarea:focus {
+	outline: 0;
 }
 
 body {
@@ -18,6 +23,26 @@ a {
 	color: #20AAE5;
 }
 
+a:hover {
+	text-decoration: none;
+}
+
+.timestamp_smaller {
+	font-size: 85%;
+	margin: 0px;
+}
+
+.grey-font {
+	color: #8C8C8C;
+	display: inline-block;
+}
+
+.tab-content {
+	margin-top: 25px;
+}
+
+
+/* TOP HEADER BAR */
 #top-bar {
 	width: 100%;
 	min-width: 1050px;
@@ -41,10 +66,6 @@ a {
 
 }
 
-a:hover {
-	text-decoration: none;
-}
-
 nav {
 	float: right;
 	right: 1px;
@@ -64,6 +85,8 @@ nav a:hover {
 	color: #FFFFFF;
 }
 
+
+/* MAIN BODY */
 .wrapper {
 	margin: 0 auto;
 	position: relative;
@@ -71,6 +94,13 @@ nav a:hover {
 	padding: 0 10px;
 	width: 75%;
 	min-width: 950px;
+}
+
+.main-column {
+	float: right;
+	width: 70%;
+	z-index: -1;
+	min-height: 170px;
 }
 
 .column {
@@ -83,6 +113,8 @@ nav a:hover {
 	color: #555555;
 }
 
+
+/* USER DETAILS PANEL */
 .user-details {
 	width: 250px;
 	float: left;
@@ -101,13 +133,8 @@ nav a:hover {
 	margin-right: 5px;
 }
 
-.main-column {
-	float: right;
-	width: 70%;
-	z-index: -1;
-	min-height: 170px;
-}
 
+/* SUBMIT NEW POST FORM */
 .post-form {
 	width: 100%;
 }
@@ -120,10 +147,6 @@ nav a:hover {
 	border: 1px solid #D3D3D3;
 	font-size: 12px;
 	padding: 5px;
-}
-
-textarea:focus {
-	outline: 0;
 }
 
 .post-form input[type='submit'] {
@@ -145,6 +168,19 @@ textarea:focus {
 	padding: 5px 4px 4px 5px;
 }
 
+
+/* LOADING NEW POSTS IMG */
+#loading {
+	text-align: center
+}
+
+#loading img {
+	width: 60px;
+	height: auto;
+}
+
+
+/* INDIVIDUAL POST STYLES */
 .status_post {
 	width: 96%;
 	font-size: 15px;
@@ -161,15 +197,19 @@ textarea:focus {
 	border-radius: 5px;
 }
 
-#loading {
-	text-align: center
+.postedImage img {
+	max-height: 300px;
+	max-width: 100%;
+	display: block;
+	margin: 5px auto;
 }
 
-#loading img {
-	width: 60px;
-	height: auto;
+#youtube {
+	margin: 0px auto;
 }
 
+
+/* POST COMMENTS */
 #comment_iframe {
 	max-height: 250px;
 	width: 100%;
@@ -208,6 +248,8 @@ textarea:focus {
 	position: absolute;
 }
 
+
+/* POST COMMENTS AND LIKES */
 .newsfeedPostOptions {
 	padding: 0px;
 	text-decoration: none;
@@ -237,6 +279,8 @@ textarea:focus {
 	font-size: 14px;
 }
 
+
+/* PROFILE PAGE LEFT BAR */
 .profile-left {
 	top: -10px;
 	width: 17%;
@@ -272,6 +316,12 @@ textarea:focus {
 	line-height: 20px;
 }
 
+.profile-info-bottom {
+	margin: 10px 0px 0px 7px;
+}
+
+
+/* COLOR CLASSES */
 .danger {
 	background-color: #E74C3C;
 }
@@ -296,6 +346,8 @@ textarea:focus {
 	background-color: #0043F0;
 }
 
+
+/* PROFILE LEFT BAR BUTTONS */
 .profile-left input[type="submit"] {
 	width: 90%;
 	height: 30px;
@@ -333,6 +385,8 @@ textarea:focus {
 	right: -15px;
 }
 
+
+/* PROFILE MAIN COLUMN */
 .profile-main-column {
 	min-width: 675px;
 	float: left;
@@ -340,10 +394,8 @@ textarea:focus {
 	z-index: -1;
 }
 
-.profile-info-bottom {
-	margin: 10px 0px 0px 7px;
-}
 
+/* MESSENGER STYLES */
 #message_textarea {
 	width: 84%;
 	margin-right: 8px;
@@ -396,6 +448,8 @@ textarea:focus {
 	margin-bottom: 10px;
 }
 
+
+/* LOADED CONVERSATIONS PANEL & DROPDOWNS */
 .loaded_conversations {
 	max-height: 216px;
 	overflow: scroll;
@@ -415,11 +469,8 @@ textarea:focus {
 	float: left;
 }
 
-.grey-font {
-	color: #8C8C8C;
-	display: inline-block;
-}
 
+/* LIVE USER SEARCH & DROPDOWNS*/
 .resultDisplay {
 	padding: 5px 5px 0px 5px;
 	height: 70px;
@@ -450,57 +501,6 @@ textarea:focus {
 .liveSearchText p {
 	margin-left: 10px;
 	font-size: 14px;
-}
-
-.tab-content {
-	margin-top: 25px;
-}
-
-.dropdown_data_window {
-	width: 300px;
-	background-color: #FFFFFF;
-	border: 1px solid #DADADA;
-	border-radius: 0px 0px 8px 8px;
-	border-top: none;
-	position: absolute;
-	right: 10px;
-	top: 40px;
-	overflow: scroll;
-}
-
-.notification_badge {
-	padding: 3px 7px;
-	font-size: 12px;
-	font-weight: 700;
-	line-height: 8px;
-	color: #FFFFFF;
-	text-align: center;
-	white-space: nowrap;
-	vertical-align: baseline;
-	background-color: #F00;
-	border-radius: 10px;
-	position: absolute;
-	left: 8px;
-	top: -5px;
-	height: 14px;
-}
-
-.resultDisplayNotification {
-	height: auto;
-	min-height: 60px;
-	color: #1485BD;
-	padding: 8px 8px 10px 8px;
-}
-.resultDisplayNotification img {
-	height: 40px;
-	border-radius: 5px;
-	margin: 1px 12px 0px 2px;
-	float: left;
-}
-
-.timestamp_smaller {
-	font-size: 85%;
-	margin: 0px;
 }
 
 .search {
@@ -555,6 +555,29 @@ textarea:focus {
 	color: #FFFFFF;
 }
 
+.search_results {
+	background-color: #FFFFFF;
+	border: 1px solid #DADADA;
+	border-bottom: none;
+	border-top: none;
+	margin-top: 21px;
+}
+
+.search_results_footer {
+	padding: 7px 4px 0px 4px;
+	height: 30px;
+	border: 1px solid #DADADA;
+	border-top: none;
+	background-color: #20AAE5;
+	text-align: center;
+}
+
+.search_results_footer a {
+	color: #FFFFFF;
+}
+
+
+/* USER SEARCH RESULTS PAGE */
 .search_result_page {
 	padding: 0px 10px 10px 10px;
 	height: 100px;
@@ -588,6 +611,56 @@ textarea:focus {
 	float: left;
 }
 
+
+/* NOTIFICATIONS/MESSAGES DROPDOWN */
+.dropdown_data_window {
+	width: 300px;
+	background-color: #FFFFFF;
+	border: 1px solid #DADADA;
+	border-radius: 0px 0px 8px 8px;
+	border-top: none;
+	position: absolute;
+	right: 10px;
+	top: 40px;
+	overflow: scroll;
+}
+
+
+/* NOTIFICATION BADGE */
+.notification_badge {
+	padding: 3px 7px;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 8px;
+	color: #FFFFFF;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	background-color: #F00;
+	border-radius: 10px;
+	position: absolute;
+	left: 8px;
+	top: -5px;
+	height: 14px;
+}
+
+
+/* NOTIFICATION DROPDOWN RESULTS */
+.resultDisplayNotification {
+	height: auto;
+	min-height: 60px;
+	color: #1485BD;
+	padding: 8px 8px 10px 8px;
+}
+.resultDisplayNotification img {
+	height: 40px;
+	border-radius: 5px;
+	margin: 1px 12px 0px 2px;
+	float: left;
+}
+
+
+/* SETTINGS PAGE */
 .settings_input {
 	border: 1px solid #CCCCCC;
 	height: 24px;
@@ -604,23 +677,4 @@ textarea:focus {
 	border-radius: 5px;
 	color: #FFFFFF;
 }
-
-.postedImage img {
-	max-height: 300px;
-	max-width: 100%;
-	display: block;
-	margin: 5px auto;
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
