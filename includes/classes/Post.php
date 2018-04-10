@@ -24,6 +24,27 @@
 
 			// CHECK THAT POST HAS CONTENT
 			if ($check_empty != '') {
+
+				// CREATE ARRAY OUT OF $BODY SPLIT AT SPACES
+				$body_array = preg_split('/\s+/', $body);
+				// FOREACH LOOP THROUGH ARRAY
+				foreach ($body_array as $key => $value) {
+					// IF $VALUE STRING HAS YOUTUBE LINK IN IT
+					if (strpos($value, 'www.youtube.com/watch?v=') !== false) {
+						// SPLIT LONG LINKS AT AMPERSAND
+						$link = preg_split('!&!', $value);
+						// REPLACE 'WATCH/' WITH 'EMBED/'
+						$value = preg_replace('!watch\?v=!', 'embed/', $link[0]);
+						// ASSIGN $VALUE IFRAME WITH VIDEO SOURCE
+						$value = '<br /><iframe width="420" height="315" src="'.$value.'"><iframe><br />';
+						// ADD NEW $VALUE TO $BODY_ARRAY
+						$body_array['key'] = $value;
+					}
+				}
+				// PUT ARRAY BACK INTO $BODY STRING
+				$body = implode(' ', $body_array);
+
+
 				// CURRENT DATE AND TIME
 				$date_added = date('Y-m-d H:i:s');
 				// GET USERNAME
