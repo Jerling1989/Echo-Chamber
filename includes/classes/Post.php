@@ -15,34 +15,38 @@
 
 		// FUNCTION TO SUBMIT USER POST
 		public function submitPost($body, $user_to, $imageName) {
+
 			// REMOVE ANY HTML TAGS
 			$body = strip_tags($body);
 			// ESCAPE CHARACTERS THAT MAY CAUSE ISSUES (SINGLE QUOTE)
 			$body = mysqli_real_escape_string($this->connection, $body);
-			// DELETES ALL SPACES
-			$check_empty = preg_replace('/\s+/', '', $body);
+			// MAKE POSSIBLE TO POST CAPTION BEFORE VIDEO
+			$body = str_replace('\r\n', "\n", $body);
+			$body = nl2br($body); 
 
-			// CHECK THAT POST HAS CONTENT
-			if ($check_empty != '') {
+			// DELETES ALL SPACES
+			$check_empty = preg_replace('/\s+/', '', $body); //Deltes all spaces 
+	    // CHECK THAT POST HAS CONTENT
+			if($check_empty != "") {
 
 				// CREATE ARRAY OUT OF $BODY SPLIT AT SPACES
-				$body_array = preg_split('/\s+/', $body);
+				$body_array = preg_split("/\s+/", $body);
 				// FOREACH LOOP THROUGH ARRAY
-				foreach ($body_array as $key => $value) {
+				foreach($body_array as $key => $value) {
 					// IF $VALUE STRING HAS YOUTUBE LINK IN IT
-					if (strpos($value, 'www.youtube.com/watch?v=') !== false) {
+					if(strpos($value, "www.youtube.com/watch?v=") !== false) {
 						// SPLIT LONG LINKS AT AMPERSAND
-						$link = preg_split('!&!', $value);
+						$link = preg_split("!&!", $value);
 						// REPLACE 'WATCH/' WITH 'EMBED/'
-						$value = preg_replace('!watch\?v=!', 'embed/', $link[0]);
+						$value = preg_replace("!watch\?v=!", "embed/", $link[0]);
 						// ASSIGN $VALUE IFRAME WITH VIDEO SOURCE
-						$value = '<br /><iframe width="420" height="315" src="'.$value.'"><iframe><br />';
+						$value = "<br><div class=\'text-center\'><iframe width=\'420\' height=\'315\' src=\'" . $value ."\'></iframe></div><br>";
 						// ADD NEW $VALUE TO $BODY_ARRAY
-						$body_array['key'] = $value;
+						$body_array[$key] = $value;
 					}
 				}
 				// PUT ARRAY BACK INTO $BODY STRING
-				$body = implode(' ', $body_array);
+				$body = implode(" ", $body_array);
 
 
 				// CURRENT DATE AND TIME
