@@ -11,7 +11,7 @@
 		// CREATE NEW POST OBJECT FOR USER WHO POSTED IT
 		$post = new Post($connection, $_POST['user_from']);
 		// SUBMIT POST TO USER PROFILE
-		$post->submitPost($_POST['post_body'], $_POST['user_to']);
+		$post->submitPost($_POST['post_body'], $_POST['user_to'], $imageName);
 	}
 
 ?>

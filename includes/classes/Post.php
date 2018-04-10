@@ -156,7 +156,7 @@
 
 		}
 
-		// FUNCTION TO LOAD POSTS FROM FRIENDS
+		// FUNCTION TO LOAD POSTS FROM FRIENDS (NEWSFEED)
 		public function loadPostsFriends($data, $limit) {
 
 			$page = $data['page'];
@@ -444,6 +444,7 @@
 					$body = $row['body'];
 					$added_by = $row['added_by'];
 					$date_time = $row['date_added'];
+					$imagePath = $row['image'];
 
 					// CHECK IF IT'S GONE THROUGH ALL POSTS THAT HAVE BEEN LOADED
 					if ($num_iterations++ < $start) {
@@ -563,6 +564,18 @@
 						}
 					}
 
+
+					// IF IMAGE PATH IS NOT BLANK CREATE IMAGE DIV
+						if ($imagePath != '') {
+							$imageDiv = '<div class="postedImage">
+													 	<img src="'.$imagePath.'" />
+													 </div>';
+							// ELSE LEAVE IMAGE DIV BLANK
+						} else {
+							$imageDiv = '';
+						}
+
+
 					// CREATE POST STRING VARIABLE TO BE DISPLAYED
 					$str .= "<div class='status_post'>
 										<div class='post_profile_pic'>
@@ -577,6 +590,7 @@
 										<div id='post_body'>
 											$body
 											<br />
+											$imageDiv
 											<br />
 											<br />
 										</div>
@@ -655,6 +669,7 @@
 				$body = $row['body'];
 				$added_by = $row['added_by'];
 				$date_time = $row['date_added'];
+				$imagePath = $row['image'];
 
 				// CHECK IF THE POST IS SENT TO A USER
 				if ($row['user_to'] == 'none') {
@@ -787,6 +802,18 @@
 						}
 					}
 
+
+					// IF IMAGE PATH IS NOT BLANK CREATE IMAGE DIV
+					if ($imagePath != '') {
+						$imageDiv = '<div class="postedImage">
+												 	<img src="'.$imagePath.'" />
+												 </div>';
+						// ELSE LEAVE IMAGE DIV BLANK
+					} else {
+						$imageDiv = '';
+					}
+
+
 					// CREATE POST STRING VARIABLE TO BE DISPLAYED
 					$str .= "<div class='status_post'>
 										<div class='post_profile_pic'>
@@ -801,6 +828,7 @@
 										<div id='post_body'>
 											$body
 											<br />
+											$imageDiv
 											<br />
 											<br />
 										</div>
