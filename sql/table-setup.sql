@@ -80,3 +80,11 @@ CREATE TABLE notifications (
 	viewed VARCHAR (3),
 	PRIMARY KEY (id)
 );
+
+
+CREATE TABLE trends (
+	id INT AUTO_INCREMENT NOT NULL,
+	title VARCHAR (50),
+	hits INT,
+	PRIMARY KEY (id)
+);
