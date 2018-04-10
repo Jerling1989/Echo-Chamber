@@ -605,6 +605,12 @@ textarea:focus {
 	color: #FFFFFF;
 }
 
+.postedImage img {
+	max-height: 300px;
+	max-width: 100%;
+	display: block;
+	margin: 5px auto;
+}
 
 
 

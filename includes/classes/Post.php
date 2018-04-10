@@ -14,7 +14,7 @@
 		}
 
 		// FUNCTION TO SUBMIT USER POST
-		public function submitPost($body, $user_to) {
+		public function submitPost($body, $user_to, $imageName) {
 			// REMOVE ANY HTML TAGS
 			$body = strip_tags($body);
 			// ESCAPE CHARACTERS THAT MAY CAUSE ISSUES (SINGLE QUOTE)
@@ -56,7 +56,7 @@
 				}
 
 				// INSERT POST INTO DATABASE
-				$query = mysqli_query($this->connection, "INSERT INTO posts VALUES('', '$body', '$added_by', '$user_to', '$date_added', 'no', 'no', '0')");
+				$query = mysqli_query($this->connection, "INSERT INTO posts VALUES('', '$body', '$added_by', '$user_to', '$date_added', 'no', 'no', '0', '$imageName')");
 				// RETURN ID OF POST SUBMITTED
 				$return_id = mysqli_insert_id($this->connection);
 
@@ -138,14 +138,17 @@
 			}
 		}
 
-
+		// FUNCTION TO CALCULATE TRENDING WORDS
 		public function calculateTrend($term) {
-
+			// IF TERM IS NOT BLANK
 			if ($term != '') {
+				// DATABASE QUERY (GET TRENDS WITH $TERM)
 				$query = mysqli_query($this->connection, "SELECT * FROM trends WHERE title='$term'");
 
+				// IF TREND IS NOT ALREADY IN DATABASE, ADD ID
 				if (mysqli_num_rows($query) == 0) {
 					$insert_query = mysqli_query($this->connection, "INSERT INTO trends VALUES('', '$term', '1')");
+					// IF TREND IS ALREADY IN DATABASE, UPDATE USAGE NUMBER
 				} else {
 					$insert_query = mysqli_query($this->connection, "UPDATE trends SET hits=hits+1 WHERE title='$term'");
 				}
@@ -182,6 +185,7 @@
 					$body = $row['body'];
 					$added_by = $row['added_by'];
 					$date_time = $row['date_added'];
+					$imagePath = $row['image'];
 
 					// CHECK IF THE POST IS SENT TO A USER
 					if ($row['user_to'] == 'none') {
@@ -326,6 +330,18 @@
 							}
 						}
 
+
+						// IF IMAGE PATH IS NOT BLANK CREATE IMAGE DIV
+						if ($imagePath != '') {
+							$imageDiv = '<div class="postedImage">
+													 	<img src="'.$imagePath.'" />
+													 </div>';
+							// ELSE LEAVE IMAGE DIV BLANK
+						} else {
+							$imageDiv = '';
+						}
+
+
 						// CREATE POST STRING VARIABLE TO BE DISPLAYED
 						$str .= "<div class='status_post'>
 											<div class='post_profile_pic'>
@@ -340,6 +356,7 @@
 											<div id='post_body'>
 												$body
 												<br />
+												$imageDiv
 												<br />
 												<br />
 											</div>

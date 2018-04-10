@@ -5,10 +5,58 @@
 
 	// IF NEW POST IS SUBMITTED
 	if (isset($_POST['post'])) {
-		// CREATE NEW POST OBJECT
-		$post = new Post($connection, $userLoggedIn);
-		// RUN FUNCTION TO ADD POST TO DATABASE
-		$post->submitPost($_POST['post-text'], 'none');
+
+		// CREATE POST IMAGE VARIABLES
+		$uploadOk = 1;
+		$imageName = $_FILES['fileToUpload']['name'];
+		$errorMessage = '';
+
+		// IF $IMAGENAME IS NOT BLANK
+		if ($imageName != '') {
+			// CREATE FILE PATH TO IMAGE
+			$targetDir = 'assets/img/posts/';
+			$imageName = $targetDir . uniqid() . basename($imageName);
+			$imageFileType = pathinfo($imageName, PATHINFO_EXTENSION);
+
+			// IF IMAGE IS TOO LARGE
+			if ($_FILES['fileToUpload']['size'] > 10000000) {
+				$errorMessage = 'Sorry your file is too large';
+				$uploadOk = 0;
+			}
+
+			// IF IMAGE IS NOT PROPER FILE EXTENSION
+			if (strtolower($imageFileType) != 'jpeg' && strtolower($imageFileType) != 'png' && strtolower($imageFileType) != 'jpg') {
+
+				$errorMessage = 'Sorry, only jpeg, jpg and png files are allowed';
+				$uploadOk = 0;
+			}
+
+			// IF EVERYTHING WORKS ACCORDINGLY
+			if ($uploadOk) {
+				if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $imageName)) {
+					// IMAGE UPLOADED OK
+				} else {
+					// IMAGE DID NOT UPLOAD
+					$uploadOk = 0;
+				}
+			}
+
+		}
+
+		// IF EVERYTHING WORKS ACCORDINGLY
+		if ($uploadOk) {
+			// CREATE NEW POST OBJECT
+			$post = new Post($connection, $userLoggedIn);
+			// RUN FUNCTION TO ADD POST TO DATABASE
+			$post->submitPost($_POST['post-text'], 'none', $imageName);
+
+			// ELSE DISPLAY ERROR MESSAGE
+		} else {
+			echo '<div style="text-align: center;" class="alert alert-danger">
+							'.$errorMessage.'
+						</div>';
+		}
+
 	}
 
 ?>
@@ -45,7 +93,9 @@
 	<div class="main-column column">
 		
 		<!-- POST FORM -->
-		<form class="post-form" action="index.php" method="POST">
+		<form class="post-form" action="index.php" method="POST" enctype="multipart/form-data">
+			<!-- POST IMAGE INPUT -->
+			<input type="file" name="fileToUpload" id="fileToUpload" />
 			<!-- POST TEXTAREA -->
 			<textarea name="post-text" id="post-text" placeholder="Got something to say?"></textarea>
 			<!-- POST SUBMIT BUTTON -->
@@ -66,7 +116,7 @@
 
 	<!-- TRENDING PANEL -->
 	<div class="user-details column">
-		<h4>Popular</h4>
+		<h4>Popular</h4><br />
 
 		<div class="trends">
 			<?php
@@ -82,7 +132,7 @@
 
 					echo '<div style="padding: 1px;">';
 					echo $trimmed_word . $word_dot;
-					echo '<br /></div>';
+					echo '<br /></div><br />';
 				}
 
 			?>
