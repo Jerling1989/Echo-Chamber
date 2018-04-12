@@ -5,7 +5,8 @@
 		
 		$email = filter_var($_POST['log_email'], FILTER_SANITIZE_EMAIL); // SANITIZE EMAIL
 		$_SESSION['log_email'] = $email; // STORE EMAIL INTO SESSION VARIABLE
-		$password = md5($_POST['log_password']); // ENCRYPT PASSWORD
+		// ADD SALT md5(md5($email).$_POST['log_password']);
+		$password = md5(md5($email).$_POST['log_password']); // ENCRYPT PASSWORD
 
 		// RUN QUERY TO CHECK FOR MATCHING EMAIL AND PASSWORD 
 		$check_database_query = mysqli_query($connection, "SELECT * FROM users WHERE email='$email' AND password='$password'");
@@ -35,7 +36,7 @@
 			// NO RESULT FROM QUERY (INCORRECT USER LOG IN)
 		} else {
 			// CREATE LOGIN ERROR MESSAGE
-			array_push($error_array, 'Email or password was incorrect<br />');
+			array_push($error_array, 'email/password error');
 
 		}
 	}

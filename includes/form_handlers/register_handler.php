@@ -62,40 +62,39 @@
 
 				// CHECK IF QUERY RETURNS ANY ROWS (EMAIL TAKEN)
 				if($num_rows > 0) {
-					array_push($error_array, 'Email already in use<br />');
+					array_push($error_array, 'email in use');
 				}
-
 				// INPROPER FORMAT ERROR
 			} else {
-				array_push($error_array, 'Invalid email format<br />');
+				array_push($error_array, 'invalid format');
 			}
-
 			// UNMATCHING EMAIL ERROR
 		} else {
-			array_push($error_array, 'Your emails do not match<br />');
+			array_push($error_array, 'emails do not match');
 		}
 
 	
 		// CHECK FIRST NAME LENGTH
 		if (strlen($first_name) > 25 || strlen($first_name) < 2) {
-			array_push($error_array, 'Your first name must be between 2 and 25 characters<br />');
+			array_push($error_array, 'first name length');
 		}
 		// CHECK LAST NAME LENGTH
 		if (strlen($last_name) > 25 || strlen($last_name) < 2) {
-			array_push($error_array, 'Your last name must be between 2 and 25 characters<br />');
+			array_push($error_array, 'last name length');
 		}
+
 		// CHECK FOR MATCHING PASSWORDS
 		if ($password != $password2) {
-			array_push($error_array, 'Your passwords do not match<br />');
+			array_push($error_array, 'passwords do not match');
 		} else {
 			// CHECK IF PASSWORD USES ENGLISH LETTERS (ADDED SPECIAL CHARACTERS)
 			if (preg_match('/[^A-Za-z0-9\.\+!@#$%^&*()]/', $password)) {
-				array_push($error_array, 'Your password can only contain english characters or numbers<br />');
+				array_push($error_array, 'password characters');
 			}
 		}
 		// CHECK PASSWORD LENGTH
 		if (strlen($password) > 30 || strlen($password) < 5) {
-			array_push($error_array, 'Your password must be between 5 and 30 characters<br />');
+			array_push($error_array, 'password length');
 		}
 		
 
@@ -103,7 +102,8 @@
 		if (empty($error_array)) {
 
 			// ENCRYPT PASSWORD BEFORE SENT TO DATABASE
-			$password = md5($password);
+			// ADD SALT md5(md5($email).$password);
+			$password = md5(md5($email).$password);
 			// GENERATE USERNAME BY CONCATENATING FIRST AND LAST NAME
 			$username = strtolower($first_name . '_' . $last_name);
 			// QUERY TO CHECK IF USERNAME IS ALREADY TAKEN
@@ -137,7 +137,7 @@
 			$query = mysqli_query($connection, "INSERT INTO users VALUES ('', '$first_name', '$last_name', '$username', '$email', '$password', '$date', '$profile_pic', '0', '0', 'no', ',')");
 
 			// PUSH SUCCESSFUL SIGN UP MESSAGE TO $ERROR_ARRAY
-			array_push($error_array, "<span style='color: #14C800;'>You're all set! Go ahead and login!</span><br />");
+			array_push($error_array, 'successful signup');
 
 			// CLEAR SESSION VARIABLES
 			$_SESSION['reg_fname'] = '';
