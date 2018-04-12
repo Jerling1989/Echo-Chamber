@@ -5,7 +5,6 @@
 		
 		$email = filter_var($_POST['log_email'], FILTER_SANITIZE_EMAIL); // SANITIZE EMAIL
 		$_SESSION['log_email'] = $email; // STORE EMAIL INTO SESSION VARIABLE
-		// ADD SALT md5(md5($email).$_POST['log_password']);
 		$password = md5(md5($email).$_POST['log_password']); // ENCRYPT PASSWORD
 
 		// RUN QUERY TO CHECK FOR MATCHING EMAIL AND PASSWORD 

@@ -236,6 +236,9 @@
 
 			} // END WHILE
 
+			echo '<center>No More Comments<br /><br /></center>';
+
+
 			// MESSAGE IN COMMENT DIV WITH NO COMMENTS
 		} else {
 			echo '<center><br /><br />No Comments to Show</center>';

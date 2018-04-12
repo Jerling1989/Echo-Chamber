@@ -102,7 +102,6 @@
 		if (empty($error_array)) {
 
 			// ENCRYPT PASSWORD BEFORE SENT TO DATABASE
-			// ADD SALT md5(md5($email).$password);
 			$password = md5(md5($email).$password);
 			// GENERATE USERNAME BY CONCATENATING FIRST AND LAST NAME
 			$username = strtolower($first_name . '_' . $last_name);

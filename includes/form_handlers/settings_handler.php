@@ -116,7 +116,7 @@
 					$password_message = 'Your password must be between 5 and 30 characters<br /><br />';
 					// IF TWO NEW PASSWORDS ARE PROPER LENGTH
 				} else {
-					// ENCRYPT NEW PASSWORD (ADD EMAIL SALT LATER)
+					// ENCRYPT NEW PASSWORD
 					$new_password_md5 = md5(md5($db_email).$new_password_1);
 					// DATABASE QUERY (UPDATE NEW PASSWORD)
 					$password_query = mysqli_query($connection, "UPDATE users SET password='$new_password_md5' WHERE username='$userLoggedIn'");
