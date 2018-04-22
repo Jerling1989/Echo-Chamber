@@ -5,6 +5,7 @@
 		private $user_obj;
 		private $connection;
 
+
 		// CREATE PUBLIC VARIABLES
 		public function __construct($connection, $user) {
 			// CONNECTION VARIABLE
@@ -12,6 +13,7 @@
 			// CREATE NEW USER OBJECT
 			$this->user_obj = new User($connection, $user);
 		}
+
 
 		// FUNCTION TO SUBMIT USER POST
 		public function submitPost($body, $user_to, $imageName) {
@@ -40,14 +42,14 @@
 						// REPLACE 'WATCH/' WITH 'EMBED/'
 						$value = preg_replace("!watch\?v=!", "embed/", $link[0]);
 						// ASSIGN $VALUE IFRAME WITH VIDEO SOURCE
-						$value = "<br><div class=\'text-center\'><iframe width=\'420\' height=\'315\' src=\'" . $value ."\'></iframe></div><br>";
+						$value = '<div class="text-center embed-responsive embed-responsive-16by9"><iframe src="'.$value.'""></iframe></div>';
 						// ADD NEW $VALUE TO $BODY_ARRAY
 						$body_array[$key] = $value;
 					}
 				}
+
 				// PUT ARRAY BACK INTO $BODY STRING
 				$body = implode(" ", $body_array);
-
 
 				// CURRENT DATE AND TIME
 				$date_added = date('Y-m-d H:i:s');
@@ -142,6 +144,7 @@
 			}
 		}
 
+
 		// FUNCTION TO CALCULATE TRENDING WORDS
 		public function calculateTrend($term) {
 			// IF TERM IS NOT BLANK
@@ -157,8 +160,8 @@
 					$insert_query = mysqli_query($this->connection, "UPDATE trends SET hits=hits+1 WHERE title='$term'");
 				}
 			}
-
 		}
+
 
 		// FUNCTION TO LOAD POSTS FROM FRIENDS (NEWSFEED)
 		public function loadPostsFriends($data, $limit) {
@@ -215,7 +218,6 @@
 					$user_logged_obj = new User($this->connection, $userLoggedIn);
 					if ($user_logged_obj->isFriend($added_by)) {
 
-
 						// CHECK IF IT'S GONE THROUGH ALL POSTS THAT HAVE BEEN LOADED
 						if ($num_iterations++ < $start) {
 							continue;
@@ -243,7 +245,6 @@
 						$username = $user_row['username'];
 						// CREATE PROFILE_PIC VARIABLE FROM QUERY
 						$profile_pic = $user_row['profile_pic'];
-
 						?>
 
 						<script>
@@ -268,7 +269,6 @@
 						</script>
 
 						<?php
-
 						// DATABASE QUERY TO CHECK FOR COMMENTS
 						$comment_check = mysqli_query($this->connection, "SELECT * FROM comments WHERE post_id='$id'");
 						// STORE NUMBER OF RESULTS FROM QUERY
@@ -334,17 +334,15 @@
 							}
 						}
 
-
 						// IF IMAGE PATH IS NOT BLANK CREATE IMAGE DIV
 						if ($imagePath != '') {
-							$imageDiv = '<div class="postedImage">
+							$imageDiv = '<br><div class="postedImage">
 													 	<img src="'.$imagePath.'" />
 													 </div>';
 							// ELSE LEAVE IMAGE DIV BLANK
 						} else {
 							$imageDiv = '';
 						}
-
 
 						// CREATE POST STRING VARIABLE TO BE DISPLAYED
 						$str .= "<div class='status_post'>
@@ -367,7 +365,7 @@
 
 											<div class='newsfeedPostOptions'>
 												<span onClick='javascript:toggle$id()'>Comments($comments_check_num)</span>&nbsp;&nbsp;&nbsp;
-												<iframe src='like.php?post_id=$id' scrolling='no'></iframe>
+												<iframe class='like-frame' src='like.php?post_id=$id' scrolling='no'></iframe>
 											</div>
 
 										</div>
@@ -376,7 +374,6 @@
 										</div>
 										<hr />";		
 					}
-
 					?>
 
 					<script>
@@ -397,9 +394,7 @@
 					</script>
 
 					<?php
-
 				} // END WHILE LOOP
-
 
 				// IF THERE ARE MORE POSTS, ENABLE MORE SCROLLING
 				if ($count > $limit) {
@@ -410,7 +405,6 @@
 					$str .= "<input type='hidden' class='noMorePosts' value='true'>
 									 <p style='text-align: center'>No More Posts to Show</p>";
 				}
-
 			}
 			// DISPLAY POST VARIABLE ON PAGE
 			echo $str;
@@ -477,7 +471,6 @@
 					$username = $user_row['username'];
 					// CREATE PROFILE_PIC VARIABLE FROM QUERY
 					$profile_pic = $user_row['profile_pic'];
-
 					?>
 
 					<script>
@@ -502,7 +495,6 @@
 					</script>
 
 					<?php
-
 					// DATABASE QUERY TO CHECK FOR COMMENTS
 					$comment_check = mysqli_query($this->connection, "SELECT * FROM comments WHERE post_id='$id'");
 					// STORE NUMBER OF RESULTS FROM QUERY
@@ -568,7 +560,6 @@
 						}
 					}
 
-
 					// IF IMAGE PATH IS NOT BLANK CREATE IMAGE DIV
 						if ($imagePath != '') {
 							$imageDiv = '<div class="postedImage">
@@ -578,7 +569,6 @@
 						} else {
 							$imageDiv = '';
 						}
-
 
 					// CREATE POST STRING VARIABLE TO BE DISPLAYED
 					$str .= "<div class='status_post'>
@@ -601,7 +591,7 @@
 
 										<div class='newsfeedPostOptions'>
 											<span onClick='javascript:toggle$id()'>Comments($comments_check_num)</span>&nbsp;&nbsp;&nbsp;
-											<iframe src='like.php?post_id=$id' scrolling='no'></iframe>
+											<iframe class='like-frame' src='like.php?post_id=$id' scrolling='no'></iframe>
 										</div>
 
 									</div>
@@ -609,7 +599,6 @@
 										<iframe src='comment_frame.php?post_id=$id' id='comment_iframe' frameborder='0'></iframe>
 									</div>
 									<hr />";
-
 					?>
 
 					<script>
@@ -630,9 +619,7 @@
 					</script>
 
 					<?php
-
 				} // END WHILE LOOP
-
 
 				// IF THERE ARE MORE POSTS, ENABLE MORE SCROLLING
 				if ($count > $limit) {
@@ -643,11 +630,11 @@
 					$str .= "<input type='hidden' class='noMorePosts' value='true'>
 									 <p style='text-align: center'>No More Posts to Show</p>";
 				}
-
 			}
 			// DISPLAY POST VARIABLE ON PAGE
 			echo $str;
 		}
+
 
 		// FUNCTION TO LOAD A SINGLE POST
 		public function getSinglePost($post_id) {
@@ -715,7 +702,6 @@
 					$username = $user_row['username'];
 					// CREATE PROFILE_PIC VARIABLE FROM QUERY
 					$profile_pic = $user_row['profile_pic'];
-
 					?>
 
 					<script>
@@ -740,7 +726,6 @@
 					</script>
 
 					<?php
-
 					// DATABASE QUERY TO CHECK FOR COMMENTS
 					$comment_check = mysqli_query($this->connection, "SELECT * FROM comments WHERE post_id='$id'");
 					// STORE NUMBER OF RESULTS FROM QUERY
@@ -806,7 +791,6 @@
 						}
 					}
 
-
 					// IF IMAGE PATH IS NOT BLANK CREATE IMAGE DIV
 					if ($imagePath != '') {
 						$imageDiv = '<div class="postedImage">
@@ -816,7 +800,6 @@
 					} else {
 						$imageDiv = '';
 					}
-
 
 					// CREATE POST STRING VARIABLE TO BE DISPLAYED
 					$str .= "<div class='status_post'>
@@ -839,7 +822,7 @@
 
 										<div class='newsfeedPostOptions'>
 											<span onClick='javascript:toggle$id()'>Comments($comments_check_num)</span>&nbsp;&nbsp;&nbsp;
-											<iframe src='like.php?post_id=$id' scrolling='no'></iframe>
+											<iframe class='like-frame' src='like.php?post_id=$id' scrolling='no'></iframe>
 										</div>
 
 									</div>
@@ -847,7 +830,6 @@
 										<iframe src='comment_frame.php?post_id=$id' id='comment_iframe' frameborder='0'></iframe>
 									</div>
 									<hr />";
-
 				?>
 
 				<script>
@@ -868,31 +850,19 @@
 				</script>
 
 				<?php
-
 					// IF USER WHO POSTED IS NOT FRIENDS WITH LOGGED IN USER
 				} else {
 					echo '<p>You Cannot See this Post Becuase You Are Not Friends with this User.</p>';
 					return;
 				}
-
 				// IF DATABASE QUERY YEILDS NO RESULTS
 			} else {
 				echo '<p>No Post Found. If You Clicked a Link it May be Broken.</p>';
 				return;
 			}
-
 			// DISPLAY POST VARIABLE ON PAGE
 			echo $str;
-
 		}
-
-
-
-
-
-
-
-
 	}
 
 ?>
