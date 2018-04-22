@@ -12,7 +12,6 @@
 		// CHECK NUMBER OF RESULTS FROM QUERY
 		$check_login_query = mysqli_num_rows($check_database_query);
 
-
 		// IF THERE IS A RESULT FROM THE QUERY (CORRECT USER LOG IN)
 		if ($check_login_query == 1) {
 			
@@ -36,7 +35,7 @@
 		} else {
 			// CREATE LOGIN ERROR MESSAGE
 			array_push($error_array, 'email/password error');
-
 		}
 	}
+	
 ?>
