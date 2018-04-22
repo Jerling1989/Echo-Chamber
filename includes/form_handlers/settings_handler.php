@@ -69,7 +69,6 @@
 					// REPLACE AND UPDATE USERNAME IN FRIEND ARRAYS
 					$new_friend_array = str_replace($userLoggedIn.',', $username.',', $current_friend_array);
 					$update_friend_array = mysqli_query($connection, "UPDATE users SET friend_array='$new_friend_array' WHERE username='$friend_array_username'");
-
 				}
 
 				// REPLACE $USERLOGGEDIN AND $_SESSION['USERNAME']
@@ -77,22 +76,17 @@
 				$userLoggedIn = $username;
 				$_SESSION['username'] = $username;
 
-
 				// IF USERNAME IS ALREADY TAKEN BY SOMEBODY ELSE
 			} else {
 				$message = 'That username is already in use!<br /><br />';
 			}
-
 			// IF EMAIL IS ALREADY TAKEN BY SOMEBODY ELSE
 		} else {
 			$message = 'That email is already in use!<br /><br />';
 		}
-
 	} else {
 		$message = '';
 	}
-
-
 
 	// IF USER CLICKS UPDATE PASSWORD BUTTON
 	if (isset($_POST['update_password'])) {
@@ -135,14 +129,9 @@
 		$password_message = '';
 	}
 
-
-
-
 	// IF USER CLICKS CLOSE ACCOUNT BUTTON
 	if (isset($_POST['close_account'])) {
 		header('Location: close_account.php');
 	}
-
-
 
 ?>
