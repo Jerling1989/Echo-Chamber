@@ -127,7 +127,7 @@
 
 		      <!-- MESSAGES MOBILE -->
 		      <li class="nav-item mobile-nav">
-		        <a class="nav-link" href="mobile-messages.php">
+		        <a class="nav-link" href="mobile_messages.php">
 		        	<i class="fas fa-envelope fa-lg"></i> <span class="mobile-nav">Messages</span>
 		        	<?php
 								if ($num_messages > 0) {
@@ -155,7 +155,7 @@
 
 		      <!-- NOTIFICATIONS MOBILE -->
 		      <li class="nav-item mobile-nav">
-		        <a class="nav-link" href="mobile-notifications.php">
+		        <a class="nav-link" href="mobile_notifications.php">
 		        	<i class="fas fa-bell fa-lg"></i> <span class="mobile-nav">Notifications</span>
 		        	<?php
 								if ($num_notifications > 0) {
