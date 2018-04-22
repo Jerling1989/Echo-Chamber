@@ -19,30 +19,30 @@
 
 ?>
 
-<div class="main-column column">
-
-	<h4>Close Account</h4>
-
-	Are you sure you want to close your account?<br /><br />
-	Closing your account will hide your profile and all your activity from other users.<br /><br />
-	You can re-open your account at any time by simply logging in.<br /><br />
-
+<!-- CLOSE ACCOUNT PANEL -->
+<div class="column col-xl-10 col-lg-12 col-md-12" id="close-account">
+	<!-- CLOSE ACCOUNT TITLE -->
+	<div class="text-center">
+		<h2>Close Account</h2>
+	</div>
+	<hr />
+	<br />
+	<!-- CLOSE ACCOUNT INSTRUCTIONS -->
+	<p>Are you sure you want to close your account?</p>
+	<p>Closing your account will hide your profile and all your activity from other users.</p>
+	<p>You can re-open your account at any time by simply logging in.</p>
+	<!-- CLOSE ACCOUNT FORM -->
 	<form action="close_account.php" method="POST">
-		<input type="submit" name="close_account" id="close_account" value="Yes! Close it!" class="danger settings_submit" />
-		<input type="submit" name="cancel" id="update_details" value="No Way!" class="info settings_submit" />
+		<!-- CONFIRM ACCOUNT CLOSURE -->
+		<input type="submit" name="close_account" id="close_account" value="Yes! Close it!" class="btn btn-danger" />
+		<!-- DENY ACCOUNT CLOSURE -->
+		<input type="submit" name="cancel" id="update_details" value="No Way!" class="btn btn-success" />
 	</form>
-
+	<!-- END CLOSE ACCOUNT BUTTON -->
 </div>
-
-
-
-
-
-
-
+<!-- END CLOSE ACCOUNT PANEL -->
 
 </div>
 <!-- END WRAPPER DIV -->
-
 </body>
 </html>
