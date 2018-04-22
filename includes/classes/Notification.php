@@ -5,6 +5,7 @@
 		private $user_obj;
 		private $connection;
 
+
 		// CREATE PUBLIC VARIABLES
 		public function __construct($connection, $user) {
 			// CONNECTION VARIABLE
@@ -12,6 +13,7 @@
 			// CREATE NEW USER OBJECT
 			$this->user_obj = new User($connection, $user);
 		}
+
 
 		// FUNCTION TO GET NUMBER OF NOTIFICATIONS
 		public function getUnreadNumber() {
@@ -22,6 +24,7 @@
 			// RETURN NUMBER OF RESULTS FROM QUERY
 			return mysqli_num_rows($query);
 		}
+
 
 		// FUNCTION TO GET NOTIFICATIONS FOR DROPDOWN MENU
 		public function getNotifications($data, $limit) {
@@ -75,7 +78,6 @@
 				$user_data_query = mysqli_query($this->connection, "SELECT * FROM users WHERE username='$user_from'");
 				// STORE QUERY RESULTS IN $USER_DATA ARRAY
 				$user_data = mysqli_fetch_array($user_data_query);
-
 
 				// CURRENT TIME
 				$date_time_now = date('Y-m-d H:i:s');
@@ -137,7 +139,6 @@
 					}
 				}
 
-
 				// VARIABLE FOR WHETHER NOTIFICATION HAS BEEN OPENED OR NOT
 				$opened = $row['opened'];
 				// CONDITIONAL TO STORE DIFFERENT BACKGROUND-COLOR IN $STYLE VARIABLE
@@ -155,6 +156,7 @@
 														 	</div>
 													 	</div>
 													 </a>';
+			}
 
 			// IF POSTS WERE LOADED
 			if ($count > $limit) {
@@ -162,12 +164,13 @@
 													 <input type='hidden' class='noMoreDropdownData' value='false' />";
 			} else {
 				$return_string .= "<input type='hidden' class='noMoreDropdownData' value='true' />
-													 <p style='text-align: center;'>No More Notifications to Load</p>";
+													 <p style='text-align: center; margin-top: 5px; color: #8C8C8C;'>No More Notifications to Load</p>";
 			}
 
 			// RETURN $RETURN_STRING
 			return $return_string;
 		}
+
 
 		// FUNCTION TO INSERT NOTIFICATIONS INTO NOTIFICATIONS TABLE
 		public function insertNotification($post_id, $user_to, $type) {
@@ -203,25 +206,6 @@
 			// DATABASE QUERY (INSERT NOTIFICATON DATA INTO NOTIFICATIONS TABLE)
 			$insert_query = mysqli_query($this->connection, "INSERT INTO notifications VALUES('', '$user_to', '$userLoggedIn', '$message', '$link', '$date_time', 'no', 'no')");
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 
 ?>
