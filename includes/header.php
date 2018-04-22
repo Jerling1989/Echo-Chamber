@@ -119,10 +119,12 @@
 					echo $user['first_name'];
 				?>
 			</a>
+
 			<!-- HOME -->
 			<a href="index.php">
 				<i class="fas fa-home fa-lg"></i>
 			</a>
+			
 			<!-- MESSAGES -->
 			<a href="javascript:void(0);" onclick="getDropdownData('<?php echo $userLoggedIn; ?>', 'message')">
 				<i class="fas fa-envelope fa-lg"></i>
