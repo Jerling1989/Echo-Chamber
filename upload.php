@@ -153,20 +153,40 @@
 	}// post x
 	?>
 	<div id="Overlay" style=" width:100%; height:100%; border:0px #990000 solid; position:absolute; top:0px; left:0px; z-index:2000; display:none;"></div>
-	<div class="main_column column">
 
-
+	<!-- UPLOAD NEW PROFILE PIC PANEL -->
+	<div class="column col-xl-10 col-lg-12 col-md-12" id="upload-pic-panel">
+		<!-- UPLOAD NEW PROFILE PIC TITLE -->
+		<div class="col-md-12 text-center">
+			<h2>Choose New Profile Picture</h2>
+		</div>
+		<hr />
+		<br />
+		<!-- UPLOAD INSTRUCTIONS AND FORM -->
 		<div id="formExample">
-			
-		    <p><b> <?=$msg?> </b></p>
-		    
-		    <form action="upload.php" method="post"  enctype="multipart/form-data">
-		        Upload something<br /><br />
-		        <input type="file" id="image" name="image" style="width:200px; height:30px; " /><br /><br />
-		        <input type="submit" value="Submit" style="width:85px; height:25px;" />
-		    </form><br /><br />
-		    
-		</div> <!-- Form-->  
+			<!-- INSTRUCTIONS -->
+			<p>Upload a new profile picture for your profile.</p>
+			<p>First click the "Add Image" button and choose a file from your computer.</p>
+			<p>After you have selected an image, hitting the "Submit" button will allow you the crop the image before setting it as to your new profile picture.</p>
+			<br />
+	    <p><b> <?=$msg?> </b></p>
+			<!-- UPLOAD NEW PIC FORM -->
+	    <form action="upload.php" method="post" enctype="multipart/form-data">
+	    	<!-- CHOOSE IMAGE BUTTON -->
+        <input type="file" id="image" name="image" class="inputfile" data-multiple-caption="{count} files selected" multiple />
+        <label id="uploadImageTwo" for="image" class="text-center">
+					<img src="assets/img/icons/image-icon-white.png">
+					Choose a file...
+					<small><span style="color: #F7F8F9;"></span></small>
+				</label>
+        <br /><br />
+        <!-- CROP AND SUBMIT BUTTON -->
+        <input class="btn btn-success" type="submit" value="Submit" />
+        <br /><br />
+	    </form>
+		  <!-- END UPLOAD NEW PIC FORM -->
+		</div>
+		<!-- END UPLOAD INSTRUCTIONS AND FORM -->
 
 
 	    <?php
@@ -175,6 +195,7 @@
 		    	$('#Overlay').show();
 				$('#formExample').hide();
 		    </script>
+
 		    <div id="CroppingContainer" style="width:800px; max-height:600px; background-color:#FFF; margin-left: -200px; position:relative; overflow:hidden; border:2px #666 solid; z-index:2001; padding-bottom:0px;">  
 		    
 		        <div id="CroppingArea" style="width:500px; max-height:400px; position:relative; overflow:hidden; margin:40px 0px 40px 40px; border:2px #666 solid; float:left;">	
@@ -205,7 +226,7 @@
 		                <input type="submit" value="Save" style="width:100px; height:30px;"   />
 		            </form>
 		        </div>
-
+				
 		        <div id="CropImageForm2" style="width:100px; height:30px; float:left; margin:10px 0px 0px 40px;" >  
 		            <form action="upload.php" method="post" onsubmit="return cancelCrop();">
 		                <input type="submit" value="Cancel Crop" style="width:100px; height:30px;"   />
@@ -231,5 +252,8 @@
 	 
 	    <br /><br />
 
+
+</div>
+<!-- END WRAPPER DIV -->
 </body>
 </html>
