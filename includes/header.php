@@ -16,13 +16,15 @@
 		$user_details_query = mysqli_query($connection, "SELECT * FROM users WHERE username='$userLoggedIn'");
 		// STORE USER DETAILS INTO ARRAY
 		$user = mysqli_fetch_array($user_details_query);
+		// GET NUMBER OF USER FRIENDS
+		$user_friends = (substr_count($user['friend_array'], ',')) - 1;
 
 		// IF NOT SIGNED IN REDIRECT USER TO LOGIN PAGE
 	} else {
 		header('Location: register.php');
 	}
+	
 ?>
-
 
 
 <html lang="en-US">
@@ -31,7 +33,7 @@
 	<!-- PAGE TITLE -->
 	<title>Echo Chamber</title>
 	<!-- FAVICON -->
-	<link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="assets/img/icons/favicon.ico" type="image/x-icon" />
 	<!-- MOBILE VIEWPORT -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- FONT AWESOME LINKS -->
@@ -63,40 +65,15 @@
 	<script src="assets/js/jcrop_bits.js"></script>
 	<!-- ECHOCHAMBER.JS -->
 	<script src="assets/js/echochamber.js"></script>
-
 </head>
+
 <body>
+<div id="top-top"></div>
 
-	<!-- TOP BAR -->
-	<div id="top-bar">
+	<!-- TOP NAV BAR -->
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" id="top-nav">
+		<div class="container">
 
-		<!-- LOGO -->
-		<div id="logo">
-			<a href="index.php">Swirlfeed!</a>
-		</div>
-		<!-- END LOGO -->
-
-		<!-- SEARCH FORM -->
-		<div class="search">
-			<form action="search.php" method="GET" name="search_form">
-				<input type="text" onkeyup="getLiveSearchUsers(this.value, '<?php echo $userLoggedIn; ?>')" name="q" placeholder="Search..." autocomplete="off" id="search_text_input" />
-
-				<div class="button_holder">
-					<img src="assets/img/icons/mglass_icon.png" />
-				</div>
-			</form>
-
-			<div class="search_results">
-			</div>
-
-			<div class="search_results_footer_empty">
-			</div>
-
-		</div>
-		<!-- END SEARCH FORM -->
-
-		<!-- NAVIGATION -->
-		<nav>
 			<!-- PHP SCRIPT FOR NOTIFICATION BADGES -->
 			<?php
 				// UNREAD MESSAGES
@@ -113,73 +90,142 @@
 			?>
 			<!-- END PHP SCRIPT FOR NOTIFICATION BADGES -->
 
-			<!-- USER PROFILE -->
-			<a href="<?php echo $userLoggedIn; ?>">
-				<?php
-					echo $user['first_name'];
-				?>
-			</a>
+			<!-- USER PIC AND LINK -->
+		  <a class="navbar-brand" href="<?php echo $userLoggedIn; ?>">
+		  	<img id="nav-pic" src="<?php echo $user['profile_pic']; ?>" />
+		  </a>
 
-			<!-- HOME -->
-			<a href="index.php">
-				<i class="fas fa-home fa-lg"></i>
-			</a>
-			
-			<!-- MESSAGES -->
-			<a href="javascript:void(0);" onclick="getDropdownData('<?php echo $userLoggedIn; ?>', 'message')">
-				<i class="fas fa-envelope fa-lg"></i>
-				<?php
-					if ($num_messages > 0) {
-						echo '<span class="notification_badge" id="unread_message">'
-										.$num_messages.
-									'</span>';
-					}
-				?>
-			</a>
-			<!-- NOTIFICATIONS -->
-			<a href="javascript:void(0);" onclick="getDropdownData('<?php echo $userLoggedIn; ?>', 'notification')">
-				<i class="fas fa-bell fa-lg"></i>
-				<?php
-					if ($num_notifications > 0) {
-						echo '<span class="notification_badge" id="unread_notification">'
-										.$num_notifications.
-									'</span>';
-					}
-				?>
-			</a>
-			<!-- FRIEND REQUESTS -->
-			<a href="requests.php">
-				<i class="fas fa-users fa-lg"></i>
-				<?php
-					if ($num_requests > 0) {
-						echo '<span class="notification_badge" id="unread_requests">'
-										.$num_requests.
-									'</span>';
-					}
-				?>
-			</a>
-			<!-- SETTTINGS -->
-			<a href="#">
-				<i class="fas fa-cog fa-lg"></i>
-			</a>
-			<!-- LOGOUT -->
-			<a href="includes/handlers/logout.php">
-				<i class="fas fa-sign-out-alt fa-lg"></i>
-			</a>
-		</nav>
-		<!-- END NAVIGATION -->
+			<!-- COLLAPSE TOGGLE BUTTON (MOBILE) -->
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
 
-		<div class="dropdown_data_window" style="height: 0px; border: none;">
-			
+			<!-- NAVIGATION LIST COLLAPSABLE -->
+		  <div class="collapse navbar-collapse" id="navbarToggler">
+		    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+					<!-- HOME PAGE -->
+		    	<li class="nav-item">
+		        <a class="nav-link" href="index.php">
+		        	<i class="fas fa-home fa-lg"></i> <span class="mobile-nav">Home</span>
+		        </a>
+		      </li>
+
+					<!-- MESSAGES DESKTOP -->
+		      <li class="nav-item desktop-nav">
+		        <a class="nav-link" href="javascript:void(0);" onclick="getDropdownData('<?php echo $userLoggedIn; ?>', 'message')">
+		        	<i class="fas fa-envelope fa-lg"></i>
+		        	<?php
+								if ($num_messages > 0) {
+									echo '<span class="notification_badge" id="unread_message">'
+													.$num_messages.
+												'</span>';
+								}
+							?>
+		        </a>
+		      </li>
+
+		      <!-- MESSAGES MOBILE -->
+		      <li class="nav-item mobile-nav">
+		        <a class="nav-link" href="mobile-messages.php">
+		        	<i class="fas fa-envelope fa-lg"></i> <span class="mobile-nav">Messages</span>
+		        	<?php
+								if ($num_messages > 0) {
+									echo '<span class="notification_badge" id="unread_message">'
+													.$num_messages.
+												'</span>';
+								}
+							?>
+		        </a>
+		      </li>
+
+					<!-- NOTIFICATIONS DESKTOP -->
+		      <li class="nav-item desktop-nav">
+		        <a class="nav-link" href="javascript:void(0);" onclick="getDropdownData('<?php echo $userLoggedIn; ?>', 'notification')">
+		        	<i class="fas fa-bell fa-lg"></i>
+		        	<?php
+								if ($num_notifications > 0) {
+									echo '<span class="notification_badge" id="unread_notification">'
+													.$num_notifications.
+												'</span>';
+								}
+							?>
+		      	</a>
+		      </li>
+
+		      <!-- NOTIFICATIONS MOBILE -->
+		      <li class="nav-item mobile-nav">
+		        <a class="nav-link" href="mobile-notifications.php">
+		        	<i class="fas fa-bell fa-lg"></i> <span class="mobile-nav">Notifications</span>
+		        	<?php
+								if ($num_notifications > 0) {
+									echo '<span class="notification_badge" id="unread_notification">'
+													.$num_notifications.
+												'</span>';
+								}
+							?>
+		      	</a>
+		      </li>
+
+					<!-- FRIEND REQUESTS -->
+		      <li class="nav-item">
+		        <a class="nav-link" href="requests.php">
+		        	<i class="fas fa-user-plus fa-lg"></i> <span class="mobile-nav">Friend Requests</span>
+		        	<?php
+								if ($num_requests > 0) {
+									echo '<span class="notification_badge" id="unread_requests">'
+													.$num_requests.
+												'</span>';
+								}
+							?>
+		        </a>
+		      </li>
+
+					<!-- SETTINGS -->
+		      <li class="nav-item">
+		        <a class="nav-link" href="settings.php">
+		        	<i class="fas fa-cog fa-lg"></i> <span class="mobile-nav">Settings</span>
+		        </a>
+		      </li>
+
+					<!-- SIGN OUT -->
+		      <li class="nav-item">
+		        <a class="nav-link" href="includes/handlers/logout.php">
+		        	<i class="fas fa-sign-out-alt fa-lg"></i> <span class="mobile-nav">Sign Out</span>
+		        </a>
+		      </li>
+		    </ul>
+
+		    <!-- SEARCH FORM -->
+		    <form class="form-inline my-2 my-lg-0" id="user-search-form" action="search.php" method="GET" name="search_form">
+		      <input class="form-control mr-sm-2" type="text" onkeyup="getLiveSearchUsers(this.value, '<?php echo $userLoggedIn; ?>')" name="q" placeholder="Search..." autocomplete="off" id="search_text_input">
+					<input type="submit" id="user-search-btn" value="">
+		    </form>
+
+		  </div>
+		  <!-- END NAVIGATION LIST COLLAPSABLE -->
 		</div>
-
+	</nav>
+	<!-- END TOP NAV BAR -->
+	
+	<!-- MESSAGE/NOTIFICATION DROPDOWN -->
+	<div class="container">
+		<div class="dropdown_data_window" style="height: 0px; border: none;"></div>
 		<input type="hidden" id="dropdown_data_type" value="" />
-
 	</div>
-	<!-- END TOP BAR -->
+	
+	<!-- USER LIVE SEARCH DROPDOWN -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8"></div>
+			<div class="col-md-4">
+				<div class="search_results"></div>
+			</div>
+		</div>
+	</div>
+	
 
-
-	<!-- POST LOADING SCRIPT (NEWSFEED) -->
+	<!-- NOTIFICATION LOADING SCRIPT (DROPDOWN) -->
 	<script>
 
 		// CREATE USERLOGGEDIN VARIABLE
@@ -188,7 +234,7 @@
 		// DOCUMENT READY FUNCTION
 		$(document).ready(function() {
 
-			// AUTO LOAD POSTS (INFINITE SCROLLING) FUNCTION
+			// AUTO LOAD NOTIFICATIONS (INFINITE SCROLLING) FUNCTION
 			$('.dropdown_data_window').scroll(function() {
 				// DROPDOWN_DATA_WINDOW DIV HEIGHT VARIABLE
 				var inner_height = $('.dropdown_data_window').innerHeight();
@@ -199,7 +245,7 @@
 				// VARIABLE FOR NO MORE POSTS
 				var noMoreData = $('.dropdown_data_window').find('.noMoreDropdownData').val();
 
-				// CHECK IF THE PAGE IS SCROLLED TO THE BOTTOM OF POSTS_AREA DIV
+				// CHECK IF THE PAGE IS SCROLLED TO THE BOTTOM OF DROPDOWN_DATA_WINDOW
 				// AND THERE ARE ALSO MORE POSTS
 				if ((scroll_top + inner_height >= $('.dropdown_data_window')[0].scrollHeight) && noMoreData == 'false') {
 
@@ -233,27 +279,15 @@
 							$('.dropdown_data_window').append(response);
 						}
 					});
-
-
 				} // END IF
-
 				return false;
-
 			}); // END AUTO LOAD POSTS FUNCTION
-
 		});
 
 	</script>
-	<!-- END POST LOADING SCRIPT (NEWSFEED) -->
+	<!-- END NOTIFICATION LOADING SCRIPT (DROPDOWN) -->
 
-
+	<br /><br /><br />
 
 	<!-- WRAPPER DIV -->
-	<div class="wrapper">
-
-
-
-
-
-
-
+	<div class="wrapper container" id="wrapper">
