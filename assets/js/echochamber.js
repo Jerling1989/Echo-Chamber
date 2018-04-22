@@ -1,5 +1,29 @@
 $(document).ready(function() {
 
+	// FUNCTION TO DISPLAY NAME OF FILE CHOSEN TO UPLOAD
+	var inputs = document.querySelectorAll('.inputfile');
+	Array.prototype.forEach.call( inputs, function(input) {
+		var label	 = input.nextElementSibling,
+			labelVal = label.innerHTML;
+		// EVENT LISTENER
+		input.addEventListener('change', function(e) {
+			// CREATE FILENAME VARIABLE
+			var fileName = '';
+			// IF THERE IS MORE THAN ONE FILE SELECTED
+			if (this.files && this.files.length > 1) {
+				fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
+			} else {
+				fileName = e.target.value.split('\\').pop();
+			}
+			// IF ONE FILE IS SELECTED
+			if (fileName) {
+				label.querySelector('span').innerHTML = fileName;
+			} else {
+				label.innerHTML = labelVal;
+			}
+		});
+	});
+
 	// EXPAND SEARCH FORM WHEN CLICKED ON
 	$('#search_text_input').focus(function() {
 		// IF WINDOW IS WIDER THAN 800PX
@@ -9,9 +33,13 @@ $(document).ready(function() {
 		}
 	});
 
+	// MINIMIZE SEARCH FROM WHEN USER CLICKS ON OTHER PARTS OF SITE
+	$('#wrapper').on('click', function() {
+		$('#search_text_input').animate({width: '180px'}, 500);
+	});
 
 	// SUBMIT SEARCH FORM WHEN MAGNIFYING GLASS ICON IS PRESSED
-	$('.button_holder').on('click', function() {
+	$('#user-search').on('click', function() {
 		document.search_form.submit();
 	});
 
@@ -32,6 +60,9 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	// ENABLE WEBSITE TOOLTIPS
+	$('[data-toggle="tooltip"]').tooltip(); 
 
 });
 
@@ -113,6 +144,48 @@ function getDropdownData(user, type) {
 }
 
 
+// FUNCTION TO GET MESSAGE NOTIFICATIONS FOR MOBILE
+function getMobileMessages(user) {
+
+	// REMOVE #UNREAD_MESSAGE DIV
+	$('span').remove('#unread_message');
+
+	// AJAX CALL TO RETRIEVE DATA
+	var ajaxreq = $.ajax({
+		url: 'includes/handlers/ajax_load_messages.php',
+		type: 'POST',
+		data: 'page=1&userLoggedIn=' + user,
+		cache: false,
+		// IF AJAX CALL IS SUCCESSFUL
+		success: function(response) {
+			// PUT AJAX RESPONSE DATA INTO CORRECT DROPDOWN MENU
+			$('#mobile-message-data').html(response);
+		}
+	});
+}
+
+
+// FUNCTION TO GET REGULAR NOTIFICATIONS FOR MOBILE
+function getMobileNotifications(user) {
+
+	// REMOVE #UNREAD_MESSAGE DIV
+	$('span').remove('#unread_notification');
+
+	// AJAX CALL TO RETRIEVE DATA
+	var ajaxreq = $.ajax({
+		url: 'includes/handlers/ajax_load_notifications.php',
+		type: 'POST',
+		data: 'page=1&userLoggedIn=' + user,
+		cache: false,
+		// IF AJAX CALL IS SUCCESSFUL
+		success: function(response) {
+			// PUT AJAX RESPONSE DATA INTO CORRECT DROPDOWN MENU
+			$('#mobile-notification-data').html(response);
+		}
+	});
+}
+
+
 // FUNCTION TO LOAD DATA FROM SEARCH FORM
 function getLiveSearchUsers(value, user) {
 	// AJAX CALL
@@ -137,16 +210,3 @@ function getLiveSearchUsers(value, user) {
 		}
 	});
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
