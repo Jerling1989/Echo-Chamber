@@ -534,6 +534,48 @@ input[type='file'] {
 	margin-left: 10px;
 }
 
+/* CROPPING AREA */
+#CroppingContainer {
+	width: 100%;
+	height: auto;
+	background-color: #F7F8F9;
+	position: relative;
+	overflow: hidden;
+	border: 2px #666 solid;
+	z-index: 2001;
+	padding-bottom: 0px;
+}
+
+#CroppingArea {
+	width: 100%;
+	height: auto;
+	position: relative;
+	overflow: hidden;
+	margin: 40px 25% 40px 25%;
+	border: none;
+}
+
+#CroppingArea img {
+	width: 50%;
+	height: auto;
+	border:0px #990000 solid;
+	position: relative;
+	margin: 0px 0px 0px 0px;
+	padding: 0px;
+}
+
+#CropImageForm{
+	width: 100%;
+	height: auto;
+	margin: 0px auto 10px auto;
+}
+
+#CropImageForm2 {
+	width: 100%;
+	height: auto;
+	margin: 10px auto 30px auto;
+}
+
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~ CLOSED ACCOUNT PAGE ~~~~~~~~~~~~~~~~~~~~~~~*/
 #closed-account-panel {
@@ -937,6 +979,15 @@ input[type='file'] {
 		overflow: scroll;
 	}
 
+	#CroppingArea img {
+		width: 70%;
+		height: auto;
+	}
+
+	#CroppingArea {
+		margin: 40px 15% 40px 15%;
+	}
+
 }
 
 
@@ -1041,6 +1092,15 @@ input[type='file'] {
 	#mobile-notification-data {
 		height: 420px;
 		overflow: scroll;
+	}
+
+	#CroppingArea img {
+		width: 70%;
+		height: auto;
+	}
+
+	#CroppingArea {
+		margin: 40px 15% 40px 15%;
 	}
 
 }
@@ -1154,6 +1214,15 @@ input[type='file'] {
 	#mobile-notification-data {
 		height: 420px;
 		overflow: scroll;
+	}
+
+	#CroppingArea img {
+		width: 80%;
+		height: auto;
+	}
+
+	#CroppingArea {
+		margin: 40px 10% 40px 10%;
 	}
 
 	/*#messages-panel {
