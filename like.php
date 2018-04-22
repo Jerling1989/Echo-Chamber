@@ -27,6 +27,8 @@
 <head>
 	<!-- PAGE TITLE -->
 	<title></title>
+	<!-- MOBILE VIEWPORT -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<!-- RESET CSS LINK -->
   <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
   <!-- BOOTSTRAP CSS LINK -->
@@ -37,20 +39,18 @@
 <body>
 
 	<style type="text/css">
-
 		* {
 			font-family: Arial, Helvitica, Sans-serif;
 		}
 		
 		body {
-			background-color: #fff;
+			background-color: #34495e;
 		}
 
 		form {
 			position: absolute;
 			top: 2px;
 		}
-
 	</style>
 
 	<?php
