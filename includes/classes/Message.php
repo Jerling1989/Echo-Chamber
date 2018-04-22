@@ -12,6 +12,7 @@
 			// CREATE NEW USER OBJECT
 			$this->user_obj = new User($connection, $user);
 		}
+		
 
 		// FUNCTION TO GET MOST RECENT USER MESSAGED
 		public function getMostRecentUser() {
@@ -42,6 +43,7 @@
 
 		}
 
+
 		// FUNCTION TO SEND NEW MESSAGE
 		public function sendMessage($user_to, $body, $date) {
 			// IF BODY OF MESSAGE IS NOT BLANK
@@ -52,6 +54,7 @@
 				$query = mysqli_query($this->connection, "INSERT INTO messages VALUES('', '$user_to', '$userLoggedIn', '$body', '$date', 'no', 'no', 'no')");
 			}
 		}
+
 
 		// FUNCTION TO RETRIEVE MESSAGES
 		public function getMessages($otherUser) {
@@ -79,6 +82,7 @@
 			// RETURN $DATA VARIABLE
 			return $data;
 		}
+
 
 		// FUNCTION TO GET LATEST MESSAGE BETWEEN USERS
 		public function getLatestMessage($userLoggedIn, $username) {
@@ -162,6 +166,7 @@
 			return $details_array;
 		}
 
+
 		// FUNCTION TO LOAD CONVERSATION LIST
 		public function getConvos() {
 			// SET $USERLOGGEDIN VARIABLE
@@ -204,22 +209,21 @@
 				// ADD MESSAGE DETAILS TO $RETURN_STRING VARIABLE
 				$return_string .= '<a href="messages.php?u='.$username.'">
 													 	<div class="user_found_messages">
-														 	<img src="'.$user_found_obj->getProfilePic().'" style="border-radius: 5px; margin-right: 5px;" />'
+														 	<img src="'.$user_found_obj->getProfilePic().'" />'
 														 	.$user_found_obj->getFirstAndLastName().'
 														 	<span class="timestamp_smaller grey-font">'
 														 		.$latest_message_details[2]. 
-														 	'</span>
-														 	<p class="grey-font" style="margin: 0;">'
+														 	'</span><br />
+														 	<p class="grey-font-two" style="margin: 0;">'
 														 		.$latest_message_details[0].$split. 
 														 	'</p>
 														</div>
 													 </a>';
 			}
-
 			// RETURN $RETURN_STRING
 			return $return_string;
-			
 		}
+
 
 		// FUNCTION TO LOAD MESSAGES FOR DROPDOWN MENU
 		public function getConvosDropdown($data, $limit) {
@@ -303,7 +307,7 @@
 														 	.$user_found_obj->getFirstAndLastName().'
 														 	<span class="timestamp_smaller grey-font">'
 														 		.$latest_message_details[2]. 
-														 	'</span>
+														 	'</span><br />
 														 	<p class="grey-font" style="margin: 0;">'
 														 		.$latest_message_details[0].$split. 
 														 	'</p>
@@ -317,9 +321,8 @@
 													 <input type='hidden' class='noMoreDropdownData' value='false' />";
 			} else {
 				$return_string .= "<input type='hidden' class='noMoreDropdownData' value='true' />
-													 <p style='text-align: center;'>No More Messages to Load</p>";
+													 <p style='text-align: center; margin-top: 5px; color: #8C8C8C;'>No More Messages to Load</p>";
 			}
-
 			// RETURN $RETURN_STRING
 			return $return_string;
 		}
@@ -333,9 +336,6 @@
 			// RETURN NUMBER OF RESULTS FROM QUERY
 			return mysqli_num_rows($query);
 		}
-
-
-
 	}
 
 ?>
