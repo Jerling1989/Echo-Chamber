@@ -1,14 +1,16 @@
 <?php
-
 	// INCLUDE NECCESSARY FILES AND SCRIPTS
 	include('includes/header.php');
-
 ?>
 
-
-<div class="main-column column" id="main-column">
-
-	<h4>Friend Requests</h4>
+<!-- REQUEST PANEL -->
+<div class="column col-xl-10 col-lg-12 col-md-12 text-center" id="request-panel">
+	<!-- REQUEST TITLE -->
+	<div class="col-md-12">
+		<h2>Friend Requests</h2>
+	</div>
+	<hr />
+	<br />
 
 	<?php
 		// DATABASE QUERY TO CHECK FRIEND REQUESTS TO LOGGED IN USER
@@ -26,8 +28,10 @@
 				// CREATE NEW USER OBJECT FOR USER REQUEST IS FROM
 				$user_from_obj = new User($connection, $user_from);
 
+				// DISPLAY PROFILE PIC OF USER REQUEST IS FROM
+				echo '<img src='.$user_from_obj->getProfilePic().' />';
 				// DISPLAY NAME OF USER REQUEST IS FROM
-				echo $user_from_obj->getUsername() . ' sent you a friend request!';
+				echo '<span>'.$user_from_obj->getUsername().' sent you a friend request!</span>';
 				// VARIABLE FOR FRIEND ARRAY FROM USER REQUEST IS FROM
 				$user_from_friend_array = $user_from_obj->getFriendArray();
 
@@ -46,7 +50,6 @@
 					header('Location: requests.php');
 				}
 
-
 				// IF USER HITS IGNORE REQUEST BUTTON
 				if (isset($_POST['ignore_request' . $user_from ])) {
 					// DATABASE QUERY TO DELETE INFO FROM FRIEND REQUEST TABLE
@@ -56,30 +59,24 @@
 					echo 'Request ignored!';
 					header('Location: requests.php');
 				}
-
 				?>
 
 				<!-- REQUEST BUTTON FORM -->
 				<form action="requests.php" method="POST">
 					<!-- ACCEPT REQUEST BUTTON -->
-					<input type="submit" class="success" name="accept_request<?php echo $user_from; ?>" id="accept-button" value="Accept" />
+					<input type="submit" class="btn btn-success" name="accept_request<?php echo $user_from; ?>" value="Accept" />
 					<!-- IGNORE REQUEST BUTTON -->
-					<input type="submit" class="danger" name="ignore_request<?php echo $user_from; ?>" id="ignore-button" value="Ignore" />
+					<input type="submit" class="btn btn-danger" name="ignore_request<?php echo $user_from; ?>" value="Ignore" />
 				</form>
 				<!-- END REQUEST BUTTON FORM -->
-
 				<?php
-
 			}
-
 		}
-
 	?>
-
-
-	
 </div>
+<!-- END REQUEST PANEL -->
 
-
+</div>
+<!-- END WRAPPER DIV -->
 </body>
 </html>
