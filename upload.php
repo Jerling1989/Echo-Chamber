@@ -2,156 +2,152 @@
 
 	// INCLUDE NECCESSARY FILES AND SCRIPTS
 	include('includes/header.php');
-
+	// CREATE VARIABLES
 	$profile_id = $user['username'];
 	$imgSrc = "";
 	$result_path = "";
 	$msg = "";
 
 	/***********************************************************
-		0 - Remove The Temp image if it exists
+		0 - REMOVE THE TEMP IMAGE IF IT EXISTS
 	***********************************************************/
-		if (!isset($_POST['x']) && !isset($_FILES['image']['name']) ){
-			//Delete users temp image
-				$temppath = 'assets/img/profile_pics/'.$profile_id.'_temp.jpeg';
-				if (file_exists ($temppath)){ @unlink($temppath); }
-		} 
-
+	if (!isset($_POST['x']) && !isset($_FILES['image']['name']) ){
+		// DELECT USERS TEMP IMAGE
+		$temppath = 'assets/img/profile_pics/'.$profile_id.'_temp.jpeg';
+		if (file_exists ($temppath)){ @unlink($temppath); }
+	} 
 
 	if(isset($_FILES['image']['name'])){	
 	/***********************************************************
-		1 - Upload Original Image To Server
+		1 - UPLOAD ORIGINAL IMAGE TO SERVER
 	***********************************************************/	
-		//Get Name | Size | Temp Location		    
-			$ImageName = $_FILES['image']['name'];
-			$ImageSize = $_FILES['image']['size'];
-			$ImageTempName = $_FILES['image']['tmp_name'];
-		//Get File Ext   
-			$ImageType = @explode('/', $_FILES['image']['type']);
-			$type = $ImageType[1]; //file type	
-		//Set Upload directory    
-			$uploaddir = $_SERVER['DOCUMENT_ROOT'].'/Echo-Chamber/assets/img/profile_pics';
-		//Set File name	
-			$file_temp_name = $profile_id.'_original.'.md5(time()).'n'.$type; //the temp file name
-			$fullpath = $uploaddir."/".$file_temp_name; // the temp file path
-			$file_name = $profile_id.'_temp.jpeg'; //$profile_id.'_temp.'.$type; // for the final resized image
-			$fullpath_2 = $uploaddir."/".$file_name; //for the final resized image
-		//Move the file to correct location
-			$move = move_uploaded_file($ImageTempName ,$fullpath) ; 
-			chmod($fullpath, 0777);  
-			//Check for valid uplaod
-			if (!$move) { 
-				die ('File didnt upload');
-			} else { 
-				$imgSrc= "assets/img/profile_pics/".$file_name; // the image to display in crop area
-				$msg= "Upload Complete!";  	//message to page
-				$src = $file_name;	 		//the file name to post from cropping form to the resize		
-			} 
+		// GET NAME | SIZE | TEMP LOCATION
+		$ImageName = $_FILES['image']['name'];
+		$ImageSize = $_FILES['image']['size'];
+		$ImageTempName = $_FILES['image']['tmp_name'];
+		// GET FILE EXTENSTION
+		$ImageType = @explode('/', $_FILES['image']['type']);
+		$type = $ImageType[1]; // FILE TYPE	
+		// SET UPLOAD DIRECTORY
+		$uploaddir = $_SERVER['DOCUMENT_ROOT'].'/Echo-Chamber/assets/img/profile_pics';
+		// SET FILE NAME
+		$file_temp_name = $profile_id.'_original.'.md5(time()).'n'.$type; // TEMP FILE NAME
+		$fullpath = $uploaddir."/".$file_temp_name; // TEMP FILE PATH
+		// $PROFILE_ID.'_TEMP.'.$TYPE; // FOR THE FINAL RESIZED IMAGE
+		$file_name = $profile_id.'_temp.jpeg'; 
+		$fullpath_2 = $uploaddir."/".$file_name; // FOR THE FINAL RESIZED IMAGE
+		// MOVE THE FILE TO CORRECT LOCATION
+		$move = move_uploaded_file($ImageTempName ,$fullpath) ; 
+		chmod($fullpath, 0777);  
+		// CHECK FOR VALID UPLOAD
+		if (!$move) { 
+			die ('File didnt upload');
+		} else { 
+			$imgSrc= "assets/img/profile_pics/".$file_name; // THE IMAGE TO DISPLAY IN CROP AREA
+			$msg= "Upload Complete!"; // MESSAGE TO PAGE
+			$src = $file_name; // THE FILE NAME TO POST FROM CROPPING FORM TO THE RESIZE
+		} 
 
 	/***********************************************************
-		2  - Resize The Image To Fit In Cropping Area
+		2  - RESIZE THE IMAGE TO FIT IN CROPPING AREA
 	***********************************************************/		
-			//get the uploaded image size	
-				clearstatcache();				
-				$original_size = getimagesize($fullpath);
-				$original_width = $original_size[0];
-				$original_height = $original_size[1];	
-			// Specify The new size
-				$main_width = 500; // set the width of the image
-				$main_height = $original_height / ($original_width / $main_width);	// this sets the height in ratio									
-			//create new image using correct php func			
-				if($_FILES["image"]["type"] == "image/gif"){
-					$src2 = imagecreatefromgif($fullpath);
-				}elseif($_FILES["image"]["type"] == "image/jpeg" || $_FILES["image"]["type"] == "image/pjpeg"){
-					$src2 = imagecreatefromjpeg($fullpath);
-				}elseif($_FILES["image"]["type"] == "image/png"){ 
-					$src2 = imagecreatefrompng($fullpath);
-				}else{ 
-					$msg .= "There was an error uploading the file. Please upload a .jpg, .gif or .png file. <br />";
-				}
-			//create the new resized image
-				$main = imagecreatetruecolor($main_width,$main_height);
-				imagecopyresampled($main,$src2,0, 0, 0, 0,$main_width,$main_height,$original_width,$original_height);
-			//upload new version
-				$main_temp = $fullpath_2;
-				imagejpeg($main, $main_temp, 90);
-				chmod($main_temp,0777);
-			//free up memory
-				imagedestroy($src2);
-				imagedestroy($main);
-				//imagedestroy($fullpath);
-				@ unlink($fullpath); // delete the original upload					
+		// GET THE UPLOADED IMAGE SIZE
+		clearstatcache();				
+		$original_size = getimagesize($fullpath);
+		$original_width = $original_size[0];
+		$original_height = $original_size[1];	
+		// SPECIFY THE NEW SIZE
+		$main_width = 500; // SET THE WIDTH OF THE IMAGE
+		$main_height = $original_height / ($original_width / $main_width); // SET HEIGHT IN RATIO
+		// CREATE NEW IMAGE USING CORRECT PHP FUNCTION
+		if($_FILES["image"]["type"] == "image/gif"){
+			$src2 = imagecreatefromgif($fullpath);
+		}elseif($_FILES["image"]["type"] == "image/jpeg" || $_FILES["image"]["type"] == "image/pjpeg"){
+			$src2 = imagecreatefromjpeg($fullpath);
+		}elseif($_FILES["image"]["type"] == "image/png"){ 
+			$src2 = imagecreatefrompng($fullpath);
+		}else{ 
+			$msg .= "There was an error uploading the file. Please upload a .jpg, .gif or .png file. <br />";
+		}
+		// CREATE THE NEW RESIZED IMAGE
+		$main = imagecreatetruecolor($main_width,$main_height);
+		imagecopyresampled($main,$src2,0, 0, 0, 0,$main_width,$main_height,$original_width,$original_height);
+		// UPLOAD NEW VERSION
+		$main_temp = $fullpath_2;
+		imagejpeg($main, $main_temp, 90);
+		chmod($main_temp,0777);
+		// FREE UP MEMORY
+		imagedestroy($src2);
+		imagedestroy($main);
+		//imagedestroy($fullpath);
+		@ unlink($fullpath); // DELETE THE ORIGINAL UPLOAD
 										
 	}//ADD Image 	
 
 	/***********************************************************
-		3- Cropping & Converting The Image To Jpg
+		3- CROPPING & CONVERTING THE IMAGE TO JPG
 	***********************************************************/
-	if (isset($_POST['x'])){
-		
-		//the file type posted
-			$type = $_POST['type'];	
-		//the image src
-			$src = 'assets/img/profile_pics/'.$_POST['src'];	
-			$finalname = $profile_id.md5(time());	
+	if (isset($_POST['x'])) {
+		// THE FILE TYPE POSTED
+		$type = $_POST['type'];	
+		// THE IMAGE SRC
+		$src = 'assets/img/profile_pics/'.$_POST['src'];	
+		$finalname = $profile_id.md5(time());	
 		
 		if($type == 'jpg' || $type == 'jpeg' || $type == 'JPG' || $type == 'JPEG'){	
-		
-			//the target dimensions 150x150
-				$targ_w = $targ_h = 150;
-			//quality of the output
-				$jpeg_quality = 90;
-			//create a cropped copy of the image
-				$img_r = imagecreatefromjpeg($src);
-				$dst_r = imagecreatetruecolor( $targ_w, $targ_h );
-				imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],
-				$targ_w,$targ_h,$_POST['w'],$_POST['h']);
-			//save the new cropped version
-				imagejpeg($dst_r, "assets/img/profile_pics/".$finalname."n.jpeg", 90); 	
+			// THE TARGET DIMENSIONS 150X150
+			$targ_w = $targ_h = 150;
+			// QUALITY OF THE OUTPUT
+			$jpeg_quality = 90;
+			// CREATE A CROPPED COPY OF THE IMAGE
+			$img_r = imagecreatefromjpeg($src);
+			$dst_r = imagecreatetruecolor( $targ_w, $targ_h );
+			imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],
+			$targ_w,$targ_h,$_POST['w'],$_POST['h']);
+			// SAVE THE NEW CROPPED VERSION
+			imagejpeg($dst_r, "assets/img/profile_pics/".$finalname."n.jpeg", 90); 	
 				 		
-		}else if($type == 'png' || $type == 'PNG'){
-			
-			//the target dimensions 150x150
-				$targ_w = $targ_h = 150;
-			//quality of the output
-				$jpeg_quality = 90;
-			//create a cropped copy of the image
-				$img_r = imagecreatefrompng($src);
-				$dst_r = imagecreatetruecolor( $targ_w, $targ_h );		
-				imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],
-				$targ_w,$targ_h,$_POST['w'],$_POST['h']);
-			//save the new cropped version
-				imagejpeg($dst_r, "assets/img/profile_pics/".$finalname."n.jpeg", 90); 	
+		} else if ($type == 'png' || $type == 'PNG') {
+			// THE TARGET DIMENSIONS 150X150
+			$targ_w = $targ_h = 150;
+			// QUALITY OF THE OUTPUT
+			$jpeg_quality = 90;
+			// CREATE A CROPPED COPY OF THE IMAGE
+			$img_r = imagecreatefrompng($src);
+			$dst_r = imagecreatetruecolor( $targ_w, $targ_h );		
+			imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],
+			$targ_w,$targ_h,$_POST['w'],$_POST['h']);
+			// SAVE THE NEW CROPPED VERSION
+			imagejpeg($dst_r, "assets/img/profile_pics/".$finalname."n.jpeg", 90); 	
 							
-		}else if($type == 'gif' || $type == 'GIF'){
-			
-			//the target dimensions 150x150
-				$targ_w = $targ_h = 150;
-			//quality of the output
-				$jpeg_quality = 90;
-			//create a cropped copy of the image
-				$img_r = imagecreatefromgif($src);
-				$dst_r = imagecreatetruecolor( $targ_w, $targ_h );		
-				imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],
-				$targ_w,$targ_h,$_POST['w'],$_POST['h']);
-			//save the new cropped version
-				imagejpeg($dst_r, "assets/img/profile_pics/".$finalname."n.jpeg", 90); 	
-			
+		} else if ($type == 'gif' || $type == 'GIF') {
+			// THE TARGET DIMENSIONS 150X150
+			$targ_w = $targ_h = 150;
+			// QUALITY OF THE OUTPUT
+			$jpeg_quality = 90;
+			// CREATE A CROPPED COPY OF THE IMAGE
+			$img_r = imagecreatefromgif($src);
+			$dst_r = imagecreatetruecolor( $targ_w, $targ_h );		
+			imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],
+			$targ_w,$targ_h,$_POST['w'],$_POST['h']);
+			// SAVE THE NEW CROPPED VERSION
+			imagejpeg($dst_r, "assets/img/profile_pics/".$finalname."n.jpeg", 90); 	
 		}
-			//free up memory
-				imagedestroy($img_r); // free up memory
-				imagedestroy($dst_r); //free up memory
-				@ unlink($src); // delete the original upload					
+			// FREE UP MEMORY
+			imagedestroy($img_r); // FREE UP MEMORY
+			imagedestroy($dst_r); // FREE UP MEMORY
+			@ unlink($src); // DELETE THE ORIGINAL UPLOAD					
 			
-			//return cropped image to page	
+			// RETURN CROPPED IMAGE TO PAGE
 			$result_path ="assets/img/profile_pics/".$finalname."n.jpeg";
 
-			//Insert image into database
+			// INSERT IMAGE INTO DATABASE
 			$insert_pic_query = mysqli_query($connection, "UPDATE users SET profile_pic='$result_path' WHERE username='$userLoggedIn'");
 			header("Location: ".$userLoggedIn);
 															
-	}// post x
+	}// END IF
 	?>
+
 	<div id="Overlay" style=" width:100%; height:100%; border:0px #990000 solid; position:absolute; top:0px; left:0px; z-index:2000; display:none;"></div>
 
 	<!-- UPLOAD NEW PROFILE PIC PANEL -->
@@ -188,70 +184,52 @@
 		</div>
 		<!-- END UPLOAD INSTRUCTIONS AND FORM -->
 
-
 	    <?php
-	    if($imgSrc){ //if an image has been uploaded display cropping area?>
+	    // IF AN IMAGE HAD BEEN UPLOADED DISPLAY CROPPING AREA
+	    if ($imgSrc) { ?>
 		    <script>
 		    	$('#Overlay').show();
 				$('#formExample').hide();
 		    </script>
 
-		    <div id="CroppingContainer" style="width:800px; max-height:600px; background-color:#FFF; margin-left: -200px; position:relative; overflow:hidden; border:2px #666 solid; z-index:2001; padding-bottom:0px;">  
-		    
-		        <div id="CroppingArea" style="width:500px; max-height:400px; position:relative; overflow:hidden; margin:40px 0px 40px 40px; border:2px #666 solid; float:left;">	
-		            <img src="<?=$imgSrc?>" border="0" id="jcrop_target" style="border:0px #990000 solid; position:relative; margin:0px 0px 0px 0px; padding:0px; " />
-		        </div>  
-
-		        <div id="InfoArea" style="width:180px; height:150px; position:relative; overflow:hidden; margin:40px 0px 0px 40px; border:0px #666 solid; float:left;">	
-		           <p style="margin:0px; padding:0px; color:#444; font-size:18px;">          
-		                <b>Crop Profile Image</b><br /><br />
-		                <span style="font-size:14px;">
-		                    Crop / resize your uploaded profile image. <br />
-		                    Once you are happy with your profile image then please click save.
-
-		                </span>
-		           </p>
-		        </div>  
-
-		        <br />
-
-		        <div id="CropImageForm" style="width:100px; height:30px; float:left; margin:10px 0px 0px 40px;" >  
-		            <form action="upload.php" method="post" onsubmit="return checkCoords();">
-		                <input type="hidden" id="x" name="x" />
-		                <input type="hidden" id="y" name="y" />
-		                <input type="hidden" id="w" name="w" />
-		                <input type="hidden" id="h" name="h" />
-		                <input type="hidden" value="jpeg" name="type" /> <?php // $type ?> 
-		                <input type="hidden" value="<?=$src?>" name="src" />
-		                <input type="submit" value="Save" style="width:100px; height:30px;"   />
-		            </form>
-		        </div>
-				
-		        <div id="CropImageForm2" style="width:100px; height:30px; float:left; margin:10px 0px 0px 40px;" >  
-		            <form action="upload.php" method="post" onsubmit="return cancelCrop();">
-		                <input type="submit" value="Cancel Crop" style="width:100px; height:30px;"   />
-		            </form>
-		        </div>            
-		            
-		    </div><!-- CroppingContainer -->
-		<?php 
-		} ?>
+				<!-- CROPPING CONTAINER DIV -->
+		    <div id="CroppingContainer">  
+		    	<!-- CROPPING AREA -->
+	        <div id="CroppingArea">	
+            <img src="<?=$imgSrc?>" border="0" id="jcrop_target" />
+	        </div>  
+					<!-- MAKE PROFILE PIC BUTTON -->
+	        <div id="CropImageForm" class="text-center">  
+            <form action="upload.php" method="post" onsubmit="return checkCoords();">
+              <input type="hidden" id="x" name="x" />
+              <input type="hidden" id="y" name="y" />
+              <input type="hidden" id="w" name="w" />
+              <input type="hidden" id="h" name="h" />
+              <input type="hidden" value="jpeg" name="type" /> <?php // $type ?> 
+              <input type="hidden" value="<?=$src?>" name="src" />
+              <input type="submit" class="btn btn-success" value="Make Profile Pic" />
+            </form>
+	        </div>
+					<!-- CANCEL BUTTON -->
+	        <div id="CropImageForm2" class="text-center" style="" >  
+            <form action="upload.php" method="post" onsubmit="return cancelCrop();">
+              <input type="submit" class="btn btn-danger" value="Cancel Crop" />
+            </form>
+	        </div>              
+		    </div>
+		    <!-- END CROPPING CONTAINER DIV -->
+			<?php 
+			} ?>
 	</div>
+	<!-- END UPLOAD NEW PROFILE PIC PANEL -->
 	 
+<?php if($result_path) { ?>
+     
+<img src="<?=$result_path?>" style="position:relative; width:150px; height:150px;" />
 	 
-	 
-	 
-	 
-	 <?php if($result_path) {
-		 ?>
-	     
-	     <img src="<?=$result_path?>" style="position:relative; margin:10px auto; width:150px; height:150px;" />
-		 
-	 <?php } ?>
-	 
-	 
-	    <br /><br />
-
+<?php } ?>
+ 
+<br /><br />
 
 </div>
 <!-- END WRAPPER DIV -->
