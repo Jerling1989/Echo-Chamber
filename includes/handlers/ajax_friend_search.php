@@ -22,7 +22,7 @@
 		// IF THERE IS ONLY ONE ELEMENT IN THE $NAMES ARRAY
 	} else {
 		// DATABASE QUERY (FIND USERS SIMILAR TO $NAMES ARRAY ELEMENT)
-		$usersReturned = mysqli_query($connection, "SELECT * FROM users WHERE (first_name LIKE '%$names[0]%' OR last_name LIKE '%$names[0]%') AND user_closed='no' LIMIT 8");
+		$usersReturned = mysqli_query($connection, "SELECT * FROM users WHERE (first_name LIKE '%$names[0]%' OR last_name LIKE '%$names[0]%' OR username LIKE '$query%') AND user_closed='no' LIMIT 8");
 	}
 
 	// IF USER QUERY IS NOT EMPTY
@@ -57,19 +57,8 @@
 									</div>
 								</a>
 							</div>';
-
 			}
 		}
 	}
-
-
-
-
-
-
-
-
-
-
 
 ?>
