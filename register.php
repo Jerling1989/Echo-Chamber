@@ -7,47 +7,35 @@
 	require 'includes/form_handlers/login_handler.php';
 ?>
 
-
 <!DOCTYPE html>
 <html>
 <head>
 	<!-- PAGE TITLE -->
 	<title>Echo Chamber | Welcome</title>
-
 	<!-- FAVICON -->
-	<link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
-
+	<link rel="icon" href="assets/img/icons/favicon.ico" type="image/x-icon" />
 	<!-- META DATA -->
   <meta charset="utf-8" />
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <!-- FONT AWESOME -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-
   <!-- GOOGLE FONTS -->
   <link href="https://fonts.googleapis.com/css?family=Contrail+One|Roboto" rel="stylesheet">
-
   <!-- BOOTSTRAP CDN -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
   <!-- RESET CSS LINK -->
   <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
-
 	<!-- REGISTER PAGE CSS LINK -->
 	<link rel="stylesheet" type="text/css" href="assets/css/register_style.css" />
-
 	<!-- JQUERY CDN LINK -->
 	<script
 	  src="https://code.jquery.com/jquery-3.3.1.min.js"
 	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	  crossorigin="anonymous"></script>
-
 </head>
 
-
 <body id="register-body">
-
 	<!-- SCRIPT TO KEEP SIGN UP FORM OPEN FOR ERROR MESSAGES -->
 	<?php
 		if(isset($_POST['register_button'])) {
@@ -62,7 +50,6 @@
 		}
 	?>
 	<!-- END SCRIPT TO KEEP SIGN UP FORM OPEN FOR ERROR MESSAGES -->
-
 
 	<!-- LOGIN/REGISTER PANEL -->
 	<div class="container">
@@ -79,8 +66,9 @@
 				<!-- END LOGIN HEADER -->
 				<br />
 
-				<!-- LOGIN FORM -->
+				<!-- LOGIN FORM DIV-->
 				<div id="first">
+					<!-- LOGIN FORM -->
 					<form action="register.php" method="POST">
 
 						<!-- EMAIL ADDRESS INPUT -->
@@ -121,16 +109,15 @@
 						<!-- SIGN UP FORM LINK -->
 						<a href="#" id="signup" class="signup">Need an account? Register here!</a>
 						<br /><br />
-
 					</form>
+					<!-- END LOGIN FORM -->
 				</div>
-				<!-- END LOGIN FORM -->
+				<!-- END LOGIN FORM DIV -->
 
 
-
-				<!-- SIGN UP FORM -->
+				<!-- SIGN UP FORM DIV -->
 				<div id="second">
-					
+					<!-- SIGN UP FORM -->
 					<form action="register.php" method="POST">
 
 						<!-- FIRST NAME INPUT -->
@@ -243,20 +230,17 @@
 							Sign Up
 						</button>
 						<br />
-						
 						<!-- SIGN IN FORM LINK -->
 						<a href="#" id="signin" class="signin">Already have an account? Log in here!</a>
 						<br /><br />
-
 					</form>
+					<!-- END SIGN UP FORM -->
 				</div>
-				<!-- END SIGN UP FORM -->
-
+				<!-- END SIGN UP FORM DIV -->
 			</div>
 		</div>
 	</div>
 	<!-- END LOGIN/REGISTER INFO PANEL -->
-
 
 <!-- CUSTOM JS LINK -->
 <script src="assets/js/register.js"></script>
