@@ -27,6 +27,8 @@
 <head>
 	<!-- PAGE TITLE -->
 	<title></title>
+	<!-- MOBILE VIEWPORT -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<!-- RESET CSS LINK -->
   <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
   <!-- BOOTSTRAP CSS LINK -->
@@ -39,10 +41,8 @@
 	<style type="text/css">
 		* {
 			font-size: 12px;
-			font-family: Arial, Helvitica, Sans-serif;
 		}
 	</style>
-
 
 	<script>
 		// CREATE TOGGLE FUNCTION
@@ -59,6 +59,7 @@
 			}
 		}
 	</script>
+
 
 	<?php
 
@@ -112,20 +113,20 @@
 					array_push($notified_users, $row['posted_by']);
 				}
 			}
-
 			// SUCCESSFUL COMMENT POST MESSAGE
-			echo '<p>Comment Posted!</p>';
+			echo '<p class="comment-grey" id="comment-posted">Comment Posted!</p>';
 		}
-
 	?>
 
 	<!-- COMMENT FORM -->
-	<form action="comment_frame.php?post_id=<?php echo $post_id; ?>" id="comment_form" name="postComment<?php echo $post_id; ?>" method="POST">
-		<!-- COMMENT TEXTAREA -->
-		<textarea name="post_body"></textarea>
-		<!-- COMMENT SUBMIT -->
-		<input type="submit" name="postComment<?php echo $post_id; ?>" value="Post" />
-	</form>
+	<div class="row col-md-12">
+		<form action="comment_frame.php?post_id=<?php echo $post_id; ?>" id="comment_form" name="postComment<?php echo $post_id; ?>" method="POST">
+			<!-- COMMENT TEXTAREA -->
+			<textarea class="col-lg-9" name="post_body"></textarea>
+			<!-- COMMENT SUBMIT -->
+			<input class="col-lg-3 btn btn-success" type="submit" name="postComment<?php echo $post_id; ?>" value="Comment" />
+		</form>
+	</div>
 	<!-- END COMMENT FORM -->
 
 
@@ -147,7 +148,6 @@
 				$posted_by = $comment['posted_by'];
 				$date_added = $comment['date_added'];
 				$removed = $comment['removed'];
-
 
 				// CURRENT TIME
 				$date_time_now = date('Y-m-d H:i:s');
@@ -210,12 +210,10 @@
 					}
 				} // END IF ELSE
 
-
 				// CREATE NEW USER OBJECT FOR USER THAT POSTED COMMENT
 				$user_obj = new User($connection, $posted_by);
 
 				?>
-
 				<!-- COMMENT SECTION DIV -->
 				<div class="comment_section">
 					<!-- LINK AND PROFILE PIC OF COMMENT AUTHOR -->
@@ -227,44 +225,20 @@
 						<b><?php echo $user_obj->getUsername(); ?></b>
 					</a>
 					<!-- COMMENT TIMESTAMP AND COMMENT MESSAGE -->
-					&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $time_message . "<br />" . $comment_body; ?>
+					&nbsp;&nbsp;&nbsp;&nbsp; <?php echo "<span class='comment-grey'>".$time_message."</span><br /><span class='comment-body'>".$comment_body."</span>"; ?>
 					<hr />
 				</div>
 				<!-- END COMMENT SECTION DIV -->
-
 				<?php
-
 			} // END WHILE
 
-			echo '<center>No More Comments<br /><br /></center>';
-
-
+			echo '<center><span class="comment-grey">No More Comments</span><br /><br /></center>';
 			// MESSAGE IN COMMENT DIV WITH NO COMMENTS
 		} else {
-			echo '<center><br /><br />No Comments to Show</center>';
+			echo '<center><br /><br /><span class="comment-grey">No Comments to Show</span></center>';
 		}
 
 	?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>
