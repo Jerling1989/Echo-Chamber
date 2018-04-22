@@ -10,7 +10,6 @@
 	$date = ''; // SIGN UP DATE
 	$error_array = array(); // HOLD ERROR MESSAGES
 
-
 	// IF REGISTER BUTTON IS PRESSED
 	if (isset($_POST['register_button'])) {
 
@@ -47,7 +46,6 @@
 		// ASSIGNING USER CREATION DATE (EX. 2018-10-31)
 		$date = date('Y-m-d');
 
-
 		// CHECK IF EMAIL AND EMAIL2 MATCH
 		if ($email == $email2) {
 			// CHECK IF EMAIL IS IN PROPER FORMAT
@@ -73,7 +71,6 @@
 			array_push($error_array, 'emails do not match');
 		}
 
-	
 		// CHECK FIRST NAME LENGTH
 		if (strlen($first_name) > 25 || strlen($first_name) < 2) {
 			array_push($error_array, 'first name length');
@@ -92,11 +89,11 @@
 				array_push($error_array, 'password characters');
 			}
 		}
+
 		// CHECK PASSWORD LENGTH
 		if (strlen($password) > 30 || strlen($password) < 5) {
 			array_push($error_array, 'password length');
 		}
-		
 
 		// IF THERE ARE NO ERRORS IN USER SIGN UP DETAILS...
 		if (empty($error_array)) {
@@ -143,7 +140,6 @@
 			$_SESSION['reg_lname'] = '';
 			$_SESSION['reg_email'] = '';
 			$_SESSION['reg_email2'] = '';
-
 		}
 	}
 ?>
