@@ -4,6 +4,7 @@
 		// PRIVATE VARIABLES
 		private $user;
 		private $connection;
+		
 
 		// CREATE PUBLIC VARIABLES
 		public function __construct($connection, $user) {
@@ -15,11 +16,13 @@
 			$this->user = mysqli_fetch_array($user_details_query);
 		}
 
+
 		// GET USERNAME FUNCTION
 		public function getUsername() {
 			// RETURN USERNAME
 			return $this->user['username'];
 		}
+
 
 		// GET NUMBER OF FRIEND REQUESTS FUNCTION
 		public function getNumberOfFriendRequests() {
@@ -30,6 +33,7 @@
 			// RETURN NUMBER OF FRIEND REQUESTS
 			return mysqli_num_rows($query);
 		}
+
 
 		// GET NUMBER OF POSTS FUNCTION
 		public function getNumPosts() {
@@ -43,6 +47,7 @@
 			return $row['num_posts'];
 		}
 
+
 		// GET FIRST AND LAST NAME FUNCTION
 		public function getFirstAndLastName() {
 			// USERNAME VARIABLE
@@ -54,6 +59,7 @@
 			// RETURN FIRST AND LAST NAME
 			return $row['first_name'] . ' ' . $row['last_name'];
 		}
+
 
 		// GET PROFILE PICTURE FUNCTION
 		public function getProfilePic() {
@@ -67,6 +73,7 @@
 			return $row['profile_pic'];
 		}
 
+
 		// GET FRIEND ARRAY FUNCTION
 		public function getFriendArray() {
 			// USERNAME VARIABLE
@@ -78,6 +85,7 @@
 			// RETURN FRIEND ARRAY
 			return $row['friend_array'];
 		}
+
 
 		// GET USER ACCOUNT CLOSED DATA FUNCTION
 		public function isClosed() {
@@ -96,6 +104,7 @@
 			}
 		}
 
+
 		// CHECK IF USER IS FRIENDS WITH ANOTHER USER
 		public function isFriend($username_to_check) {
 			$usernameComma = ',' . $username_to_check . ',';
@@ -107,6 +116,7 @@
 				return false;
 			}
 		}
+
 
 		// CHECK IF USER RECIEVED FRIEND REQUEST
 		public function didReceiveRequest($user_from) {
@@ -123,6 +133,7 @@
 			}
 		}
 
+
 		// CHECK IF USER SENT FRIEND REQUEST
 		public function didSendRequest($user_to) {
 			// USER_TO VARIABLE
@@ -137,6 +148,7 @@
 				return false;
 			}
 		}
+
 
 		// FUNCTION TO REMOVE FRIEND
 		public function removeFriend($user_to_remove) {
@@ -160,6 +172,7 @@
 			$remove_friend = mysqli_query($this->connection, "UPDATE users SET friend_array='$new_friend_array' WHERE username='$user_to_remove'");
 		}
 
+
 		// FUNCTION TO SEND FRIEND REQUEST
 		public function sendRequest($user_to) {
 			// $USER_FROM VARIABLE
@@ -167,6 +180,7 @@
 			// DATABASE QUERY (SEND REQUEST DATA INTO FRIEND_REQUESTS TABLE)
 			$query = mysqli_query($this->connection, "INSERT INTO friend_requests VALUES('', '$user_to', '$user_from')");
 		}
+
 
 		// CALCULATE MUTUAL FRIENDS FUNCTION
 		public function getMutualFriends($user_to_check) {
@@ -197,9 +211,6 @@
 			// RETURN VALUE OF MUTAL FRIENDS
 			return $mutualFriends;
 		}
-
-
-
 	}
 
 ?>
