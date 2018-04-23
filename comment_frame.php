@@ -122,9 +122,9 @@
 	<div class="row col-md-12">
 		<form action="comment_frame.php?post_id=<?php echo $post_id; ?>" id="comment_form" name="postComment<?php echo $post_id; ?>" method="POST">
 			<!-- COMMENT TEXTAREA -->
-			<textarea class="col-lg-9" name="post_body"></textarea>
+			<textarea class="col-lg-9 col-8" name="post_body"></textarea>
 			<!-- COMMENT SUBMIT -->
-			<input class="col-lg-3 btn btn-success" type="submit" name="postComment<?php echo $post_id; ?>" value="Comment" />
+			<input class="col-lg-3 col-4 btn btn-success" type="submit" name="postComment<?php echo $post_id; ?>" value="Comment" />
 		</form>
 	</div>
 	<!-- END COMMENT FORM -->

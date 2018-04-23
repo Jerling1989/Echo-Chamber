@@ -29,7 +29,7 @@
 		$ImageType = @explode('/', $_FILES['image']['type']);
 		$type = $ImageType[1]; // FILE TYPE	
 		// SET UPLOAD DIRECTORY
-		$uploaddir = $_SERVER['DOCUMENT_ROOT'].'/Echo-Chamber/assets/img/profile_pics';
+		$uploaddir = $_SERVER['DOCUMENT_ROOT'].'/assets/img/profile_pics';
 		// SET FILE NAME
 		$file_temp_name = $profile_id.'_original.'.md5(time()).'n'.$type; // TEMP FILE NAME
 		$fullpath = $uploaddir."/".$file_temp_name; // TEMP FILE PATH

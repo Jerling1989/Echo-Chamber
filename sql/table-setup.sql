@@ -2,15 +2,15 @@ CREATE TABLE users (
 	id INT AUTO_INCREMENT NOT NULL,
 	first_name VARCHAR (25),
 	last_name VARCHAR (25),
-	username VARCHAR (50),
-	email VARCHAR (50),
+	username VARCHAR (60),
+	email VARCHAR (60),
 	password VARCHAR (255),
 	signup_date DATE,
 	profile_pic VARCHAR (255),
 	num_posts INT,
 	num_likes INT,
 	user_closed VARCHAR (3),
-	friends_array TEXT,
+	friend_array TEXT,
 	PRIMARY KEY (id)
 );
 
@@ -24,11 +24,12 @@ CREATE TABLE posts (
 	user_closed VARCHAR (3),
 	deleted VARCHAR (3),
 	likes INT,
+	image VARCHAR (500),
 	PRIMARY KEY (id)
 );
 
 
-CREATE TABLE post_comments (
+CREATE TABLE comments (
 	id INT AUTO_INCREMENT NOT NULL,
 	post_body TEXT,
 	posted_by VARCHAR (60),
@@ -50,16 +51,16 @@ CREATE TABLE likes (
 
 CREATE TABLE friend_requests (
 	id INT AUTO_INCREMENT NOT NULL,
-	user_to VARCHAR (50),
-	user_from VARCHAR (50),
+	user_to VARCHAR (60),
+	user_from VARCHAR (60),
 	PRIMARY KEY (id)
 );
 
 
 CREATE TABLE messages (
 	id INT AUTO_INCREMENT NOT NULL,
-	user_to VARCHAR (50),
-	user_from VARCHAR (50),
+	user_to VARCHAR (60),
+	user_from VARCHAR (60),
 	body TEXT,
 	date DATETIME,
 	opened VARCHAR (3),
@@ -71,8 +72,8 @@ CREATE TABLE messages (
 
 CREATE TABLE notifications (
 	id INT AUTO_INCREMENT NOT NULL,
-	user_to VARCHAR (50),
-	user_from VARCHAR (50),
+	user_to VARCHAR (60),
+	user_from VARCHAR (60),
 	message TEXT,
 	link VARCHAR (100),
 	datetime DATETIME,
@@ -84,7 +85,7 @@ CREATE TABLE notifications (
 
 CREATE TABLE trends (
 	id INT AUTO_INCREMENT NOT NULL,
-	title VARCHAR (50),
+	title VARCHAR (60),
 	hits INT,
 	PRIMARY KEY (id)
 );

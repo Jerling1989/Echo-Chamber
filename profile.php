@@ -200,6 +200,12 @@
 	<div class="posts_area"></div>
 	<!-- LOADING GIF -->
 	<div id="loading"><img src="assets/img/icons/loading.gif" /></div>
+	<!-- NO POSTS MESSAGE -->
+	<div id="no-posts" class="text-center">
+		<br />
+		<h4>No Posts Yet</h4>
+		<p>To populate your newsfeed post some statuses and add some friends!</p>
+	</div>
 </div>
 <!-- END PROFILE FEED -->
 

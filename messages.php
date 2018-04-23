@@ -121,8 +121,8 @@
 						// FORM FOR CONTINUING TO SEND MESSAGES TO SELECTED USER
 					} else {
 						echo '<hr /><div class="row">';
-						echo '<div class="col-md-9 col-sm-9 col-9"><textarea name="message_body" id="message_textarea" placeholder="Write your message..."></textarea></div>';
-						echo '<div class="col-md-3 col-sm-3 col-3"><input type="submit" class="btn btn-success" name="post_message" id="message_submit" value="Send" /></div>';
+						echo '<div class="col-md-9 col-sm-9 col-8"><textarea name="message_body" id="message_textarea" placeholder="Write your message..."></textarea></div>';
+						echo '<div class="col-md-3 col-sm-3 col-4"><input type="submit" class="btn btn-success" name="post_message" id="message_submit" value="Send" /></div>';
 						echo '</div>';
 					}
 				?>

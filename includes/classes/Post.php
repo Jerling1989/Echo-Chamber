@@ -181,7 +181,7 @@
 			$data_query = mysqli_query($this->connection, "SELECT * FROM posts WHERE deleted='no' ORDER BY id DESC");
 
 			if (mysqli_num_rows($data_query) > 0) {
-
+				
 				$num_iterations = 0; // NUMBER OF RESULTS CHECKED
 				$count = 1;
 
@@ -217,7 +217,14 @@
 					// CHECK IF USER WHO POSTED IS FRIENDS WITH LOGGED IN USER
 					$user_logged_obj = new User($this->connection, $userLoggedIn);
 					if ($user_logged_obj->isFriend($added_by)) {
+						?>
 
+						<!-- SCRIPT TO HIDE NO POSTS MESSAGE -->
+						<script>
+							$('#no-posts').css({'display':'none'});
+						</script>
+
+						<?php
 						// CHECK IF IT'S GONE THROUGH ALL POSTS THAT HAVE BEEN LOADED
 						if ($num_iterations++ < $start) {
 							continue;
@@ -431,6 +438,14 @@
 
 			// IF DATABASE QUERY YEILDS RESULTS
 			if (mysqli_num_rows($data_query) > 0) {
+				?>
+
+				<!-- SCRIPT TO HIDE NO POSTS MESSAGE -->
+				<script>
+					$('#no-posts').css({'display':'none'});
+				</script>
+				
+				<?php
 				// NUMBER OF RESULTS CHECKED
 				$num_iterations = 0;
 				$count = 1;

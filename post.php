@@ -52,9 +52,9 @@
 	<!-- END LEFT COLUMN (USER INFO) -->
 
 	<!-- MAIN COLUMN TO DISPLAY POST -->
-	<div class="col-lg-8 col-md-12 column" id="single-post">
+	<div class="col-lg-8 col-md-12">
 		<!-- WHERE THE POST IS LOADED -->
-		<div class="posts_area">
+		<div class="column" id="single-post">
 			<?php
 				$post = new Post($connection, $userLoggedIn);
 				$post->getSinglePost($id)

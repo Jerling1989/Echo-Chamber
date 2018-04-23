@@ -117,6 +117,7 @@ hr {
 
 #newsfeed-panel {
 	margin-bottom: 25px;
+	min-height: 449px;
 }
 
 #user-details {
@@ -335,6 +336,7 @@ input[type='file'] {
 	color: #616060;
 	font-size: 14px;
 	margin: 8px 6px 8px 12px;
+	padding-left: 4px;
 }
 
 #comment_form input[type='submit'] {
@@ -376,6 +378,7 @@ input[type='file'] {
 
 .profile-main-column {
 	margin-bottom: 25px;
+	min-height: 300px;
 }
 
 #profile-details img {
@@ -655,7 +658,7 @@ input[type='file'] {
 	border: 1px solid #000000;
 	padding: 5px 10px;
 	display: inline-block;
-	color: #FFFFFF;
+	color: #F7F8F9;
 }
 
 .message#blue {
@@ -665,6 +668,7 @@ input[type='file'] {
 	float: left;
 	margin-bottom: 5px;
 	display: block
+	max-width: 95%;
 }
 
 .message#green {
@@ -674,6 +678,7 @@ input[type='file'] {
 	float: right;
 	margin-bottom: 5px;
 	display: block;
+	max-width: 95%;
 }
 
 .loaded_messages {
@@ -988,6 +993,23 @@ input[type='file'] {
 		margin: 40px 15% 40px 15%;
 	}
 
+	#messages-panel {
+		height: 485px;
+	}
+
+	#messages-panel textarea {
+		margin-top: 0px;
+	}
+
+	#messages-panel input[type='submit'] {
+		margin-top: 0px;
+		margin-bottom: 5px;
+	}
+
+	.loaded_messages {
+		height: 319px;
+	}
+
 }
 
 
@@ -1103,6 +1125,23 @@ input[type='file'] {
 		margin: 40px 15% 40px 15%;
 	}
 
+	#messages-panel {
+		height: 485px;
+	}
+
+	#messages-panel textarea {
+		margin-top: 0px;
+	}
+
+	#messages-panel input[type='submit'] {
+		margin-top: 0px;
+		margin-bottom: 5px;
+	}
+
+	.loaded_messages {
+		height: 319px;
+	}
+
 }
 
 
@@ -1153,7 +1192,7 @@ input[type='file'] {
 	.profile-stats p {
 		width: 100%;
 		margin-top: 5%;
-		font-size: 18px;
+		font-size: 16px;
 		padding: 10px 0px 10px 0px;
 	}
 
@@ -1225,18 +1264,29 @@ input[type='file'] {
 		margin: 40px 10% 40px 10%;
 	}
 
-	/*#messages-panel {
-		margin-bottom: 25px;
-		height: 80%;
+	#messages-panel {
+		height: 485px;
+	}
+
+	#messages-panel textarea {
+		margin-top: 0px;
+	}
+
+	#messages-panel input[type='submit'] {
+		margin-top: 0px;
+		margin-bottom: 5px;
 	}
 
 	.loaded_messages {
-		height: 65%;
-		overflow: scroll;
-		margin-bottom: 10px;
-	}*/
+		height: 319px;
+	}
+
+	#comment_form textarea {
+		width: 84%;
+	}
+
+	#comment_form input[type='submit'] {
+		width: 30%;
+	}
 
 }
-
-
-

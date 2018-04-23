@@ -1,60 +1,6 @@
 <?php
 	// INCLUDE NECCESSARY FILES AND SCRIPTS
 	include('includes/header.php');
-
-	// IF NEW POST IS SUBMITTED
-	if (isset($_POST['post'])) {
-
-		// CREATE POST IMAGE VARIABLES
-		$uploadOk = 1;
-		$imageName = $_FILES['fileToUpload']['name'];
-		$errorMessage = '';
-
-		// IF $IMAGENAME IS NOT BLANK
-		if ($imageName != '') {
-			// CREATE FILE PATH TO IMAGE
-			$targetDir = 'assets/img/posts/';
-			$imageName = $targetDir . uniqid() . basename($imageName);
-			$imageFileType = pathinfo($imageName, PATHINFO_EXTENSION);
-
-			// IF IMAGE IS TOO LARGE
-			if ($_FILES['fileToUpload']['size'] > 10000000) {
-				$errorMessage = 'Sorry your file is too large';
-				$uploadOk = 0;
-			}
-
-			// IF IMAGE IS NOT PROPER FILE EXTENSION
-			if (strtolower($imageFileType) != 'jpeg' && strtolower($imageFileType) != 'png' && strtolower($imageFileType) != 'jpg') {
-
-				$errorMessage = 'Sorry, only jpeg, jpg and png files are allowed';
-				$uploadOk = 0;
-			}
-
-			// IF EVERYTHING WORKS ACCORDINGLY
-			if ($uploadOk) {
-				if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $imageName)) {
-					// IMAGE UPLOADED OK
-				} else {
-					// IMAGE DID NOT UPLOAD
-					$uploadOk = 0;
-				}
-			}
-		}
-
-		// IF EVERYTHING WORKS ACCORDINGLY
-		if ($uploadOk) {
-			// CREATE NEW POST OBJECT
-			$post = new Post($connection, $userLoggedIn);
-			// RUN FUNCTION TO ADD POST TO DATABASE
-			$post->submitPost($_POST['post-text'], 'none', $imageName);
-
-			// ELSE DISPLAY ERROR MESSAGE
-		} else {
-			echo '<div style="text-align: center;" class="alert alert-danger">
-							'.$errorMessage.'
-						</div>';
-		}
-	}
 ?>
 
 <!-- SCROLL TO TOP BUTTON -->
@@ -132,11 +78,11 @@
 		<!-- POST FORM -->
 			<form class="post-form" action="index.php" method="POST" enctype="multipart/form-data">
 				<div class="row">
-					<div class="col-lg-9 col-sm-9 col-9">
+					<div class="col-lg-9 col-sm-9 col-8">
 						<!-- POST TEXTAREA -->
 						<textarea name="post-text" id="post-text" placeholder="Got something to say?"></textarea>
 					</div>
-					<div class="col-lg-3 col-sm-3 col-3">
+					<div class="col-lg-3 col-sm-3 col-4">
 						<!-- POST SUBMIT BUTTON -->
 						<input type="submit" class="btn btn-success" name="post" id="post-button" value="Post" />
 						<!-- POST IMAGE INPUT -->
@@ -154,12 +100,76 @@
 		</div>
 		<!-- END MAIN COLUMN (POST FORM) -->
 
+		<!-- UPLOAD PICTURE SCRIPT -->
+		<?php
+			// IF NEW POST IS SUBMITTED
+			if (isset($_POST['post'])) {
+
+				// CREATE POST IMAGE VARIABLES
+				$uploadOk = 1;
+				$imageName = $_FILES['fileToUpload']['name'];
+				$errorMessage = '';
+
+				// IF $IMAGENAME IS NOT BLANK
+				if ($imageName != '') {
+					// CREATE FILE PATH TO IMAGE
+					$targetDir = 'assets/img/posts/';
+					$imageName = $targetDir . uniqid() . basename($imageName);
+					$imageFileType = pathinfo($imageName, PATHINFO_EXTENSION);
+
+					// IF IMAGE IS TOO LARGE
+					if ($_FILES['fileToUpload']['size'] > 10000000) {
+						$errorMessage = 'Sorry your file is too large';
+						$uploadOk = 0;
+					}
+
+					// IF IMAGE IS NOT PROPER FILE EXTENSION
+					if (strtolower($imageFileType) != 'jpeg' && strtolower($imageFileType) != 'png' && strtolower($imageFileType) != 'jpg') {
+
+						$errorMessage = 'Sorry, only jpeg, jpg and png files are allowed';
+						$uploadOk = 0;
+					}
+
+					// IF EVERYTHING WORKS ACCORDINGLY
+					if ($uploadOk) {
+						if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $imageName)) {
+							// IMAGE UPLOADED OK
+						} else {
+							// IMAGE DID NOT UPLOAD
+							$uploadOk = 0;
+						}
+					}
+				}
+
+				// IF EVERYTHING WORKS ACCORDINGLY
+				if ($uploadOk) {
+					// CREATE NEW POST OBJECT
+					$post = new Post($connection, $userLoggedIn);
+					// RUN FUNCTION TO ADD POST TO DATABASE
+					$post->submitPost($_POST['post-text'], 'none', $imageName);
+
+					// ELSE DISPLAY ERROR MESSAGE
+				} else {
+					echo '<br /><div style="text-align: center;" class="alert alert-danger">
+									'.$errorMessage.'
+								</div>';
+				}
+			}
+		?>
+		<!-- END UPLOAD PICTURE SCRIPT -->
+
 		<!-- MAIN COLUMN (NEWSFEED) -->
 		<div class="column" id="newsfeed-panel">		
 			<!-- DIV TO DISPLAY POSTS -->
 			<div class="posts_area"></div>
 			<!-- LOADING GIF -->
 			<div id="loading"><img src="assets/img/icons/loading.gif" /></div>
+			<!-- NO POSTS MESSAGE -->
+			<div id="no-posts" class="text-center">
+				<br />
+				<h4>No Posts Yet</h4>
+				<p>To populate your newsfeed post some statuses and add some friends!</p>
+			</div>
 		</div>
 		<!-- END MAIN COLUMN (NEWSFEED) -->
 	</div>

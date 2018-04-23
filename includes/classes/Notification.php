@@ -50,7 +50,7 @@
 
 			// IF THERE ARE NO RESULTS FROM QUERY
 			if (mysqli_num_rows($query) == 0) {
-				echo 'You have no notifications!';
+				echo '<p style="text-align: center; margin-top: 5px; color: #8C8C8C;">You have no notifications!</p>';
 				return;
 			}
 
