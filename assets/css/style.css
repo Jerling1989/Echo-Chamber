@@ -493,8 +493,8 @@ input[type='file'] {
 /*~~~~~~~~~~~~~~~~~~~~~~~ INDIVIDUAL POST PAGE ~~~~~~~~~~~~~~~~~~~~~~~*/
 #single-post {
 	margin-bottom: 25px;
-	padding-top: 25px;
-	padding-bottom: 24px;
+	padding-top: 31px;
+	padding-bottom: 31px;
 }
 
 
@@ -667,7 +667,6 @@ input[type='file'] {
 	border-radius: 0px 5px 5px 5px;
 	float: left;
 	margin-bottom: 5px;
-	display: block
 	max-width: 95%;
 }
 
@@ -677,7 +676,6 @@ input[type='file'] {
 	border-radius: 5px 0px 5px 5px;
 	float: right;
 	margin-bottom: 5px;
-	display: block;
 	max-width: 95%;
 }
 
@@ -902,10 +900,6 @@ input[type='file'] {
 }
 
 
-
-
-
-
 /*~~~~~~~~~~~~~ MOBILE TABLET SCREEN ~~~~~~~~~~~~~~*/
 @media (min-width: 768px) and (max-width: 991.98px) {
 
@@ -1072,7 +1066,7 @@ input[type='file'] {
 
 	.embed-responsive {
 		width: 100%;
-		margin-top: 45px;
+		margin-top: 30px;
 		margin-left: 2%;
 		margin-right: auto;
 		margin-bottom: -30px;
@@ -1203,7 +1197,7 @@ input[type='file'] {
 
 	.embed-responsive {
 		width: 100%;
-		margin-top: 45px;
+		margin-top: 20px;
 		margin-left: 2%;
 		margin-right: auto;
 		margin-bottom: -30px;
@@ -1268,6 +1262,19 @@ input[type='file'] {
 		height: 485px;
 	}
 
+	#messages-panel h4 {
+		font-size: 20px;
+		padding-top: 2px;
+		margin-bottom: -2px;
+	}
+
+	#message-pic {
+		border-radius: 5px 5px 0px 0px;
+		width: 41px;
+		height: auto;
+		margin-top: -1px;
+	}
+
 	#messages-panel textarea {
 		margin-top: 0px;
 	}
@@ -1287,6 +1294,11 @@ input[type='file'] {
 
 	#comment_form input[type='submit'] {
 		width: 30%;
+	}
+
+	.delete-button {
+		position: relative;
+		right: -15px;
 	}
 
 }

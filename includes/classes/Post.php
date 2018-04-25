@@ -367,7 +367,6 @@
 												<br />
 												$imageDiv
 												<br />
-												<br />
 											</div>
 
 											<div class='newsfeedPostOptions'>
@@ -601,7 +600,6 @@
 											<br />
 											$imageDiv
 											<br />
-											<br />
 										</div>
 
 										<div class='newsfeedPostOptions'>
@@ -831,7 +829,6 @@
 											$body
 											<br />
 											$imageDiv
-											<br />
 											<br />
 										</div>
 
