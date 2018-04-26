@@ -35,8 +35,7 @@ The specific languages and frameworks I used to build this app are: HTML, CSS, J
 - On the left is what the Homepage/Newsfeed looks like on a mobile device. On the right is how a friend's profile is displayed on mobile as well.
 ![MOBILE-PAGES-ONE](assets/img/read_me/10-mobile-one.png)
 
-- Mobile Navigation / Mobile Search
-
+- Below is a screenshot of how the navigation is structured on a mobile device as well as how the search result page is loaded.
 ![MOBILE-PAGES-TWO](assets/img/read_me/11-mobile-two.png)
 
 - Mobile Message / Mobile Settings
