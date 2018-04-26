@@ -23,7 +23,7 @@ The specific languages and frameworks I used to build this app are: HTML, CSS, J
 - Below is a view of one of the user's friend's profile page. The top left of the profile has the friend's profile picture, first and lastname, screen name, and amount of mutual friends you share. The rest of the top panel contains the friends profile stats, and button icons for different functions. The user can post on their friends profile, message the friend, or delete that friend. If the user is on the page of someone they are not already friends with they have the option to send a friend request or respond to a friend request that may have been sent to the user. Below the top panel with the user info and icons is the feed specific to that friend's profile. 
 ![PROFILE](assets/img/read_me/6-profile.png)
 
-- Clicking on the new friend icon will bring the user to the friend requests page where they can see what requests they have and choose to either Accept or Ignore each new friend request.
+- Clicking on the new friend icon will bring the user to the friend requests page where they can see what requests they have and choose to either Accept or Ignore each new friend request...
 ![FRIEND-REQUEST](assets/img/read_me/7-friend-request.png)
 
 - Settings
