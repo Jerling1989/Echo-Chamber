@@ -5,7 +5,7 @@ The specific languages and frameworks I used to build this app are: HTML, CSS, J
 
 ---
 
-- Login
+- The first thing the user will see when going to echo-chamber.us is the login page for the site. If the user has an account they can log into the site, if they do not have an account they can click the link to create a new account and the form will add the neccessary input fields for them to create a new account.
 
 ![LOGIN](assets/img/read_me/1-login.png)
 
