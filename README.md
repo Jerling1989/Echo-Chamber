@@ -17,8 +17,7 @@ The specific languages and frameworks I used to build this app are: HTML, CSS, J
 - When the user clicks on one of the message notifications they will be directed to a page where they are having a message exchange with that friend. On the left of the page is a panel with links to all of the different conversations the user is having with different friends. The user can create a new message with a friend they haven't had a conversation with yet by clicking on the link at the bottom of the conversations panel. They can also open up a message with any one of their friends but clicking on the message icon on that friend's profile page.
 ![MESSAGES](assets/img/read_me/4-messages.png)
 
-- Single Post
-
+- When the user clicks on one of the bell notifications they will be directed to a page where the specific post that the notification is regarding will be displayed.
 ![SINGLE-POST](assets/img/read_me/5-single-post.png)
 
 - Profile
