@@ -29,8 +29,7 @@ The specific languages and frameworks I used to build this app are: HTML, CSS, J
 - On the settings page the user will have a number of options to customize their profile. They can select and crop a new profile pic, change first and lastname, change screen name, change email address, or create a new password. The user also has the option to close thier account, if the user does close their account they can re-activate it by signing back into to app.
 ![SETTINGS](assets/img/read_me/8-settings.png)
 
-- Search Results
-
+- While using the app on a laptop or desktop the user can view search results in two ways. The first is by viewing the dropdown panel that loads with user profiles that meet the criteria of the search. The second is by submiting the search form and being directed to a page loaded with results of the query.
 ![SEARCH-RESULTS](assets/img/read_me/9-search.png)
 
 - Mobile Newsfeed / Mobile Profile
