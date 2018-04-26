@@ -14,8 +14,7 @@ The specific languages and frameworks I used to build this app are: HTML, CSS, J
 - Below is an example of the dropdown panel that loads with the information on the user's latest notifications when they click the corresponding icons on the navigation bar. The image on the left shows the information from clicking on the messages icon, the image on the right shows the information from clicking on the bell icon. With both panels the unviewed items will display with a light blue background while the items that were already viewed display with a white background.
 ![NOTIFICATIONS](assets/img/read_me/3-notifications.png)
 
-- Messages
-
+- When the user clicks on one of the message notifications they will be directed to a page where they are having a message exchange with that friend. On the left of the page is a panel with links to all of the different conversations the user is having with different friends. The user can create a new message with a friend they haven't had a conversation with yet by clicking on the link at the bottom of the conversations panel. They can also open up a message with any one of their friends but clicking on the message icon on that friend's profile page.
 ![MESSAGES](assets/img/read_me/4-messages.png)
 
 - Single Post
