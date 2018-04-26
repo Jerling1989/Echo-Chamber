@@ -9,7 +9,7 @@ The specific languages and frameworks I used to build this app are: HTML, CSS, J
 
 ![LOGIN](assets/img/read_me/1-login.png)
 
-- Newsfeed
+- Once a user logs in they will be brought to thier Newsfeed. On the top of the page is a navigation bar much like many other sites, with notification badges indicating the number of friend requests, notifications, and messages they have. On the right side of the body they will see their Newsfeed which is up to date with the latest posts of their friends and themselves. On top of the Newsfeed is a form where the user can add a new post of text, embedded youtube video, picture, or a combination of the three. On the left of the body is a panel with the profile picture and stats of the user and underneath is a panel which automatically calculates the top trending topics on the site.
 
 ![NEWSFEED](assets/img/read_me/2-newsfeed.png)
 
