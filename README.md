@@ -11,8 +11,7 @@ The specific languages and frameworks I used to build this app are: HTML, CSS, J
 - Once a user logs in they will be brought to thier Newsfeed. On the top of the page is a navigation bar much like many other sites, with notification badges indicating the number of friend requests, notifications, and messages they have. On the right side of the body they will see their Newsfeed which is up to date with the latest posts of their friends and themselves. On top of the Newsfeed is a form where the user can add a new post of text, embedded youtube video, picture, or a combination of the three. On the left of the body is a panel with the profile picture and stats of the user and underneath is a panel which automatically calculates the top trending topics on the site.
 ![NEWSFEED](assets/img/read_me/2-newsfeed.png)
 
-- Notifications
-
+- Below is an example of the dropdown panel that loads with the information on the user's latest notifications when they click the corresponding icons on the navigation bar. The image on the left shows the information from clicking on the messages icon, the image on the right shows the information from clicking on the bell icon. With both panels the unviewed items will display with a light blue background while the items that were already viewed display with a white background.
 ![NOTIFICATIONS](assets/img/read_me/3-notifications.png)
 
 - Messages
