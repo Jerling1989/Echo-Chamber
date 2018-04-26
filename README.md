@@ -1,5 +1,7 @@
 # Echo-Chamber
+This is a Social Media Web App I made using a handful of different technologies and coding languages. The website functions much in the same way that many other social media sites like Facebook and Twitter function. A user can create an account, connect with friends, post on their profile, have a newsfeed of posts added by friends, in-app messaging, and many more features. I named it "Echo-Chamber" as a fun tongue-in-cheek jab at modern social media culture.
 
+The specific languages and frameworks I used to build this app are: HTML, CSS, JavaScript, PHP, MySQL, jQuery, AJAX, and Bootstrap.
 
 ---
 
