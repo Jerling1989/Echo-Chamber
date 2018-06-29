@@ -270,6 +270,10 @@ input[type='file'] {
 	border: none;
 }
 
+.newsfeedPostoptions span {
+	cursor: pointer;
+}
+
 .newsfeedPostOptions iframe {
 	border: 0px;
 	height: 17px;
