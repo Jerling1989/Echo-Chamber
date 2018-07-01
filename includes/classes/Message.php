@@ -123,9 +123,9 @@
 				}
 
 				if($interval->m == 1) {
-					$time_message = $interval->m . ' month ago' . $days; // ONE MONTH PLUS DAYS
+					$time_message = $interval->m . ' month ' . $days; // ONE MONTH PLUS DAYS
 				} else {
-					$time_message = $interval->m . ' months ago' . $days; // MULTIPLE MONTHS PLUS DAYS
+					$time_message = $interval->m . ' months ' . $days; // MULTIPLE MONTHS PLUS DAYS
 				}
 				// CHECK IF DIFFERENCE IS GREATER THAN OR EQUAL TO ONE DAY
 			} else if ($interval->d >= 1) {
